@@ -14,4 +14,4 @@ class TaskListItem(models.Model):
     description = models.CharField(max_length=50)
     
     def __str__(self):
-        return f"{self.task_list.title} - {self.descrition}"
+        return f"{self.task_list.title} - {self.description}"
