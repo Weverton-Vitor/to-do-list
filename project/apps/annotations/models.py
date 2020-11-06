@@ -10,4 +10,4 @@ class Annotation(TimeStampedModel):
     
     
     def __str__(self):
-        return f"{self.title} - {self.descrition}"
+        return f"{self.title} - {self.description}"
