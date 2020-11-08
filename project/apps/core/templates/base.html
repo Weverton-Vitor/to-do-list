@@ -17,15 +17,24 @@
                     <hr class='line-menu'>
                     <li class="item-menu">
                         <a class="link-menu" href="#">
-                            <img src="{% static 'images/note.svg'%}" alt="Anotações"> Anotações                    
+                            <img src="{% static 'images/note.svg' %}" alt="Anotações"> Anotações                    
                         </a>                    
                     </li>
+
                     <hr class='line-menu'>
                     <li class="item-menu">
                         <a class="link-menu" href="#">
-                            <img src="{% static 'images/verification-of-list.svg'%}" alt="Listas"> Listas                     
+                            <img src="{% static 'images/verification-of-list.svg' %}" alt="Listas"> Listas                     
                         </a>
                     </li>
+
+                    <hr class='line-menu'>                    
+                    <li class="item-menu">
+                        <a class="link-menu" href="#">
+                            <img src="{% static 'images/trash.svg' %}" alt="Lixeira"> Lixeira                     
+                        </a>
+                    </li>
+
                     <hr class='line-menu'>
                 </ul>
             </nav>
@@ -35,8 +44,10 @@
             <header>
                 <h1>To Do List</h1>
             </header>       
-            <section id="main-content">                
-                {% block content %}{% endblock content %}
+            <section id="main-content-container">        
+                <div id="main-content">
+                    {% block content %}{% endblock content %}                                                                                
+                </div>        
             </section>
         </main>
     </div>
