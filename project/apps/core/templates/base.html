@@ -7,6 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>ToDoList</title>
         <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        {% block css %}{% endblock css %}  
     </head>
     <body>
     <div id="container">
@@ -51,6 +52,6 @@
             </section>
         </main>
     </div>
-        
+    {% block js %}{% endblock js %}  
     </body>
 </html>
