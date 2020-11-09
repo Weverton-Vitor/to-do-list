@@ -1,0 +1,40 @@
+{% load static %}
+
+{% block css %}
+
+<link rel="stylesheet" href="{% static 'css/search_bar_style.css' %}">
+
+{% endblock css %}
+
+<div id="search-bar">
+    <div id="left">
+        <a id="new-item-link" href="#">            
+            <button id="new-item-button" class="btn">
+                <img src="{% static 'images/plus.svg' %}" alt="">
+                <p>{{new}}</p>                
+            </button>
+           
+        </a>
+
+        <button id="list-mode" class='btn btn-change-mode'>
+            <img src="{% static 'images/list.svg' %}" alt="">        
+        </button>
+
+        <button id="block-mode" class='btn btn-change-mode'>
+            <img src="{% static 'images/blocks.svg' %}" alt="">                
+        </button>
+    </div>
+
+
+    <form id="form-search" action="#" method="get">
+        <input id='search-field' type="text" name='title' placeholder="Pesquisar">
+        <button id='search-button' class="btn" type="submit">
+            <img src="{% static 'images/magnifying-glass.svg' %}" alt="">
+        </button>
+    </form>
+</div>
+
+
+{% block js %}
+
+{% endblock js %}

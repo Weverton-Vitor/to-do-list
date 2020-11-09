@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block css %}
+
+<link rel="stylesheet" href="{% static 'css/annotation_list_style.css' %}">
+
+{% endblock css %}
+
+{% block content %}
+
+<h2 id='title-section'>Anotações</h2>
+
+{% include "includes/search_bar.html" %}
+
+{% endblock content %}
+
+{% block js %}
+
+{% endblock js %}
