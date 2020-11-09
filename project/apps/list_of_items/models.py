@@ -4,7 +4,7 @@ from project.apps.core.models import TimeStampedModel
 
 class TaskList(TimeStampedModel):
     title = models.CharField(max_length=100)
-    is_trash = models.BooleanField()
+    is_trash = models.BooleanField(default=False)
     
     
     def __str__(self):

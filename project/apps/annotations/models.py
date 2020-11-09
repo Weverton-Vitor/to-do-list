@@ -7,7 +7,7 @@ class Annotation(TimeStampedModel):
     description = models.TextField()
     # 1 for red, 2 for orange and 3 for green
     priority = models.PositiveSmallIntegerField()
-    is_trash = models.BooleanField()
+    is_trash = models.BooleanField(default=False)
     
     
     def __str__(self):
