@@ -7,6 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>ToDoList</title>
         <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        <link href="https://fonts.googleapis.com/css2?family=Rum+Raisin&display=swap" rel="stylesheet"> 
         {% block css %}{% endblock css %}  
     </head>
     <body>
@@ -18,21 +19,21 @@
                     <hr class='line-menu'>
                     <li class="item-menu">
                         <a class="link-menu" href="#">
-                            <img src="{% static 'images/note.svg' %}" alt="Anotações"> Anotações                    
+                            <img src="{% static 'images/note.svg' %}" alt="Anotações"> <p> Anotações </p>
                         </a>                    
                     </li>
 
                     <hr class='line-menu'>
                     <li class="item-menu">
                         <a class="link-menu" href="#">
-                            <img src="{% static 'images/verification-of-list.svg' %}" alt="Listas"> Listas                     
+                            <img src="{% static 'images/verification-of-list.svg' %}" alt="Listas"> <p>Listas</p>                      
                         </a>
                     </li>
 
                     <hr class='line-menu'>                    
                     <li class="item-menu">
                         <a class="link-menu" href="#">
-                            <img src="{% static 'images/trash.svg' %}" alt="Lixeira"> Lixeira                     
+                            <img src="{% static 'images/trash.svg' %}" alt="Lixeira"> <p>Lixeira</p>                      
                         </a>
                     </li>
 
