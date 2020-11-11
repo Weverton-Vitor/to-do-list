@@ -3,3 +3,90 @@
   margin: 1%;
   font-size: 2vw;
 }
+
+#content {  
+  width: 95%;
+  height: 75%;
+  margin: auto;
+  padding-left: 3%;
+  margin-top: 2%;  
+  display: flex;  
+  flex-wrap: wrap;
+  flex-grow: 4;
+}
+
+#annotation-container {
+  background: #C4C4C4;
+  width: 22%; 
+  height: 40%;
+  display: flex; 
+  margin-right: 3%;   
+}
+
+#annotation-content { 
+  width: 95%;
+  height: 95%;
+  padding: 1%;
+  display: flex;
+  flex-direction: column;
+}
+
+#annotation-header {
+  width: 100%;
+  display: flex;
+  align-content: space-between;    
+}
+
+#annotation-title {
+  margin-left: 1%;
+  font-size: 3vh;
+  width: 50%;
+}
+
+#annotation-options {
+  width: 50%;
+  display: flex;
+  align-content: center;
+  justify-content: end;  
+}
+
+.btn-option {
+  width: 20%;
+  background: rgba(1,1,1,0)
+}
+
+.btn-option:hover {
+  width: 22%;
+  margin-bottom: 0px;
+}
+
+#line-options {
+  margin: 1% 0px;
+}
+
+#gradient-annotation-body {
+  width: 100%;
+  height: 100%;  
+  z-index: 100;
+  position: relative;
+}
+
+#gradient-annotation-body:hover { background: rgb(142,0,0);
+  background: rgb(142,0,0);
+  background: linear-gradient(180deg, rgba(142,0,0,0.26232491287530635) 35%, rgba(142,0,0,0.9401960613346901) 69%, rgba(142,0,0,1) 100%, rgba(142,0,0,1) 100%); 
+  cursor: pointer;
+}
+
+#annotation-body {
+  height: 70%;
+  margin: 2%;
+}
+
+#annotation-body p {
+  font-size: 2.4vh;  
+}
+
+#status-bar {  
+  height: 100%;
+  width: 5%;
+}

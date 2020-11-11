@@ -14,6 +14,49 @@
 
 {% include "includes/search_bar.html" %}
 
+<div id='content'>
+    {% for annotation in annotations%}   
+    <div id="annotation-container">
+
+        <div id="annotation-content">
+
+            <div id="annotation-header">
+
+                <p id="annotation-title">{{annotation.title}}</p>    
+
+                <div id="annotation-options">
+                    <button  class="btn btn-option" title="Editar">
+                        <img src="{% static 'images/edit.svg' %}" alt="Editar">
+                    </button>
+
+                    <button class="btn btn-option"  title="Excluir">
+                        <img src="{% static 'images/trash-black.svg' %}" alt="Excluir">
+                    </button>
+                </div>
+
+            </div>
+
+            <hr id="line-options">
+                        
+            <div id="annotation-body">
+                <p>{{annotation.description}}</p>
+            </div>          
+
+        </div>   
+
+        {% if annotation.priority == 1 %}
+        <div id="status-bar" style='background: #8E0000'></div>          
+        {% elif  annotation.priority == 2 %}
+        <div id="status-bar" style='background: #EDF201'></div>  
+        {% else %}
+        <div id="status-bar" style='background: #44DE2B'></div>  
+
+        {% endif %}
+
+    </div>        
+    {% endfor %}
+</div>
+
 {% endblock content %}
 
 {% block js %}
