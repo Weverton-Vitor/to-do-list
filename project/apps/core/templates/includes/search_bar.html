@@ -7,14 +7,11 @@
 {% endblock css %}
 
 <div id="search-bar">
-    <div id="left">
-        <a id="new-item-link" href="#">            
-            <button id="new-item-button" class="btn">
-                <img src="{% static 'images/plus.svg' %}" alt="">
-                <p>{{new}}</p>                
-            </button>
-           
-        </a>
+    <div id="left">        
+        <button id="new-item-button" class="btn">
+            <img src="{% static 'images/plus.svg' %}" alt="">
+            <p>{{new}}</p>
+        </button>                  
 
         <button id="list-mode" class='btn btn-change-mode'>
             <img src="{% static 'images/list.svg' %}" alt="">        

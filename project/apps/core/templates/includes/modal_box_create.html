@@ -1,0 +1,29 @@
+{% load static%}
+
+{% block css %}
+
+<link rel="stylesheet" href="{% static 'css/modal_box_create.css' %}" />
+
+{% endblock css %}
+
+<div id="modal-new-item" class="modal">
+  <div class="modal-new-item-content modal-content">    
+        <div id="modal-new-item-header">             
+            <div>
+              <h3>Criar {{new}}</h3>                                    
+            </div>
+            <span class="close-modal-new-item">&times</span>
+        </div>
+
+        <hr>
+
+        <div id="modal-new-item-body">
+        </div>        
+  </div>
+</div>
+
+{% block js %}
+
+<script src="{% static 'js/modal_box_create.js' %} "></script>
+
+{% endblock js %}
