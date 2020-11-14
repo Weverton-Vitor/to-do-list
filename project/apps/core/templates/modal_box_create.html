@@ -1,10 +1,10 @@
-{% load static%}
+<!-- O arquivo CSS e Js desse modal devem ser inseridos no bloco css e js
+do formulário que vai extender esse modal para flexibilizar a eslitização do modal-->
 
 {% block css %}
 
-<link rel="stylesheet" href="{% static 'css/modal_box_create.css' %}" />
 
-{% endblock css %}
+{% endblock css%}
 
 <div id="modal-new-item" class="modal">
   <div class="modal-new-item-content modal-content">    
@@ -18,12 +18,12 @@
         <hr>
 
         <div id="modal-new-item-body">
+            {% block form %}{% endblock form %}                                                                                
         </div>        
   </div>
 </div>
 
 {% block js %}
 
-<script src="{% static 'js/modal_box_create.js' %} "></script>
 
 {% endblock js %}

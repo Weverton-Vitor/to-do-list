@@ -1,0 +1,49 @@
+<!--O formulário vai extender um modal-->
+{% extends "modal_box_create.html" %} 
+
+{% load static %}
+
+{% block css %}
+
+<!--CSS do modal-->
+<link rel="stylesheet" href="{% static 'css/modal_box_create.css' %}" />
+
+<!-- Css do formulário-->
+<link rel="stylesheet" href="{% static 'css/form_annotation_style.css' %}" />
+
+{% endblock css %}
+
+{% block form %}
+
+<form id='form-create' action="{% url 'annotations:annotation_create' %}" method="post">
+    {% csrf_token %}
+
+    <label class="label-field-create" for="{{form.title.id_form_label}}">
+        {{form.title.label}}:
+    </label>
+
+    {{form.title}}
+
+    <label class="label-field-create" for="{{form.description.id_form_label}}">
+        {{form.description.label}}:
+    </label>
+
+    {{form.description}}
+    
+    <label class="label-field-create" for="{{form.priority.id_form_label}}">
+        {{form.priority.label}}:
+    </label>
+
+    {{form.priority}}
+    <button id="btn-add" class="btn" type="submit">
+        <p>Adicionar</p>
+    </button>
+</form>
+
+{% endblock form %}
+
+{% block js %}
+
+<script src="{% static 'js/modal_box_create.js' %} "></script>
+
+{% endblock js %}
