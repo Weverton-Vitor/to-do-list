@@ -1,0 +1,45 @@
+.container-pagination {   
+    margin: auto;       
+    margin-top: 1.5%;
+    width: 92%;    
+}
+
+.pagination {    
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    list-style: none;
+}
+
+.page-item {    
+    width: 1%;
+    height: 1%;
+    font-size: 1.8vw;
+    padding: 0.2% 1%;
+    border: 0.5px;    
+    border-style: solid;
+    border-color: #dee2e6;
+    display: flex;  
+        
+}
+
+.page-item:hover {
+    background: rgba(1,1,1, 0.1)
+}
+
+.page-link{
+   color: #007bff;   
+   text-decoration: none
+}
+
+.active {  
+  background: #007bff;
+}
+
+.active:hover {
+  background: #007bff;    
+}
+
+.active .page-link{
+    color: #ffffff;
+}

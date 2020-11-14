@@ -6,7 +6,7 @@
 
 #content {  
   width: 95%;
-  height: 75%;
+  height: 63%;
   margin: auto;
   padding-left: 3%;
   margin-top: 2%;  
@@ -18,9 +18,10 @@
 #annotation-container {
   background: #C4C4C4;
   width: 22%; 
-  height: 40%;
+  height: 50%;
   display: flex; 
-  margin-right: 3%;   
+  margin-right: 3%; 
+  margin-bottom: 1%;
 }
 
 #annotation-content { 
@@ -62,19 +63,6 @@
 
 #line-options {
   margin: 1% 0px;
-}
-
-#gradient-annotation-body {
-  width: 100%;
-  height: 100%;  
-  z-index: 100;
-  position: relative;
-}
-
-#gradient-annotation-body:hover { background: rgb(142,0,0);
-  background: rgb(142,0,0);
-  background: linear-gradient(180deg, rgba(142,0,0,0.26232491287530635) 35%, rgba(142,0,0,0.9401960613346901) 69%, rgba(142,0,0,1) 100%, rgba(142,0,0,1) 100%); 
-  cursor: pointer;
 }
 
 #annotation-body {

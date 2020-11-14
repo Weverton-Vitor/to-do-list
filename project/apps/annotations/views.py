@@ -34,4 +34,3 @@ class AnnotationCreateView(CreateView):
     def get(self, request, *args, **kwargs):
         return HttpResponseRedirect(reverse('annotations:annotation_list'))
     
-    
