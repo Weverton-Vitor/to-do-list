@@ -51,6 +51,14 @@
   justify-content: end;  
 }
 
+#form-delete {
+  width: 20%;
+}
+
+#form-delete button {
+  width: 100%;
+}
+
 .btn-option {
   width: 20%;
   background: rgba(1,1,1,0)

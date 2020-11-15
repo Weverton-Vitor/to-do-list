@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import ListView, CreateView
+from django.views.generic import CreateView, DeleteView, ListView
 from project.apps.annotations.forms import ModelFormAnnotation
 from project.apps.annotations.models import Annotation
 
@@ -30,7 +30,14 @@ class AnnotationCreateView(CreateView):
     model = Annotation
     form_class = ModelFormAnnotation
     success_url = reverse_lazy('annotations:annotation_list')
-    
+
     def get(self, request, *args, **kwargs):
         return HttpResponseRedirect(reverse('annotations:annotation_list'))
-    
+
+
+class AnnotationDeleteView(DeleteView):
+    model = Annotation
+    success_url = reverse_lazy('annotations:annotation_list')
+
+    def get(self, request, *args, **kwargs):
+        return HttpResponseRedirect(reverse('annotations:annotation_list'))
