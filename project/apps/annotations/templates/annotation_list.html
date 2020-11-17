@@ -25,7 +25,7 @@
                 <p id="annotation-title">{{annotation.title}}</p>    
 
                 <div id="annotation-options">
-                    <button  class="btn btn-option" title="Editar">
+                    <button  class="btn btn-option btn-edit" title="Editar" data-id={{annotation.pk}} data-priority={{annotation.priority}}>
                         <img src="{% static 'images/edit.svg' %}" alt="Editar">
                     </button>
 
@@ -70,4 +70,5 @@
 {% endblock content %}
 
 {% block js %}
+<script src="{% static 'js/annotation_edit.js' %}"></script>
 {% endblock js %}

@@ -19,8 +19,7 @@ from project.apps.core import views
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    #path('', views.index.as_view(), name='index')
+    path('admin/', admin.site.urls),    
     path('', views.index.as_view(), name='index'),
-    path('Anotações/', include('project.apps.annotations.urls'))
+    path('Anotacoes/', include('project.apps.annotations.urls'))
 ]
