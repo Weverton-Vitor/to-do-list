@@ -22,7 +22,7 @@
 
             <div id="annotation-header">
 
-                <p id="annotation-title">{{annotation.title}}</p>    
+                <p id='annotation-title-{{annotation.id}}' class="annotation-title">{{annotation.title}}</p>    
 
                 <div id="annotation-options">
                     <button  class="btn btn-option btn-edit" title="Editar" data-id={{annotation.pk}} data-priority={{annotation.priority}}>
@@ -41,18 +41,18 @@
 
             <hr id="line-options">
                         
-            <div id="annotation-body">
+            <div id="annotation-body-{{annotation.id}}" class="annotation-body">
                 <p>{{annotation.description}}</p>
             </div>          
 
         </div>   
 
         {% if annotation.priority == 1 %}
-        <div id="status-bar" style='background: #8E0000'></div>          
+        <div id="status-bar-{{annotation.id}}" class="status-bar" style='background: #8E0000'></div>          
         {% elif  annotation.priority == 2 %}
-        <div id="status-bar" style='background: #EDF201'></div>  
+        <div id="status-bar-{{annotation.id}}" class="status-bar" style='background: #EDF201'></div>  
         {% else %}
-        <div id="status-bar" style='background: #44DE2B'></div>  
+        <div id="status-bar-{{annotation.id}}" class="status-bar" style='background: #44DE2B'></div>  
 
         {% endif %}
 

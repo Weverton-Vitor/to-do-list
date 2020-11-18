@@ -52,9 +52,7 @@ function post_data_edit() {
             description: document.querySelector('#id_description').value,
             priority: parseInt(priority),
         }
-    }   
-
-    console.log(annotation)
+    }       
 
     let xhr = new XMLHttpRequest();    
     xhr.open('POST', 'http://127.0.0.1:8000/Anotacoes/Editar/' + annotation_id, true);
@@ -64,9 +62,16 @@ function post_data_edit() {
 
     xhr.onreadystatechange = () => {
         if (xhr.readyState == 4) {
-            if (xhr.status == 200) {
-                console.log('Sucesso')
-                console.log(JSON.parse(xhr.responseText));
+            if (xhr.status == 200) {                
+                new_annotation = JSON.parse(xhr.responseText)
+                new_annotation = new_annotation.annotation
+                                
+                clearFormCreate(this)
+
+                updateAnnotation(new_annotation)
+
+
+
             } else {
                 console.log('Erro')
 
@@ -83,10 +88,10 @@ function post_data_edit() {
 
 // Função para adaptar o modal de criação para edição
 function change_modal(annotation_data, annotation_id) {
-    form = document.querySelector('#form-create');    
-    //form.action = "Editar/"+annotation_id
-    form.onsubmit = post_data_edit
 
+    // Adicionando evento no formulário para atualização da anotação
+    form = document.querySelector('#form-create');        
+    form.onsubmit = post_data_edit
 
     // Colocando os valores no formulário do modal
     input_title = document.querySelector('#id_title');
@@ -122,3 +127,31 @@ function change_modal(annotation_data, annotation_id) {
 }
 
 
+// Função para preparar o formulário para uma nova edição ou criação
+function clearFormCreate(form){
+
+    modal = document.querySelector('#modal-new-item'); 
+    modal.style.display = 'none';                
+    
+    form.reset()
+    form.onsubmit = 'none'
+}
+
+
+// Função para atualizar os dados da anotação no html
+function updateAnnotation(annotation){
+    title_annotation = document.querySelector('#annotation-title-'+ annotation.id)
+    body_annotation_paragraph = document.querySelector('#annotation-body-'+ annotation.id).childNodes[1]
+    status_bar = document.querySelector('#status-bar-'+ annotation.id)
+        
+    title_annotation.innerText = annotation.title
+    body_annotation_paragraph.innerText = annotation.description
+
+    if (annotation.priority == 1) {
+        status_bar.style.background ='#8E0000'
+    } else if(annotation.priority == 2){
+        status_bar.style.background = '#EDF201'
+    } else{
+        status_bar.style.background = ' #44DE2B'
+    } 
+}

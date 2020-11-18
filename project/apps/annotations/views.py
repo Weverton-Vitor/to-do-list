@@ -69,6 +69,7 @@ class AnnotationDeleteView(DeleteView):
 def get_annotation(request, pk):
     annotation = Annotation.objects.get(pk=pk)
     data = {
+        'id': annotation.pk,
         'title': annotation.title,
         'description': annotation.description,
         'priority': annotation.priority,
