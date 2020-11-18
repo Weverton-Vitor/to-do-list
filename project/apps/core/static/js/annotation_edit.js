@@ -67,14 +67,18 @@ function post_data_edit() {
                 new_annotation = new_annotation.annotation
                                 
                 clearFormCreate(this)
-
                 updateAnnotation(new_annotation)
+                alert(new_annotation.msg)
 
-
-
-            } else {
-                console.log('Erro')
-
+            }
+            
+            if (xhr.status == 400) {
+                response = JSON.parse(xhr.responseText)
+                clearFormCreate(this)  
+                this[1].required = true
+                this[1].maxLength = "25"
+                this[2].required = true
+                alert(response.msg)
             }
         }
     }

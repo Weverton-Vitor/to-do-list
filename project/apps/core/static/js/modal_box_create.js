@@ -17,6 +17,12 @@ span.onclick = function () {
   modal.style.display = "none";
   form = document.querySelector("#form-create");
   clearFormCreate(form); // Função do arquivo modal_box_create
+
+  modal_title = document.querySelector('#title-modal');  
+  modal_title.innerText = 'Criar anotação';
+  
+  modal_btn_form = document.querySelector('#btn-add') ;
+  modal_btn_form.innerText = 'Adicionar';
 };
 
 // Quando qualquer click fora do modal
@@ -24,5 +30,10 @@ window.onclick = function (event) {
   if (event.target == modal) {
     form = document.querySelector("#form-create");
     clearFormCreate(form); // Função do arquivo modal_box_create
+    modal_title = document.querySelector('#title-modal');  
+    modal_title.innerText = 'Criar anotação';
+    
+    modal_btn_form = document.querySelector('#btn-add') ;
+    modal_btn_form.innerText = 'Adicionar';
   }
 };

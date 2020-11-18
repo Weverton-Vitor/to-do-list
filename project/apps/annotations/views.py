@@ -35,24 +35,40 @@ class AnnotationCreateView(CreateView):
     def get(self, request, *args, **kwargs):
         return HttpResponseRedirect(reverse('annotations:annotation_list'))
 
+    def form_invalid(self, form):
+        return HttpResponseRedirect(reverse('annotations:annotation_list'))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.object:
+            context['msg'] = "Sucesso"
+
+        print(context)
+        return context
+
 
 class AnnotationUpdateView(UpdateView):
     model = Annotation
-    form_class = ModelFormAnnotation    
-    
-    def post(self, request, *args, **kwargs):        
+    form_class = ModelFormAnnotation
+
+    def post(self, request, *args, **kwargs):
         annotation = self.get_object()
-        
+
         # Pegando o conteúdo do json enviado na requisição
         data = json.loads(request.body)
-        data = data['annotation']            
+        data = data['annotation']
+
+        # Validando os dados
+        if data['title'] != '' and len(data['title']) <= 25 and data['description'] != '':
+            if data['priority'] in [1, 2, 3]:
+                annotation.title = data['title']
+                annotation.description = data['description']
+                annotation.priority = data['priority']
+                annotation.save()                
+                return get_annotation(request, annotation.pk, msg="Sucesso ao editar")
         
-        annotation.title = data['title']
-        annotation.description = data['description']
-        annotation.priority = data['priority']            
-        annotation.save()           
+        return JsonResponse({'msg': 'Erro ao editar'}, status=400)
             
-        return get_annotation(request, annotation.pk)        
 
     def get(self, request, *args, **kwargs):
         return HttpResponseRedirect(reverse('annotations:annotation_list'))
@@ -66,12 +82,15 @@ class AnnotationDeleteView(DeleteView):
         return HttpResponseRedirect(reverse('annotations:annotation_list'))
 
 
-def get_annotation(request, pk):
+def get_annotation(request, pk, **kwargs):
     annotation = Annotation.objects.get(pk=pk)
     data = {
         'id': annotation.pk,
         'title': annotation.title,
         'description': annotation.description,
         'priority': annotation.priority,
+        
     }
+        
+    data.update(kwargs)
     return JsonResponse({'annotation': data})
