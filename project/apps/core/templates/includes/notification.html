@@ -1,0 +1,24 @@
+{% load static %}
+
+{% block css %}
+
+<link rel="stylesheet" href="{% static 'css/notification.css' %}">
+
+{% endblock css%}
+
+<div id="modal-notification">
+  <div id="notification-content">         
+    <div class="messages">
+      {% for message in messages %}
+      <p id='notification-message'  {% if message.tags %} class="{{ message.tags }}" {% endif %}> {{ message }}  </p>      
+      {% endfor %}
+    </div>
+    <span class="close-modal-notification">&times</span>    
+  </div>
+</div>
+
+{% block js %}
+
+<script src="{% static 'js/notification.js' %}"></script>
+
+{% endblock js %}

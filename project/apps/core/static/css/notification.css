@@ -1,0 +1,46 @@
+#modal-notification {
+    display: none;
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%;    
+    background-color: rgba(0, 0, 0, 0.2);
+ }
+
+#notification-content {    
+    background-color: #00A65A;
+    margin: 2% 4% 8% 80%; 
+    border-radius: 10px;    
+    display: flex;    
+    justify-content: space-between;
+}
+
+.messages {
+  display: flex;  
+  align-items: center;
+  padding-left: 4%;
+}
+
+.messages p {
+  color: #ffffff;
+  font-size: 1.5vw;
+}
+
+.close-modal-notification {
+  color: white;
+  margin-right: 5%;
+  font-size: 3vw; 
+  cursor: pointer;
+}
+
+.close-modal-notification:hover {
+  color: red;
+}
+
+
+
+
+
+

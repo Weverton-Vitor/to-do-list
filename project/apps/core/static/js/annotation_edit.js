@@ -65,20 +65,31 @@ function post_data_edit() {
             if (xhr.status == 200) {                
                 new_annotation = JSON.parse(xhr.responseText)
                 new_annotation = new_annotation.annotation
-                                
+                
+                // Limpando o formulário
                 clearFormCreate(this)
-                updateAnnotation(new_annotation)
-                alert(new_annotation.msg)
 
-            }
-            
-            if (xhr.status == 400) {
+                // Atualizando o conteúdo da anotação
+                updateAnnotation(new_annotation)
+
+                // Setando a mensagem de sucesso
+                setMessage(new_annotation.msg, 0)
+
+            } else if (xhr.status == 400) {
                 response = JSON.parse(xhr.responseText)
+
+                // Limpando o formulário
+
                 clearFormCreate(this)  
+
+                // Setando as propiedades da validção do formulário
                 this[1].required = true
                 this[1].maxLength = "25"
                 this[2].required = true
-                alert(response.msg)
+
+                // Setando a mensagem de falha
+                setMessage(response.msg, 1)
+                
             }
         }
     }
@@ -158,4 +169,17 @@ function updateAnnotation(annotation){
     } else{
         status_bar.style.background = ' #44DE2B'
     } 
+}
+
+// Função para setar a mensagem de sucesso ou falha na edição
+function setMessage(msg, erro) {
+    messages = document.querySelector('.messages')      
+    if (erro == 1) {
+        mesages.innerHTML = '<p id="notification-message" class="error">' + msg + '</p>'
+    } else {
+        mesages.innerHTML = '<p id="notification-message" class="success">' + msg + '</p>'
+    }
+    
+    showMessage()
+    
 }

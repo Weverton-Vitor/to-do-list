@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
@@ -36,20 +37,17 @@ class AnnotationCreateView(CreateView):
         return HttpResponseRedirect(reverse('annotations:annotation_list'))
 
     def form_invalid(self, form):
+        messages.error(self.request, "Erro ao adicionar")
         return HttpResponseRedirect(reverse('annotations:annotation_list'))
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        if self.object:
-            context['msg'] = "Sucesso"
-
-        print(context)
-        return context
+    
+    def form_valid(self, form):
+        messages.success(self.request, "Sucesso ao adicionar")        
+        return super().form_valid(form)
 
 
 class AnnotationUpdateView(UpdateView):
     model = Annotation
-    form_class = ModelFormAnnotation
+    form_class = ModelFormAnnotation    
 
     def post(self, request, *args, **kwargs):
         annotation = self.get_object()
@@ -64,9 +62,10 @@ class AnnotationUpdateView(UpdateView):
                 annotation.title = data['title']
                 annotation.description = data['description']
                 annotation.priority = data['priority']
-                annotation.save()                
+                annotation.save()                              
+                
                 return get_annotation(request, annotation.pk, msg="Sucesso ao editar")
-        
+                
         return JsonResponse({'msg': 'Erro ao editar'}, status=400)
             
 

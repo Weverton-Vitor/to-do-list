@@ -1,20 +1,19 @@
 // Pegando o modal
-var modal = document.getElementById("modal-new-item");
+var modal_create = document.getElementById("modal-new-item");
 
 // Pegando o botão que abre o  modal
-var btn = document.getElementById("new-item-button");
+var btn_open = document.getElementById("new-item-button");
 
 // Pegando o elemento span que fecha o modal
-var span = document.getElementsByClassName("close-modal-new-item")[0];
+var span_create = document.getElementsByClassName("close-modal-new-item")[0];
 
 // Evento de click no botão que abre o modal
-btn.onclick = function () {
-  modal.style.display = "block";
+btn_open.onclick = function () {
+  modal_create.style.display = "block";
 };
 
 // Evento de click no span que fecha o modal
-span.onclick = function () {
-  modal.style.display = "none";
+span_create.onclick = function () {  
   form = document.querySelector("#form-create");
   clearFormCreate(form); // Função do arquivo modal_box_create
 
@@ -25,9 +24,9 @@ span.onclick = function () {
   modal_btn_form.innerText = 'Adicionar';
 };
 
-// Quando qualquer click fora do modal
+// Qualquer click fora do modal
 window.onclick = function (event) {
-  if (event.target == modal) {
+  if (event.target == modal_create) {
     form = document.querySelector("#form-create");
     clearFormCreate(form); // Função do arquivo modal_box_create
     modal_title = document.querySelector('#title-modal');  
