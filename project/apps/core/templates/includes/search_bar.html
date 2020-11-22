@@ -8,30 +8,42 @@
 
 <div id="search-bar">
     <div id="left">        
-        <button id="new-item-button" class="btn">
-            <img src="{% static 'images/plus.svg' %}" alt="">
+        <button id="new-item-button" class="btn" title="Novo item">
+            <img src="{% static 'images/plus.svg' %}">
             <p>{{new}}</p>
         </button>                  
 
-        <button id="list-mode" class='btn btn-change-mode'>
-            <img src="{% static 'images/list.svg' %}" alt="">        
-        </button>
+        <a class='link-search-bar' href="{{url_annotations_list}}" title='Modo de visualização em lista'>        
+            <button id="list-mode" class='btn btn-change-mode'>
+                <img src="{% static 'images/list.svg' %}" alt="icone-lista">        
+            </button>
+        </a>
 
-        <button id="block-mode" class='btn btn-change-mode'>
-            <img src="{% static 'images/blocks.svg' %}" alt="">                
-        </button>
+        <a class='link-search-bar' href="#" title="Modo de visualização em blocos">        
+            <button id="block-mode" class='btn btn-change-mode'>
+                <img src="{% static 'images/blocks.svg' %}" alt="icone-blocos">                
+            </button>
+        </a>
+        
+        <a class='link-search-bar' href="{% url 'annotations:annotation_list'%}?{{change_order}}" title="Alterar ordem de listagem por prioridade">        
+            <button id="change-order" class='btn btn-change-mode'>        
+                <img src="{% static 'images/arrow-down-and-up.svg' %}" alt="icone-setas-para-cima-e-para-baixo">                
+            </button>
+        </a>              
     </div>
 
 
     <form id="form-search" action="#" method="get">
         <input id='search-field' type="text" name='title' placeholder="Pesquisar">
-        <button id='search-button' class="btn" type="submit">
-            <img src="{% static 'images/magnifying-glass.svg' %}" alt="">
+        <button id='search-button' class="btn" type="submit" title="Pesquisar">
+            <img src="{% static 'images/magnifying-glass.svg' %}" alt="icone-lupa">
         </button>
     </form>
 </div>
 
 
 {% block js %}
+
+<script src="{% static 'js/search_bar.js' %}"></script>
 
 {% endblock js %}

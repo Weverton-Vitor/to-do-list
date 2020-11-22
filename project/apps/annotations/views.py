@@ -20,11 +20,27 @@ class AnnotationListView(ListView):
 
         form = ModelFormAnnotation()
         context['form'] = form
-
+        
+        # Url da requisição atual
+        context['url_annotations_list'] = self.request.path              
+        
+        # Só adiciona a query string ao contexto caso ela não exista, 
+        # Se ela existir, em uma proxima requisição vinda do botão de alteração ela não será adicionada 
+        if not (self.request.GET.get('change') == 'order'):
+            context['change_order'] = 'change=order'  
+        else:
+            # Atualizando a url da requisção atual para seguir a ordem da listagem
+            context['url_annotations_list'] += '?change=order'
+                                
         return context
 
     def get_queryset(self):
-        queryset = Annotation.objects.all().order_by('priority')
+        # Verificando em que ordem está a listagem
+        if self.request.GET.get('change') == 'order':
+            queryset = Annotation.objects.all().order_by('-priority')                        
+        else:
+            queryset = Annotation.objects.all().order_by('priority')
+            
         return queryset
 
 
