@@ -16,7 +16,7 @@ function get_data_edit (){
     xhr.onreadystatechange = () => {
         if (xhr.readyState == 4) {
             if (xhr.status == 200) {
-                annotation_data = JSON.parse(xhr.responseText);                
+                annotation_data = JSON.parse(xhr.responseText);                    
                 change_modal(annotation_data.annotation, annotation_id);                
             }
         }
@@ -53,6 +53,7 @@ function post_data_edit() {
             priority: parseInt(priority),
         }
     }       
+    
 
     let xhr = new XMLHttpRequest();    
     xhr.open('POST', 'http://127.0.0.1:8000/Anotacoes/Editar/' + annotation_id, true);
@@ -156,11 +157,26 @@ function clearFormCreate(form){
 // Função para atualizar os dados da anotação no html
 function updateAnnotation(annotation){
     title_annotation = document.querySelector('#annotation-title-'+ annotation.id)
-    body_annotation_paragraph = document.querySelector('#annotation-body-'+ annotation.id).childNodes[1]
+    description_annotation = document.querySelector('#annotation-p-'+ annotation.id)
     status_bar = document.querySelector('#status-bar-'+ annotation.id)
+
+    // Encurtando o conteúdo da anotação para melhorar a visualização   
+    text = annotation.description
+    if (localStorage.getItem('listing_mode') == 'block') {
+        if (text.length > 240) {
+            text = text.slice(0, 240) + '...'            
+        }
+
+    } else {
+        if (text.length > 140) {            
+            text = text.slice(0, 140) + '...'
+        }             
         
-    title_annotation.innerText = annotation.title
-    body_annotation_paragraph.innerText = annotation.description
+    } 
+        
+    title_annotation.innerText = annotation.title    
+    description_annotation.innerText = text
+
 
     if (annotation.priority == 1) {
         status_bar.style.background ='#8E0000'

@@ -4,7 +4,8 @@
 
 {% block css %}
 
-<link rel="stylesheet" href="{% static 'css/annotation_list_style.css' %}">
+<link id="css-list" rel="stylesheet" href="{% static 'css/annotation_list_style_list_mode.css' %}">
+<link  id="css-block" rel="stylesheet" href="{% static 'css/annotation_list_style_block_mode.css' %}">
 
 {% endblock css %}
 
@@ -17,7 +18,8 @@
 {% include "includes/search_bar.html" %}
 <div id='content'>
     {% for annotation in annotations%}   
-    <div id="annotation-container">
+    <!--Visualização em blocos -->
+    <div class="annotation-container-block">
 
         <div id="annotation-content">
 
@@ -42,8 +44,8 @@
 
             <hr id="line-options">
                         
-            <div id="annotation-body-{{annotation.id}}" class="annotation-body">
-                <p>{{annotation.description}}</p>
+            <div class="annotation-body">
+                <p  id="annotation-p-{{annotation.id}}" class='annotation-description'>{{annotation.description}}</p>
             </div>          
 
         </div>   
@@ -57,9 +59,48 @@
 
         {% endif %}
 
-    </div>        
-    {% endfor %}    
+    </div>   
 
+    <!--Visualização em lista-->
+    <div class="annotation-container-list">
+
+        {% if annotation.priority == 1 %}
+        <div id="status-bar-{{annotation.id}}" class="status-bar" style='background: #8E0000'></div>          
+        {% elif  annotation.priority == 2 %}
+        <div id="status-bar-{{annotation.id}}" class="status-bar" style='background: #EDF201'></div>  
+        {% else %}
+        <div id="status-bar-{{annotation.id}}" class="status-bar" style='background: #44DE2B'></div>  
+        {% endif %}    
+    
+
+        <div id="annotation-content">
+
+            <div id="annotation-body-{{annotation.id}}" class="annotation-body">
+                <p id='annotation-title-{{annotation.id}}' class="annotation-title">{{annotation.title}}</p>  
+                <hr class="line-title">
+                <p id="annotation-p-{{annotation.id}}" class='annotation-description'>{{annotation.description}}</p>
+            </div>  
+
+
+            <div id="annotation-options">
+                <button  class="btn btn-option btn-edit" title="Editar" data-id={{annotation.pk}} data-priority={{annotation.priority}}>
+                    <img src="{% static 'images/edit.svg' %}" alt="Editar">
+                </button>
+
+                <form id="form-delete" action="{% url 'annotations:annotation_delete' pk=annotation.pk %}" method="post">
+                    {% csrf_token %}
+                    <button class="btn btn-option" type='submit' title="Excluir">
+                        <img src="{% static 'images/trash-black.svg' %}" alt="Excluir">
+                    </button>
+                 </form>
+            </div>
+
+        </div>
+                                  
+
+    </div>   
+            
+    {% endfor %}    
 
 </div>
 
@@ -72,4 +113,5 @@
 
 {% block js %}
 <script src="{% static 'js/annotation_edit.js' %}"></script>
+<script src="{% static 'js/change_listing_mode.js' %}"></script>
 {% endblock js %}

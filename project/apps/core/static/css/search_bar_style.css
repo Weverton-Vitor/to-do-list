@@ -73,6 +73,10 @@
   background-color: rgba(1, 1, 1, 0.5);
 }
 
+.active-link {
+  background-color: rgba(1, 1, 1, 0.5);
+}
+
 .btn-change-mode {
   display: block;
   background-color: rgba(1, 1, 1, 0);

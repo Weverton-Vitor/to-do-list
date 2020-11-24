@@ -1,9 +1,3 @@
-#title-section {
-  text-align: center;
-  margin: 1%;
-  font-size: 2vw;
-}
-
 #content {  
   width: 95%;
   height: 63%;
@@ -15,11 +9,11 @@
   flex-grow: 4;
 }
 
-#annotation-container {
+.annotation-container-block {
   background: #C4C4C4;
   width: 22%; 
   height: 50%;
-  display: flex; 
+  display: none; 
   margin-right: 3%; 
   margin-bottom: 1%;
 }
@@ -78,7 +72,7 @@
   margin: 2%;
 }
 
-.annotation-body p {
+.annotation-description {
   font-size: 2.4vh;  
 }
 
