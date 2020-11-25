@@ -26,7 +26,7 @@ class AnnotationListView(ListView):
         
         # Só adiciona a query string ao contexto caso ela não exista, 
         # Se ela existir, em uma proxima requisição vinda do botão de alteração ela não será adicionada 
-        if not (self.request.GET.get('change') == 'order'):
+        if not (self.request.GET.get('change')):
             context['change_order'] = 'change=order'  
         else:
             # Atualizando a url da requisção atual para seguir a ordem da listagem
@@ -46,19 +46,30 @@ class AnnotationListView(ListView):
 
 class AnnotationCreateView(CreateView):
     model = Annotation
-    form_class = ModelFormAnnotation
-    success_url = reverse_lazy('annotations:annotation_list')
+    form_class = ModelFormAnnotation    
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):        
+        if self.request.GET.get('change'):                        
+            return HttpResponseRedirect(reverse('annotations:annotation_list') +  '?' + self.request.GET.urlencode())
+        
         return HttpResponseRedirect(reverse('annotations:annotation_list'))
 
     def form_invalid(self, form):
         messages.error(self.request, "Erro ao adicionar")
+        if self.request.GET.get('change'):                        
+            return HttpResponseRedirect(reverse('annotations:annotation_list') +  '?' + self.request.GET.urlencode())
+        
         return HttpResponseRedirect(reverse('annotations:annotation_list'))
     
     def form_valid(self, form):
         messages.success(self.request, "Sucesso ao adicionar")        
         return super().form_valid(form)
+    
+    def get_success_url(self):
+        if self.request.GET.get('change'):
+            return reverse('annotations:annotation_list') + '?change=order'
+        
+        return reverse('annotations:annotation_list')
 
 
 class AnnotationUpdateView(UpdateView):
