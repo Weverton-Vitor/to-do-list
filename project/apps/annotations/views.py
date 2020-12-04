@@ -48,7 +48,8 @@ class AnnotationCreateView(CreateView):
     model = Annotation
     form_class = ModelFormAnnotation    
 
-    def get(self, request, *args, **kwargs):        
+    def get(self, request, *args, **kwargs):       
+        print('*'*10, self.request.path, '*'*10)                         
         if self.request.GET.get('change'):                        
             return HttpResponseRedirect(reverse('annotations:annotation_list') +  '?' + self.request.GET.urlencode())
         
@@ -56,13 +57,15 @@ class AnnotationCreateView(CreateView):
 
     def form_invalid(self, form):
         messages.error(self.request, "Erro ao adicionar")
+        print('*'*10, self.request.path, '*'*10)                        
         if self.request.GET.get('change'):                        
             return HttpResponseRedirect(reverse('annotations:annotation_list') +  '?' + self.request.GET.urlencode())
         
         return HttpResponseRedirect(reverse('annotations:annotation_list'))
     
     def form_valid(self, form):
-        messages.success(self.request, "Sucesso ao adicionar")        
+        messages.success(self.request, "Sucesso ao adicionar")
+        print('*'*10, self.request.path, '*'*10)                
         return super().form_valid(form)
     
     def get_success_url(self):

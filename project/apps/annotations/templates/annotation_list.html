@@ -23,16 +23,16 @@
 
         <div id="annotation-content">
 
-            <div id="annotation-header">
+            <div class="annotation-header">
 
                 <p id='annotation-title-{{annotation.id}}' class="annotation-title">{{annotation.title}}</p>    
 
-                <div id="annotation-options">
-                    <button  class="btn btn-option btn-edit" title="Editar" data-id={{annotation.pk}} data-priority={{annotation.priority}}>
+                <div class="annotation-options">
+                    <button  class="btn btn-option btn-edit" title="Editar" data-id={{annotation.id}} data-priority={{annotation.priority}}>
                         <img src="{% static 'images/edit.svg' %}" alt="Editar">
                     </button>
 
-                    <form id="form-delete" action="{% url 'annotations:annotation_delete' pk=annotation.pk %}" method="post">
+                    <form id="form-delete" action="{% url 'annotations:annotation_delete' pk=annotation.id %}" method="post">
                         {% csrf_token %}
                         <button class="btn btn-option" type='submit' title="Excluir">
                             <img src="{% static 'images/trash-black.svg' %}" alt="Excluir">
@@ -42,10 +42,10 @@
 
             </div>
 
-            <hr id="line-options">
+            <hr class="line-options">
                         
-            <div class="annotation-body">
-                <p  id="annotation-p-{{annotation.id}}" class='annotation-description'>{{annotation.description}}</p>
+            <div class="annotation-body">            
+                <p  id="annotation-p-{{annotation.id}}" class='annotation-description' data-id={{annotation.id}}>{{annotation.description}}</p>
             </div>          
 
         </div>   
@@ -75,8 +75,8 @@
 
         <div id="annotation-content">
 
-            <div id="annotation-body-{{annotation.id}}" class="annotation-body">
-                <p id='annotation-title-{{annotation.id}}' class="annotation-title">{{annotation.title}}</p>  
+            <div class="annotation-body">
+                <p id='annotation-title-{{annotation.id}}' class="annotation-title" data-id={{annotation.id}}>{{annotation.title}}</p>  
                 <hr class="line-title">
                 <p id="annotation-p-{{annotation.id}}" class='annotation-description'>{{annotation.description}}</p>
             </div>  
@@ -104,10 +104,16 @@
 
 </div>
 
+<!--Incluindo a paginação-->
 {% include "includes/pagination.html" %}
 
 <!--Incluindo o fomulário-->
 {% include "form_annotation.html" %}
+
+<!--Incluindo a página de detalhes das annotações-->
+{% include "annotation_detail.html" %}
+
+
 
 {% endblock content %}
 

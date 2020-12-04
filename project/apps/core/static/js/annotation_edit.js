@@ -2,12 +2,12 @@
 btns = document.querySelectorAll(".btn-edit");
 
 for (let i = 0; i < btns.length; i++) {
-    btns[i].onclick = get_data_edit
+    btns[i].onclick = get_data_annotation
 }
 
 
 // Função para pegar os dados da anotação com AJAX 
-function get_data_edit (){
+function get_data_annotation (){
     const annotation_id = this.dataset.id    
 
     let xhr = new XMLHttpRequest();    

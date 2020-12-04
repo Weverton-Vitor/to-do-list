@@ -1,0 +1,51 @@
+{% load static %}
+
+{% block css %}
+
+<link rel="stylesheet" href="{% static 'css/annotation_detail_style.css' %}">
+
+{% endblock css%}
+
+
+<div id='modal-detail' class='modal'>
+    <div id='annotation-container-block-detail'>
+
+        <div id="annotation-content-detail">
+
+            <div id="annotation-header-detail">
+
+                <p id='annotation-title-detail'> Anotações Detalhe</p>    
+
+                <div id="annotation-options-detail">
+                    <button id="btn-option-detail"  class="btn btn-edit" title="Editar" >
+                        <img id='icon-edit-detail' src="{% static 'images/edit.svg' %}" alt="Editar">
+                    </button>
+
+                    <form id="form-delete-detail" action="" method="post">
+                        {% csrf_token %}
+                        <button class="btn btn-option" type='submit' title="Excluir">
+                            <img id='icon-trash-detail' src="{% static 'images/trash-black.svg' %}" alt="Excluir">
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+
+            <hr id="line-options-detail">
+                        
+            <div id='annotation-body-detail'>
+                <p  id="annotation-p-detail" class='annotation-description'></p>
+                <img id='close-modal-detail' src="{% static 'images/black-left-arrow.svg' %}" title='Seta para esquerda' alt="Seta para esquerda">
+            </div>          
+
+        </div>   
+        
+        <div id="status-bar-detail" style='background: #8E0000'></div>               
+    </div> 
+</div>
+
+{% block js %}
+
+<script src="{% static 'js/annotation_detail.js' %}"></script>
+
+{% endblock js %}

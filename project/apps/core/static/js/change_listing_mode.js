@@ -72,8 +72,8 @@ if (localStorage.getItem('listing_mode') == 'block') {
 
     // Removendo a div com visualização em blocos    
     container_block = document.querySelectorAll('.annotation-container-block')
-    container_block.forEach(function(container) {
-        container.remove()
+    container_block.forEach(function(container) {        
+        container.remove()                    
     })
 
     // Removendo o link da folha de estilo da visualização em block

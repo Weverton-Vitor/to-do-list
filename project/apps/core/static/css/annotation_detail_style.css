@@ -1,0 +1,99 @@
+#modal-detail {
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+#annotation-container-block-detail {
+  width: 60%;
+  height: 70%;
+  background-color: #fefefe;
+  border: 1px solid #888;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+#annotation-content-detail {
+  width: 95%;
+}
+
+#annotation-header-detail {
+  width: 100%;
+  display: flex;
+  align-content: space-between;
+}
+
+#annotation-title-detail {
+  font-size: 2vw;
+  margin-left: 2%;
+  margin-top: 1%;
+}
+
+#annotation-options-detail {
+  width: 20%;
+  margin-left: 60%;
+  padding-top: 0.3%;
+  display: flex;
+  align-content: center;
+  justify-content: end;
+}
+
+#btn-option-detail {
+  width: 20%;
+  background: rgba(1, 1, 1, 0);
+}
+
+#icon-edit-detail {
+  width: 100%;
+}
+
+#form-delete-detail {
+  width: 20%;
+  display: flex;
+}
+
+#form-delete-detail button {
+  width: 100%;
+}
+
+#form-delete-detail:hover {
+  width: 23%;
+}
+
+#icon-trash-detail {
+  width: 100%;
+}
+
+#line-options-detail {
+  margin: 0.5% 0px;
+}
+#annotation-body-detail {
+  padding: 0% 1%;
+  height: 85%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#annotation-p-detail {
+  padding: 0;
+  font-size: 3.5vh;
+}
+
+#close-modal-detail {
+  width: 5%;
+  cursor: pointer;
+}
+
+#close-modal-detail:hover {
+  width: 6%;
+}
+
+#status-bar-detail {
+  height: 100%;
+  width: 5%;
+  border-radius: inherit;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}

@@ -1,88 +1,88 @@
-#content {  
-    width: 95%;
-    height: 63%;
-    margin: auto;
-    padding-left: 3%;
-    margin-top: 2%;  
+#content {
+  width: 95%;
+  height: 63%;
+  margin: auto;
+  padding-left: 3%;
+  margin-top: 2%;
 }
-  
+
 .annotation-container-list {
-    background: #C4C4C4;
-    width: 97%; 
-    height: 9%;
-    display: none; 
-    margin-right: 3%; 
-    margin-bottom: 1%;
-}
-  
-#annotation-content { 
-    width: 100%;    
-    height: 100%;        
-    display: flex; 
-    justify-content: space-between;
-    
+  background: #c4c4c4;
+  width: 97%;
+  height: 9%;
+  display: none;
+  margin-right: 3%;
+  margin-bottom: 1%;
 }
 
-.status-bar {  
-    height: 100%;
-    width: 3%;
+#annotation-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
 }
 
-.annotation-body {    
-    width: 92%; 
-    height: 100%;
-    display: flex;       
-    align-items: center;
-    margin-left: 1%;       
+#annotation-content:hover {
+  background: rgba(1, 1, 1, 0.5);
+  z-index: 1;
 }
-  
-  
-.annotation-title {    
-    font-size: 1.3vw;
-    width: 11%;
-    
+
+.status-bar {
+  height: 100%;
+  width: 3%;
 }
-  
-  
+
+.annotation-body {
+  width: 92%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin-left: 1%;
+}
+
+.annotation-title {
+  font-size: 1.3vw;
+  width: 11%;
+}
+
 .line-title {
-    height: 60%;
-    margin-right: 2%;
+  height: 60%;
+  margin-right: 2%;
 }
-  
-.annotation-description{
-    font-size: 1.2vw;   
-    width: 85%
+
+.annotation-description {
+  font-size: 1.2vw;
+  width: 85%;
 }
-  
-  
+
 #annotation-options {
-    width: 6%;
-    display: flex;
-    justify-content: end        
-     
+  width: 6%;
+  display: flex;
+  justify-content: end;
 }
-  
+
 #form-delete {
-    width: 32%;
-    display: flex;
-    align-items: center;  
-    margin-left: 5%;
-    margin-right: 15%;
+  width: 32%;
+  display: flex;
+  align-items: center;
+  margin-left: 5%;
+  margin-right: 15%;
 }
-  
+
 #form-delete button {
-    width: 96%;
+  width: 96%;
 }
 
 #form-delete button:hover {
-    width: 100%;
+  width: 100%;
 }
-  
+
 .btn-option {
-    width: 30%;
-    background: rgba(1,1,1,0)
+  width: 30%;
+  background: rgba(1, 1, 1, 0);
 }
-  
+
 .btn-option:hover {
-    width: 32%;    
+  width: 32%;
 }

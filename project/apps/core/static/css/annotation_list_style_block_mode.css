@@ -1,35 +1,35 @@
-#content {  
+#content {
   width: 95%;
   height: 63%;
   margin: auto;
   padding-left: 3%;
-  margin-top: 2%;  
-  display: flex;  
+  margin-top: 2%;
+  display: flex;
   flex-wrap: wrap;
   flex-grow: 4;
 }
 
 .annotation-container-block {
-  background: #C4C4C4;
-  width: 22%; 
+  background: #c4c4c4;
+  width: 22%;
   height: 50%;
-  display: none; 
-  margin-right: 3%; 
+  display: none;
+  margin-right: 3%;
   margin-bottom: 1%;
 }
 
-#annotation-content { 
+#annotation-content {
   width: 95%;
-  height: 95%;
-  padding: 1%;
+  height: 100%;
+  /*! padding: 1%; */
   display: flex;
   flex-direction: column;
 }
 
-#annotation-header {
+.annotation-header {
   width: 100%;
   display: flex;
-  align-content: space-between;    
+  align-content: space-between;
 }
 
 .annotation-title {
@@ -38,11 +38,11 @@
   width: 50%;
 }
 
-#annotation-options {
+.annotation-options {
   width: 50%;
   display: flex;
   align-content: center;
-  justify-content: end;  
+  justify-content: end;
 }
 
 #form-delete {
@@ -53,9 +53,13 @@
   width: 100%;
 }
 
+#form-delete:hover {
+  width: 23%;
+}
+
 .btn-option {
   width: 20%;
-  background: rgba(1,1,1,0)
+  background: rgba(1, 1, 1, 0);
 }
 
 .btn-option:hover {
@@ -63,20 +67,26 @@
   margin-bottom: 0px;
 }
 
-#line-options {
+.line-options {
   margin: 1% 0px;
 }
 
 .annotation-body {
-  height: 70%;
-  margin: 2%;
+  height: 100%;
+  padding: 2%;
+  cursor: pointer;
+}
+
+.annotation-body:hover {
+  background: rgba(1, 1, 1, 0.5);
+  z-index: 1;
 }
 
 .annotation-description {
-  font-size: 2.4vh;  
+  font-size: 2.4vh;
 }
 
-.status-bar {  
+.status-bar {
   height: 100%;
   width: 5%;
 }
