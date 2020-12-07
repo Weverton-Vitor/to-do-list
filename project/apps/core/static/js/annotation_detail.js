@@ -66,6 +66,10 @@ function updateAnnotationDetailModal(annotation) {
     status_bar.style.background = " #44DE2B";
   }
 
+  // Setando o id em um dataset para edição
+  btn_edit_detail = document.querySelector('#btn-edit-detail')
+  btn_edit_detail.dataset.id = annotation_id
+
   // Mudando o display do modal de detalhes
   modal_detail = document.querySelector("#modal-detail");
   modal_detail.style.display = "flex";

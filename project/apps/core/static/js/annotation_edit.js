@@ -5,10 +5,18 @@ for (let i = 0; i < btns.length; i++) {
     btns[i].onclick = get_data_annotation
 }
 
+// Adicionando um evento para edição através do modal de detalhes
+//btn_edit_detail = document.querySelector('#btn-edit-detail')
+//btn_edit_detail.onclick = editByDetail
+
 
 // Função para pegar os dados da anotação com AJAX 
 function get_data_annotation (){
     const annotation_id = this.dataset.id    
+
+    // Fechando o modal de detalhes caso ele esteja aberto
+    modal_detail = document.querySelector('#modal-detail')
+    modal_detail.style.display = 'none'
 
     let xhr = new XMLHttpRequest();    
     xhr.open('GET', 'http://127.0.0.1:8000/Anotacoes/Anotacao/' + annotation_id);
@@ -199,3 +207,4 @@ function setMessage(msg, erro) {
     showMessage()
     
 }
+
