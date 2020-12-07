@@ -22,7 +22,7 @@ function showMessage() {
         } else {
             mesages.parentNode.style.background = '#DD4B39'            
         }
-        modal_annotation.style.display = "block";            
+        modal_annotation.style.display = "flex";            
     }
 
 }

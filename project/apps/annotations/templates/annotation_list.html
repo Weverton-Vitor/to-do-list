@@ -10,12 +10,14 @@
 {% endblock css %}
 
 {% block content %}
-
+<!--Incluindo as notificações -->
 {% include "includes/notification.html" %}
 
 <h2 id='title-section'>Anotações</h2>
 
+<!--Incluindo a barra de pesquisa-->
 {% include "includes/search_bar.html" %}
+
 <div id='content'>
     {% for annotation in annotations%}   
     <!--Visualização em blocos -->
@@ -31,8 +33,11 @@
                     <button  class="btn btn-option btn-edit" title="Editar" data-id={{annotation.id}} data-priority={{annotation.priority}}>
                         <img src="{% static 'images/edit.svg' %}" alt="Editar">
                     </button>
-
-                    <form id="form-delete" action="{% url 'annotations:annotation_delete' pk=annotation.id %}" method="post">
+                    {% if change_order %}
+                    <form id="form-delete" action="{% url 'annotations:annotation_delete' pk=annotation.id %}" method="post">                    
+                    {% else %}
+                    <form id="form-delete" action="{% url 'annotations:annotation_delete' pk=annotation.id %}?change=order" method="post">
+                    {% endif %}
                         {% csrf_token %}
                         <button class="btn btn-option" type='submit' title="Excluir">
                             <img src="{% static 'images/trash-black.svg' %}" alt="Excluir">
@@ -86,18 +91,20 @@
                 <button  class="btn btn-option btn-edit" title="Editar" data-id={{annotation.pk}} data-priority={{annotation.priority}}>
                     <img src="{% static 'images/edit.svg' %}" alt="Editar">
                 </button>
-
-                <form id="form-delete" action="{% url 'annotations:annotation_delete' pk=annotation.pk %}" method="post">
+                {% if change_order %}
+                <form id="form-delete" action="{% url 'annotations:annotation_delete' pk=annotation.id %}" method="post">                    
+                {% else %}
+                <form id="form-delete" action="{% url 'annotations:annotation_delete' pk=annotation.id %}?change=order" method="post">
+                {% endif %}                
                     {% csrf_token %}
                     <button class="btn btn-option" type='submit' title="Excluir">
                         <img src="{% static 'images/trash-black.svg' %}" alt="Excluir">
                     </button>
-                 </form>
+                </form>
             </div>
 
         </div>
                                   
-
     </div>   
             
     {% endfor %}    

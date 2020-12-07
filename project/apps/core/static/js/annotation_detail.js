@@ -73,4 +73,10 @@ function updateAnnotationDetailModal(annotation) {
   // Setando action do formulário para excluir pelo modal de detalhes
   form_annotation_detail = document.querySelector('#form-delete-detail')
   form_annotation_detail.action = '/Anotacoes/Deletar/' + annotation.id
+
+  // Verificando a ordem de listagem das anotações
+  action_form_create_annotation = document.querySelector('#form-create').action
+  if (action_form_create_annotation.includes('change=order')) { 
+    form_annotation_detail.action += '?change=order'
+  }
 }

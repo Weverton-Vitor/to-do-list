@@ -1,15 +1,26 @@
+#modal-notification{
+  display: none;
+  justify-content: end;
+}
+
 #notification-content {    
-    background-color: #00A65A;
-    margin: 2% 4% 8% 80%; 
+    margin: 1%;
+    padding: 0% 2%;
     border-radius: 10px;    
     display: flex;    
-    justify-content: space-between;
+    justify-content: center;  
+    height: 10%;
+    width: auto;    
+    white-space: nowrap;
+    
 }
 
 .messages {
   display: flex;  
   align-items: center;
   padding-left: 4%;
+  padding-right:  6%;
+  
 }
 
 .messages p {
@@ -20,8 +31,10 @@
 .close-modal-notification {
   color: white;
   margin-right: 5%;
+  margin-top: 1%;
   font-size: 3vw; 
   cursor: pointer;
+  
 }
 
 .close-modal-notification:hover {

@@ -15,7 +15,12 @@
 
 {% block form %}
 
-<form id='form-create' action="{% url 'annotations:annotation_create' %}" method="post">
+{% if change_order %}
+<form id='form-create' action="{% url 'annotations:annotation_create' %}?" method="post">
+{% else %}
+<form id='form-create' action="{% url 'annotations:annotation_create' %}?change=order" method="post">
+{% endif %}
+
     {% csrf_token %}
 
     <label class="label-field-create" for="{{form.title.id_form_label}}">
