@@ -16,7 +16,6 @@
       href="{{url_annotations_list}}"
       title="Modo de visualização em lista"
       onclick="change_listing_mode('list'); return false;"
-
     >
       <button id="list-mode" class="btn btn-change-mode">
         <img src="{% static 'images/list.svg' %}" alt="icone-lista" />
@@ -35,6 +34,7 @@
     </a>
 
     <a
+      id='btn-change-order'
       class="link-search-bar"
       href="{% url 'annotations:annotation_list'%}?{{change_order}}"
       title="Alterar ordem de listagem por prioridade"
@@ -48,7 +48,10 @@
     </a>
   </div>
 
-  <form id="form-search" action="#" method="get">
+  <form id="form-search" action="{{link_search}}" method="get">
+    {% if not change_order %}
+    <input id="change-order" type="hidden" name="change" value="order" />
+    {% endif %}
     <input id="search-field" type="text" name="title" placeholder="Pesquisar" />
     <button id="search-button" class="btn" type="submit" title="Pesquisar">
       <img src="{% static 'images/magnifying-glass.svg' %}" alt="icone-lupa" />
@@ -58,6 +61,6 @@
 
 {% block js %}
 
-<script src="{% static 'js/change_listing_mode.js' %}"></script>
+<script src="{% static 'js/search_bar.js' %}"></script>
 
 {% endblock js %}

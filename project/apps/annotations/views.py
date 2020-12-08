@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.http import HttpResponseRedirect, JsonResponse, Http404
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
@@ -12,7 +12,7 @@ class AnnotationListView(ListView):
     template_name = 'annotation_list.html'
     model = Annotation
     context_object_name = 'annotations'
-    paginate_by = 8
+    paginate_by = 8    
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -31,6 +31,11 @@ class AnnotationListView(ListView):
         else:
             # Atualizando a url da requisção atual para seguir a ordem da listagem
             context['url_annotations_list'] += '?change=order'
+            
+        # Link que o formulário de pesquisa vai ser submetido
+        context['link_search'] = reverse('annotations:annotation_list')
+        
+        context['title'] = self.request.GET.get('title')
 
         return context
 
@@ -40,7 +45,12 @@ class AnnotationListView(ListView):
             queryset = Annotation.objects.all().order_by('-priority')
         else:
             queryset = Annotation.objects.all().order_by('priority')
-
+            
+        # Verificando se existe filtragem
+        title = self.request.GET.get('title')
+        if title:
+            queryset = queryset.filter(title__istartswith=title)
+            
         return queryset
 
 
