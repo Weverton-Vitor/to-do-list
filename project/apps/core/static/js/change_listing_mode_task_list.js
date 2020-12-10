@@ -1,64 +1,71 @@
-// Setando o modo de listagem padrão
-if (localStorage.getItem('listing_mode_list_items_list_items') == null) {
-    localStorage.setItem('listing_mode_list_items', 'block')    
+// Mudando o modo de visualização
+function change_listing_mode_list_items(mode) {
+  localStorage.setItem("listing_mode_list_items", mode);
 
-    // Setando a classe active-link no link de modo lista
-    link = document.querySelector('#block-mode').parentElement
-    link.classList.add('active-link')
+  links = document.querySelectorAll(".link-search-bar");
+
+  for (i = 0; i < 2; i++) {
+    link = links[i];
+    if (link.classList.contains("active-link")) {
+      link.classList.remove("active-link");
+    }
+  }
+
+  // Escondendo o conteudo e a páginação
+  content = document.querySelector("#content");
+  content.style.display = "none";
+
+  pagination = document.querySelectorAll(".container-pagination")[0];
+  pagination.style.display = "none";
+
+  location.reload();
 }
 
-// Mudando o modo de visualização
-function change_listing_mode_list_items(mode) {    
-    localStorage.setItem('listing_mode_list_items', mode)
+// Setando o modo de listagem padrão
+if (localStorage.getItem("listing_mode_list_items_list_items") == null) {
+  localStorage.setItem("listing_mode_list_items", "block");
 
-    links = document.querySelectorAll('.link-search-bar')
-    
-    for ( i = 0; i < 2; i++) {
-        link = links[i]                     
-        if ( link.classList.contains('active-link') ) {
-            link.classList.remove('active-link')
-        }                        
-    }
-    
-    console.log(this)
+  // Setando a classe active-link no link de modo lista
+  link = document.querySelector("#block-mode").parentElement;
+  link.classList.add("active-link");
+}
 
-    // Escondendo o conteudo e a páginação
-    content = document.querySelector('#content')
-    content.style.display = 'none'
+// Setando o link padrão para as listas na side bar
+if (localStorage.getItem("link_sidebar_task_list") == null) {
+    localStorage.setItem("link_sidebar_task_list", "/Listas");
+  }
+  
 
-    pagination = document.querySelectorAll('.container-pagination')[0]
-    pagination.style.display ='none'
-
-    location.reload();
-
+if (localStorage.getItem("link_sidebar_annotation") == null) {
+  localStorage.setItem("link_sidebar_annotation", "/Anotacoes");
 }
 
 // if (localStorage.getItem('listing_mode_list_items') == 'block') {
-    // Encurtando o conteúdo da anotação para melhorar a visualização
-    // descriptions = document.querySelectorAll('.annotation-description')
-    // for (let i = 0; i < descriptions.length; i++) {
-    //     text = descriptions[i].innerText
-    //     if (text.length > 240) {
-    //         text = text.slice(0, 240)
-    //         descriptions[i].innerText = text + '...'
-    //     }}
+// Encurtando o conteúdo da anotação para melhorar a visualização
+// descriptions = document.querySelectorAll('.annotation-description')
+// for (let i = 0; i < descriptions.length; i++) {
+//     text = descriptions[i].innerText
+//     if (text.length > 240) {
+//         text = text.slice(0, 240)
+//         descriptions[i].innerText = text + '...'
+//     }}
 
-    // // Removendo a div com visualização em lista
-    // container_list = document.querySelectorAll('.annotation-container-list')
-    // container_list.forEach(function(container) {
-    //     container.remove()
-    // })
-    
-    // // Removendo o link da folhada de estilo da visualização em lista
-    // if (!(document.querySelector('#css-list') == null)) {
-    //     container_list_css = document.querySelector('#css-list')
-    //     container_list_css.remove()
-    // }
+// // Removendo a div com visualização em lista
+// container_list = document.querySelectorAll('.annotation-container-list')
+// container_list.forEach(function(container) {
+//     container.remove()
+// })
 
-    // // Setando a classe active-link no link de modo lista
-    // link = document.querySelector('#block-mode').parentElement
-    // link.classList.add('active-link')
-    
+// // Removendo o link da folhada de estilo da visualização em lista
+// if (!(document.querySelector('#css-list') == null)) {
+//     container_list_css = document.querySelector('#css-list')
+//     container_list_css.remove()
+// }
+
+// // Setando a classe active-link no link de modo lista
+// link = document.querySelector('#block-mode').parentElement
+// link.classList.add('active-link')
+
 // } else {
 //     // Encurtando o conteúdo da anotação para melhorar a visualização
 //     descriptions = document.querySelectorAll('.annotation-description')
@@ -70,10 +77,10 @@ function change_listing_mode_list_items(mode) {
 //         }
 //     }
 
-//     // Removendo a div com visualização em blocos    
+//     // Removendo a div com visualização em blocos
 //     container_block = document.querySelectorAll('.annotation-container-block')
-//     container_block.forEach(function(container) {        
-//         container.remove()                    
+//     container_block.forEach(function(container) {
+//         container.remove()
 //     })
 
 //     // Removendo o link da folha de estilo da visualização em block
@@ -89,16 +96,20 @@ function change_listing_mode_list_items(mode) {
 // }
 
 window.onload = function () {
-    // Pegando as anotações 
-    annotations = document.querySelectorAll('.task-list-container-block')
+  // Pegando as anotações
+  annotations = document.querySelectorAll(".task-list-container-block");
 
-    if (annotations.length == 0) {
-        annotations = document.querySelectorAll('.task-list-container-list')        
-    }
-    
-    // Mostrando uma anotação de cada vez
-    annotations.forEach(function(annotation, i){
-        setTimeout(() => annotation.style.display = 'block', 100 * i);
-        
-    })
- }
+  if (annotations.length == 0) {
+    annotations = document.querySelectorAll(".task-list-container-list");
+  }
+
+  // Mostrando uma anotação de cada vez
+  annotations.forEach(function (annotation, i) {
+    setTimeout(() => (annotation.style.display = "block"), 100 * i);
+  });
+
+  link_sidebar_task_list = new URL(window.location).href;
+  localStorage.setItem("link_sidebar_task_list", link_sidebar_task_list);
+
+  setLinkSideBar()
+};

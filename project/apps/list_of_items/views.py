@@ -18,7 +18,7 @@ class TaskListListView(ListView):
     #     context['form'] = form
 
         # Url da requisição atual
-        context['url_list_mode'] = self.request.path
+        context['url_list_mode'] = self.request.path        
 
         # Só adiciona a query string ao contexto caso ela não exista,
         # Se ela existir, em uma proxima requisição vinda do botão de alteração ela não será adicionada

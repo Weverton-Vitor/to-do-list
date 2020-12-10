@@ -18,14 +18,14 @@
                 <ul>
                     <hr class='line-menu'>
                     <li class="item-menu">
-                        <a class="link-menu" href="{{url_annotations_list}}">
+                        <a id='link-annotations' class="link-menu" href="{% url 'annotations:annotation_list' %}">
                             <img src="{% static 'images/note.svg' %}" alt="Anotações"> <p> Anotações </p>
                         </a>                    
                     </li>
 
                     <hr class='line-menu'>
                     <li class="item-menu">
-                        <a class="link-menu" href="{% url 'list_of_items:task_list_list' %}">
+                        <a id='link-task-lists' class="link-menu" href="{% url 'list_of_items:task_list_list' %}">
                             <img src="{% static 'images/verification-of-list.svg' %}" alt="Listas"> <p>Listas</p>                      
                         </a>
                     </li>
@@ -54,5 +54,6 @@
         </main>
     </div>
     {% block js %}{% endblock js %}  
+    <script src="{% static 'js/base.js' %}"></script>
     </body>
 </html>
