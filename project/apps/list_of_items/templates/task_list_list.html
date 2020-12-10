@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block css %}
+
+<link id="css-list" rel="stylesheet" href="{% static 'css/task_list_list_style_list_mode.css' %}">
+<link  id="css-block" rel="stylesheet" href="{% static 'css/task_list_list_style_block_mode.css' %}">
+
+{% endblock css %}
+
+{% block content %}
+<!--Incluindo as notificações -->
+{% include "includes/notification.html" %}
+
+<h2 id='title-section'>Anotações</h2>
+
+<!--Incluindo a barra de pesquisa-->
+{% include "includes/search_bar.html" %}
+
+<div id='content'>
+    {% for task_list in task_lists%}   
+    <!--Visualização em blocos -->
+    <div class="task-list-container-block">        
+
+        <div class="task-list-header">
+
+            <p id='task-list-title-{{task_list.id}}' class="task-list-title">{{task_list.title}}</p>    
+
+            <div class="task-list-options">
+
+                <button  class="btn btn-option btn-edit" title="Editar" data-id={{task_list.id}}>
+                    <img src="{% static 'images/edit.svg' %}" alt="Editar">
+                </button>
+                {% if change_order %}
+                <form id="form-delete" action="" method="post">                    
+                {% else %}
+                <form id="form-delete" action="" method="post">
+                {% endif %}
+                    {% csrf_token %}
+                    <button class="btn btn-option" type='submit' title="Excluir">
+                        <img src="{% static 'images/trash-black.svg' %}" alt="Excluir">
+                    </button>
+                </form>
+                
+            </div>
+
+        </div>
+
+        <hr class="line-options">
+                        
+        <div class="task_list-body">      
+            <ul>
+                {% for item in task_list.tasklistitem_set.all|slice:":5" %}
+                <li class='item-description'>
+                {{item.description}}
+                </li>
+                {% endfor %}
+            </ul>                  
+        </div>          
+        
+
+    </div>   
+
+    <!--Visualização em lista-->
+ 
+            
+    {% endfor %}    
+
+</div>
+
+<!--Incluindo a paginação-->
+{% include "includes/pagination.html" %}
+
+{% endblock content %}
+
+{% block js %}
+<script src="{% static 'js/task_list_edit.js' %}"></script>
+<script src="{% static 'js/change_listing_mode_task_list.js' %}"></script>
+
+{% endblock js %}

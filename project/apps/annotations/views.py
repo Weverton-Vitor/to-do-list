@@ -22,7 +22,8 @@ class AnnotationListView(ListView):
         context['form'] = form
 
         # Url da requisição atual
-        context['url_annotations_list'] = self.request.path
+        context['url_list_mode'] = self.request.path       
+        
 
         # Só adiciona a query string ao contexto caso ela não exista,
         # Se ela existir, em uma proxima requisição vinda do botão de alteração ela não será adicionada
@@ -30,7 +31,7 @@ class AnnotationListView(ListView):
             context['change_order'] = 'change=order'
         else:
             # Atualizando a url da requisção atual para seguir a ordem da listagem
-            context['url_annotations_list'] += '?change=order'
+            context['url_list_mode'] += '?change=order'
             
         # Link que o formulário de pesquisa vai ser submetido
         context['link_search'] = reverse('annotations:annotation_list')

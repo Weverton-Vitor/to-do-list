@@ -13,7 +13,7 @@
 
     <a
       class="link-search-bar"
-      href="{{url_annotations_list}}"
+      href="{{url_list_mode}}"
       title="Modo de visualização em lista"
       onclick="change_listing_mode('list'); return false;"
     >
@@ -24,7 +24,7 @@
 
     <a
       class="link-search-bar"
-      href="{% url 'annotations:annotation_list'%}"
+      href="{{url_list_mode}}"
       title="Modo de visualização em blocos"
       onclick="change_listing_mode('block'); return false;"
     >
@@ -36,7 +36,7 @@
     <a
       id='btn-change-order'
       class="link-search-bar"
-      href="{% url 'annotations:annotation_list'%}?{{change_order}}"
+      href="{{link_search}}?{{change_order}}"
       title="Alterar ordem de listagem por prioridade"
     >
       <button id="change-order" class="btn btn-change-mode">
