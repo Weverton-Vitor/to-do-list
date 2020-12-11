@@ -102,8 +102,8 @@ window.onload = function () {
     setTimeout(() => (annotation.style.display = "flex"), 100 * i);
   });
 
+  // Atualizando os links da sidebar
   link_sidebar_annotation = new URL(window.location).href;
   localStorage.setItem("link_sidebar_annotation", link_sidebar_annotation);
-
   setLinkSideBar()
 };

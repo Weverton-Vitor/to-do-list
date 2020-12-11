@@ -63,7 +63,42 @@
     </div>   
 
     <!--Visualização em lista-->
- 
+ <div class="task-list-container-list">
+
+        <div id="task-list-content">
+
+            <div class="task-list-body">
+                <p id='task-list-title-{{task_list.id}}' class="task-list-title" data-id={{task_list.id}}>{{task_list.title}}</p>  
+                <hr class="line-title">
+                <ul class="list-item-description">
+                    {% for item in task_list.tasklistitem_set.all|slice:"7" %}
+                    <li class='item-description'>
+                    {{item.description}}
+                    </li>
+                {% endfor %}
+            </ul> 
+            </div>  
+
+
+            <div id="task-list-options">
+                <button  class="btn btn-option btn-edit" title="Editar" data-id={{task_list.id}}>
+                    <img src="{% static 'images/edit.svg' %}" alt="Editar">
+                </button>
+                {% if change_order %}
+                <form id="form-delete" action="" method="post">                    
+                {% else %}
+                <form id="form-delete" action="" method="post">
+                {% endif %}                
+                    {% csrf_token %}
+                    <button class="btn btn-option" type='submit' title="Excluir">
+                        <img src="{% static 'images/trash-black.svg' %}" alt="Excluir">
+                    </button>
+                </form>
+            </div>
+
+        </div>
+                                  
+    </div>
             
     {% endfor %}    
 
