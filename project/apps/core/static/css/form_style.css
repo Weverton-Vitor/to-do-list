@@ -17,10 +17,20 @@ textarea {
   resize: none;
 }
 
-#btn-add {  
+#btn-group {
+  width:100%; 
+  display:flex;
+  
+}
+
+.btn-form {  
   background: #124887;
   color: #FFFFFF;
   font-size: 1.5vw;
   font-family: 'Rum Raisin', sans-serif;  
-  
+  padding: 1%;  
+}
+
+#btn-add-item {
+  margin-left: 1%;
 }
