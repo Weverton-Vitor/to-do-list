@@ -4,8 +4,8 @@
 
 {% block css %}
 
-<link id="css-list" rel="stylesheet" href="{% static 'css/task_list_list_style_list_mode.css' %}">
-<link  id="css-block" rel="stylesheet" href="{% static 'css/task_list_list_style_block_mode.css' %}">
+<link id="css-list" rel="stylesheet" href="{% static 'css/list_of_items/task_list_list_style_list_mode.css' %}">
+<link  id="css-block" rel="stylesheet" href="{% static 'css/list_of_items/task_list_list_style_block_mode.css' %}">
 
 {% endblock css %}
 
@@ -107,10 +107,13 @@
 <!--Incluindo a paginação-->
 {% include "includes/pagination.html" %}
 
+<!--Incluindo o fomulário-->
+{% include "task_list_form.html" %}
+
 {% endblock content %}
 
 {% block js %}
-<script src="{% static 'js/task_list_edit.js' %}"></script>
-<script src="{% static 'js/change_listing_mode_task_list.js' %}"></script>
+<script src="{% static 'js/list_of_items/task_list_edit.js' %}"></script>
+<script src="{% static 'js/list_of_items/change_listing_mode_task_list.js' %}"></script>
 
 {% endblock js %}

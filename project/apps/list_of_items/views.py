@@ -2,7 +2,8 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import DeleteView, ListView
+from django.views.generic import CreateView, DeleteView, ListView
+from project.apps.list_of_items.forms import ModelFormTaskList
 from project.apps.list_of_items.models import TaskList
 
 
@@ -16,8 +17,8 @@ class TaskListListView(ListView):
         context = super().get_context_data(**kwargs)
         context['new'] = 'Lista'
 
-    #     form = ModelFormAnnotation()
-    #     context['form'] = form
+        form = ModelFormTaskList()
+        context['form'] = form
 
         # Url da requisição atual
         context['url_list_mode'] = self.request.path        
@@ -54,6 +55,38 @@ class TaskListListView(ListView):
 
         return queryset
 
+
+class TaskListCreateView(CreateView):
+    model = TaskList
+    form_class = ModelFormTaskList
+
+    def get(self, request, *args, **kwargs):
+        # Verificando qual será a ordem da listagem pela QueryString da requisição        
+        if self.request.GET.get('change'):
+            return HttpResponseRedirect(reverse('list_of_items:task_list_list') + '?' + self.request.GET.urlencode())
+
+        return HttpResponseRedirect(reverse('list_of_items:task_list_list'))
+
+    def form_invalid(self, form):
+        messages.error(self.request, "Erro ao adicionar")        
+        
+        # Verificando qual será a ordem da listagem pela QueryString da requisição
+        if self.request.GET.get('change'):
+            return HttpResponseRedirect(reverse('list_of_items:task_list_list') + '?' + self.request.GET.urlencode())
+
+        return HttpResponseRedirect(reverse('list_of_items:task_list_list'))
+        
+
+    def form_valid(self, form):                        
+        messages.success(self.request, "Sucesso ao adicionar")        
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        # Verificando qual será a ordem da listagem pela QueryString da requisição        
+        if self.request.GET.get('change'):
+            return reverse('list_of_items:task_list_list') + '?change=order'
+
+        return reverse('list_of_items:task_list_list')
 
 class TaskListDeleteView(DeleteView):
     model = TaskList

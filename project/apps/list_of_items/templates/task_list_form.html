@@ -1,0 +1,50 @@
+<!--O formulário vai extender um modal-->
+{% extends "modal_box_create.html" %} 
+
+{% load static %}
+
+{% block css %}
+
+<!--CSS do modal-->
+<link rel="stylesheet" href="{% static 'css/modal_box_create.css' %}" />
+
+<!-- CSS do formulário-->
+<link rel="stylesheet" href="{% static 'css/form_style.css' %}" />
+
+{% endblock css %}
+
+{% block form %}
+
+{% if change_order %}
+<form id='form-create' action="{% url 'list_of_items:task_list_create' %}?" method="post">
+{% else %}
+<form id='form-create' action="{% url 'list_of_items:task_list_create' %}?change=order" method="post">
+{% endif %}
+
+    {% csrf_token %}
+
+    <label class="label-field-create" for="{{form.title.id_form_label}}">
+        {{form.title.label}}:
+    </label>
+
+    {{form.title}}
+
+
+    <div id="btn-group">
+        <button id="btn-add" class="btn btn-form" type="submit">
+            <p>Salvar</p>
+        </button>   
+    
+        <button id="btn-add-item" class="btn btn-form" type="submit">
+            <p>Salvar e Adicionar Itens</p>
+        </button>
+    </div>
+
+</form>
+
+{% endblock form %}
+
+{% block js %}
+
+<script src="{% static 'js/modal_box_create.js' %} "></script>
+{% endblock js %}
