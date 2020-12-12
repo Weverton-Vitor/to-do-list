@@ -33,9 +33,9 @@
                     <img src="{% static 'images/edit.svg' %}" alt="Editar">
                 </button>
                 {% if change_order %}
-                <form id="form-delete" action="" method="post">                    
+                <form id="form-delete" action="{% url 'list_of_items:task_list_delete' task_list.id %}" method="post">                    
                 {% else %}
-                <form id="form-delete" action="" method="post">
+                <form id="form-delete" action="{% url 'list_of_items:task_list_delete' task_list.id %}?change=order" method="post">
                 {% endif %}
                     {% csrf_token %}
                     <button class="btn btn-option" type='submit' title="Excluir">
@@ -63,7 +63,7 @@
     </div>   
 
     <!--Visualização em lista-->
- <div class="task-list-container-list">
+    <div class="task-list-container-list">
 
         <div id="task-list-content">
 
@@ -85,9 +85,9 @@
                     <img src="{% static 'images/edit.svg' %}" alt="Editar">
                 </button>
                 {% if change_order %}
-                <form id="form-delete" action="" method="post">                    
+                <form id="form-delete" action="{% url 'list_of_items:task_list_delete' task_list.id %}" method="post">                    
                 {% else %}
-                <form id="form-delete" action="" method="post">
+                <form id="form-delete" action="{% url 'list_of_items:task_list_delete' task_list.id %}?change=order" method="post">
                 {% endif %}                
                     {% csrf_token %}
                     <button class="btn btn-option" type='submit' title="Excluir">
