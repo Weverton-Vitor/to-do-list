@@ -13,9 +13,8 @@ btn_open.onclick = function () {
 };
 
 // Evento de click no span que fecha o modal
-span_create.onclick = function () {  
-  form = document.querySelector("#form-create");
-  clearFormCreate(form); // Função do arquivo modal_box_create
+span_create.onclick = function () {    
+  clearFormCreate('form-create', 'modal-new-item'); // Função do arquivo base.js
 
   modal_title = document.querySelector('#title-modal');  
   modal_title.innerText = 'Criar anotação';
@@ -26,9 +25,8 @@ span_create.onclick = function () {
 
 // Qualquer click fora do modal
 window.onclick = function (event) {
-  if (event.target == modal_create) {
-    form = document.querySelector("#form-create");
-    clearFormCreate(form); // Função do arquivo modal_box_create
+  if (event.target == modal_create) {    
+    clearFormCreate('form-create', 'modal-new-item'); // Função do arquivo base.js
     modal_title = document.querySelector('#title-modal');  
     modal_title.innerText = 'Criar anotação';
     
@@ -36,3 +34,7 @@ window.onclick = function (event) {
     modal_btn_form.innerText = 'Adicionar';
   }
 };
+
+function setTextBtnAndTitle(){
+  
+}
