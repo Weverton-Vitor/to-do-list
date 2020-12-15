@@ -55,8 +55,7 @@ function post_data_edit_annotation() {
 
   let xhr = new XMLHttpRequest();
   xhr.open(
-    "POST",
-    "http://127.0.0.1:8000/Anotacoes/Editar/" + annotation_id,
+    "POST", "/Anotacoes/Editar/" + annotation_id,
     true
   );
   xhr.setRequestHeader("Content-type", "application/json");
@@ -83,7 +82,7 @@ function post_data_edit_annotation() {
 
         clearFormCreate(this.id, "modal-new-item");
 
-        // Setando as propiedades da validção do formulário
+        // Setando as propiedades da validação do formulário
         this[1].required = true;
         this[1].maxLength = "25";
         this[2].required = true;
