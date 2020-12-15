@@ -1,10 +1,11 @@
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView
 from project.apps.list_of_items.forms import ModelFormTaskList
 from project.apps.list_of_items.models import TaskList
+import json
 
 
 class TaskListListView(ListView):
@@ -21,7 +22,7 @@ class TaskListListView(ListView):
         context['form'] = form
 
         # Url da requisição atual
-        context['url_list_mode'] = self.request.path        
+        context['url_list_mode'] = self.request.path
 
         # Só adiciona a query string ao contexto caso ela não exista,
         # Se ela existir, em uma proxima requisição vinda do botão de alteração ela não será adicionada
@@ -61,39 +62,55 @@ class TaskListCreateView(CreateView):
     form_class = ModelFormTaskList
 
     def get(self, request, *args, **kwargs):
-        # Verificando qual será a ordem da listagem pela QueryString da requisição        
-        if self.request.GET.get('change'):
-            return HttpResponseRedirect(reverse('list_of_items:task_list_list') + '?' + self.request.GET.urlencode())
-
-        return HttpResponseRedirect(reverse('list_of_items:task_list_list'))
-
-    def form_invalid(self, form):
-        messages.error(self.request, "Erro ao adicionar")        
-        
         # Verificando qual será a ordem da listagem pela QueryString da requisição
         if self.request.GET.get('change'):
             return HttpResponseRedirect(reverse('list_of_items:task_list_list') + '?' + self.request.GET.urlencode())
 
         return HttpResponseRedirect(reverse('list_of_items:task_list_list'))
-        
 
-    def form_valid(self, form):                        
-        messages.success(self.request, "Sucesso ao adicionar")        
+    def post(self, request, *args, **kwargs):
+        if not self.request.POST:
+            data = json.loads(self.request.body)
+            form = ModelFormTaskList(data['task_list'])
+            if form.is_valid():
+                form.save()
+                return JsonResponse({'ok': '1'})
+
+            return JsonResponse({'erro': 'o'})
+        else:
+            form = self.get_form()
+            if form.is_valid():
+                return self.form_valid(form)
+            else:
+                return self.form_invalid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "Erro ao adicionar")
+
+        # Verificando qual será a ordem da listagem pela QueryString da requisição
+        if self.request.GET.get('change'):
+            return HttpResponseRedirect(reverse('list_of_items:task_list_list') + '?' + self.request.GET.urlencode())
+
+        return HttpResponseRedirect(reverse('list_of_items:task_list_list'))
+
+    def form_valid(self, form):
+        messages.success(self.request, "Sucesso ao adicionar")
         return super().form_valid(form)
 
     def get_success_url(self):
-        # Verificando qual será a ordem da listagem pela QueryString da requisição        
+        # Verificando qual será a ordem da listagem pela QueryString da requisição
         if self.request.GET.get('change'):
             return reverse('list_of_items:task_list_list') + '?change=order'
 
         return reverse('list_of_items:task_list_list')
+
 
 class TaskListDeleteView(DeleteView):
     model = TaskList
     success_url = reverse_lazy('list_of_items:task_list_list')
 
     def get(self, request, *args, **kwargs):
-        return HttpResponseRedirect(reverse('list_of_items:task_list_list') + '?' + self.request.GET.urlencode)       
+        return HttpResponseRedirect(reverse('list_of_items:task_list_list') + '?' + self.request.GET.urlencode)
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -104,9 +121,9 @@ class TaskListDeleteView(DeleteView):
                 self.request, f'Sucesso ao deletar {self.object.title}')
 
         return HttpResponseRedirect(success_url)
-    
+
     def get_success_url(self):
-        # Verificando qual será a ordem da listagem pela QueryString da requisição        
+        # Verificando qual será a ordem da listagem pela QueryString da requisição
         if self.request.GET.get('change'):
             return reverse('list_of_items:task_list_list') + '?change=order'
 
