@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView
-from project.apps.list_of_items.forms import ModelFormTaskList
+from project.apps.list_of_items.forms import ModelFormTaskList, ModelFormTaskListItem
 from project.apps.list_of_items.models import TaskList
 import json
 
@@ -20,6 +20,9 @@ class TaskListListView(ListView):
 
         form = ModelFormTaskList()
         context['form'] = form
+        
+        form_item = ModelFormTaskListItem()
+        context['form_item'] = form_item
 
         # Url da requisição atual
         context['url_list_mode'] = self.request.path

@@ -4,80 +4,104 @@
   align-items: center;
 }
 
-#add-item-content{
-    width: 60%;
-    height: 70%;
-    margin-top: 6%;
-    margin-left: 20%;
-    background-color: #fefefe;
-    border: 1px solid #888;
-    border-radius: 10px;
-
+#add-item-content {
+  width: 60%;
+  height: 70%;
+  margin-top: 6%;
+  margin-left: 20%;
+  background-color: #fefefe;
+  border: 1px solid #888;
+  border-radius: 10px;
 }
 
 #annotation-header-detail {
-    width: 100%;
-    display: flex;
-    align-items: center;    
-    justify-content: space-between;
-
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-#annotation-header-detail div{
-    width: 96%;
-    padding-top: 2%;
-    display: flex;
-    align-content: center;
-    justify-content: center;  
-  }
+#annotation-header-detail div {
+  width: 96%;
+  padding-top: 2%;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
 
-#add-item-title{
+#add-item-title {
   font-size: 2vw;
 }
 
+#close-modal-add-item {
+  font-size: 3vw;
+  margin-top: 1%;
+  margin-right: 2%;
+}
+
 #add-item-body {
-    height: 84%;
+  height: 84%;
 }
 
 #list-items-add-item {
   margin: 1%;
   height: 75%;
   padding: 1%;
-  border-radius: 10px;
-  background: rgba(1,1,1, 0.1);
-  
+  border-radius: 5px;
+  background: rgba(1, 1, 1, 0.05);
+  border: 1px solid rgba(1, 1, 1, 0.5);
+  overflow-y: auto;
 }
 
 #list-items-add-item ul {
-  list-style: none;    
+  list-style: none;
 }
 
-.item-description-add-item div{    
-    display: flex;
-    justify-content: space-between;
-    overflow-y:auto;
-    
+.item-description-add-item div {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.item-description-add-item div:hover {
+  background: rgba(1,1,1,0.1)
 }
 
 .item-description-add-item p {
-    font-size: 1.5vw;    
+  font-size: 3.2vh;
 }
 
-
-
-.item-description-add-item span {
-    
-  
-}
-
-
-#close-modal-add-item {  
-  font-size: 3vw;    
-  margin-top: 1%;
-  margin-right: 2%;
-}
-
-.delete-add-item{
+.delete-add-item {
   font-size: 2vw;
 }
+
+#form-add-item {
+  display: flex;
+  justify-content: space-between;
+  margin: 2% 1%;  
+  width: inherit;
+  height: 17%;
+}
+
+#form-add-item input {
+  width: 65%;
+  height: 40%;
+}
+
+.btn-form-add-item {
+  height: 58%;
+}
+
+#btn-submit-add-item:hover {
+  background: rgb(8, 46, 88);
+}
+
+#btn-delete-selected-items {
+  background: rgb(231, 3, 3)
+}
+
+#btn-delete-selected-items:hover {
+  background: rgb(139, 3, 3)
+}
+
 
