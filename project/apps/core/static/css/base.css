@@ -125,3 +125,16 @@ header h1 {
   height: 100%;    
   background-color: rgba(0, 0, 0, 0.2);
 }
+
+.close{  
+  color: #aaa;  
+  font-family: serif;
+  font-weight: bold;      
+}
+
+.close:hover,
+.close:focus {
+  color: red;
+  text-decoration: none;
+  cursor: pointer;
+}

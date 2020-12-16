@@ -29,19 +29,9 @@
   margin-left: 10%;
 }
 
-.close-modal-new-item {  
-  color: #aaa;  
-  font-size: 3vw;
-  font-family: serif;
-  font-weight: bold;    
+#close-modal-new-item {    
+  font-size: 3vw;   
   margin-top: 1%;
-  margin-right: 2%;
-  
+  margin-right: 2%;  
 }
 
-.close-modal-new-item:hover,
-.close-modal-new-item:focus {
-  color: red;
-  text-decoration: none;
-  cursor: pointer;
-}

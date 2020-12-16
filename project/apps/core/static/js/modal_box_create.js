@@ -5,7 +5,7 @@ var modal_create = document.getElementById("modal-new-item");
 var btn_open = document.getElementById("new-item-button");
 
 // Pegando o elemento span que fecha o modal
-var span_create = document.getElementsByClassName("close-modal-new-item")[0];
+var span_create = document.getElementById("close-modal-new-item");
 
 // Evento de click no botão que abre o modal
 btn_open.onclick = function () {
