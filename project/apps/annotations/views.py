@@ -99,7 +99,7 @@ class AnnotationUpdateView(UpdateView):
         data = json.loads(request.body)
         data = data['annotation']
             
-        # Validando os dados com os Model Form
+        # Validando os dados com o Model Form
         form = ModelFormAnnotation(data)
         if form.is_valid():            
             Annotation.objects.filter(pk=annotation.pk).update(**form.cleaned_data)
