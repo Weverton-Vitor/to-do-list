@@ -98,16 +98,13 @@ class AnnotationUpdateView(UpdateView):
         # Pegando o conteúdo do json enviado na requisição
         data = json.loads(request.body)
         data = data['annotation']
-
-        # Validando os dados
-        if data['title'] != '' and len(data['title']) <= 25 and data['description'] != '':
-            if data['priority'] in [1, 2, 3]:
-                annotation.title = data['title']
-                annotation.description = data['description']
-                annotation.priority = data['priority']
-                annotation.save()
-
-                return get_annotation(request, annotation.pk, msg='Sucesso ao editar ' +  data['title'])
+            
+        # Validando os dados com os Model Form
+        form = ModelFormAnnotation(data)
+        if form.is_valid():            
+            Annotation.objects.filter(pk=annotation.pk).update(**form.cleaned_data)
+            return get_annotation(request, annotation.pk, msg='Sucesso ao editar ' +  data['title'])
+            
 
         return JsonResponse({'msg': 'Erro ao editar'}, status=400)
 
