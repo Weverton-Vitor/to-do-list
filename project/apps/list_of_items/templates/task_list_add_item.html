@@ -1,0 +1,111 @@
+{% load static %}
+
+{% block css %}
+
+<link rel="stylesheet" href="{% static 'css/list_of_items/add_item_task_list.css' %}">
+
+{% endblock css%}
+
+
+<div id='modal-add-item' class='modal' style='display: block'>
+    <div id='add-item-content'>        
+
+        <div id="annotation-header-detail">
+            <div>
+                <p id='add-item-title'>Adicionar Item</p>    
+            </div>
+            <span id="close-modal-add-item" class="close">&times</span>
+        </div>
+
+        <hr id="line-options-detail">
+                            
+        <div id='add-item-body'>    
+
+            <div id="list-items-add-item">
+                <hr>    
+                <ul>                                            
+                    <li class='item-description-add-item'>
+                        <div>
+                            <p>Item 1</p>
+                            <span id="delete-add-item-1" class="close delete-add-item">&times</span>                        
+                        </div>
+                        <hr>
+                    </li>     
+
+                   <li class='item-description-add-item'>
+                        <div>
+                            <p>Item 1</p>
+                            <span id="delete-add-item-1" class="close delete-add-item">&times</span>                        
+                        </div>
+                        <hr>
+                    </li>  
+
+                   <li class='item-description-add-item'>
+                        <div>
+                            <p>Item 1</p>
+                            <span id="delete-add-item-1" class="close delete-add-item">&times</span>                        
+                        </div>
+                        <hr>
+                    </li>  
+                    <li class='item-description-add-item'>
+                        <div>
+                            <p>Item 1</p>
+                            <span id="delete-add-item-1" class="close delete-add-item">&times</span>                        
+                        </div>
+                        <hr>
+                    </li>     
+
+                   <li class='item-description-add-item'>
+                        <div>
+                            <p>Item 1</p>
+                            <span id="delete-add-item-1" class="close delete-add-item">&times</span>                        
+                        </div>
+                        <hr>
+                    </li>  
+
+                   <li class='item-description-add-item'>
+                        <div>
+                            <p>Item 1</p>
+                            <span id="delete-add-item-1" class="close delete-add-item">&times</span>                        
+                        </div>
+                        <hr>
+                    </li>  
+
+                    <li class='item-description-add-item'>
+                        <div>
+                            <p>Item 1</p>
+                            <span id="delete-add-item-1" class="close delete-add-item">&times</span>                        
+                        </div>
+                        <hr>
+                    </li>     
+
+                   <li class='item-description-add-item'>
+                        <div>
+                            <p>Item 1</p>
+                            <span id="delete-add-item-1" class="close delete-add-item">&times</span>                        
+                        </div>
+                        <hr>
+                    </li>  
+
+                   <li class='item-description-add-item'>
+                        <div>
+                            <p>Item 1</p>
+                            <span id="delete-add-item-1" class="close delete-add-item">&times</span>                        
+                        </div>
+                        <hr>
+                    </li>                                                                     
+ 
+                </ul>   
+            </div>
+                                                                                  
+        </div>          
+
+    </div>   
+                           
+</div>
+
+{% block js %}
+
+<script src="{% static 'js/list_of_items/add_item_task_list.js' %}"></script>
+
+{% endblock js %}
