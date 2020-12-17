@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView
 from project.apps.list_of_items.forms import ModelFormTaskList, ModelFormTaskListItem
-from project.apps.list_of_items.models import TaskList
+from project.apps.list_of_items.models import TaskList, TaskListItem
 import json
 
 
@@ -76,10 +76,10 @@ class TaskListCreateView(CreateView):
             data = json.loads(self.request.body)
             form = ModelFormTaskList(data['task_list'])
             if form.is_valid():
-                form.save()
-                return JsonResponse({'ok': '1'})
-
-            return JsonResponse({'erro': 'o'})
+                task_list = form.save()
+                return JsonResponse({'task_title': task_list.title, 'task_id': task_list.id})                
+            
+            return JsonResponse({'erro': 'o'}, status=400)
         else:
             form = self.get_form()
             if form.is_valid():
@@ -131,3 +131,31 @@ class TaskListDeleteView(DeleteView):
             return reverse('list_of_items:task_list_list') + '?change=order'
 
         return reverse('list_of_items:task_list_list')
+
+
+class TaskListItemCreateView(CreateView):
+    model = TaskListItem
+    form_class = ModelFormTaskList
+
+    def get(self, request, *args, **kwargs):
+        # Verificando qual será a ordem da listagem pela QueryString da requisição
+        if self.request.GET.get('change'):
+            return HttpResponseRedirect(reverse('list_of_items:task_list_list') + '?' + self.request.GET.urlencode())
+
+        return HttpResponseRedirect(reverse('list_of_items:task_list_list'))
+
+    def post(self, request, *args, **kwargs):        
+        data = json.loads(self.request.body)      
+        data = data['task_list_item']     
+        form = ModelFormTaskListItem(data)        
+        if form.is_valid():                        
+            task_list = TaskList.objects.get(pk=data['task_list'])                         
+            item = TaskListItem(task_list=task_list, description=form.cleaned_data['description'])
+            item.save()
+            return JsonResponse({'description': 'item.description'})     
+        
+
+        
+        return JsonResponse({'erro':0}, status=400)                
+                        
+    

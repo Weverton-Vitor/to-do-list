@@ -7,7 +7,7 @@
 {% endblock css%}
 
 
-<div id='modal-add-item' class='modal' style='display: block'>
+<div id='modal-add-item' class='modal'>
     <div id='add-item-content'>        
 
         <div id="annotation-header-detail">
@@ -33,16 +33,18 @@
                 </ul>   
             </div>
 
-            <form id='form-add-item' action="" method="post">
+            <form id='form-add-item' action="{% url 'list_of_items:task_list_item_create' %}" method="post">
                 {% csrf_token %}
 
                 {{form_item.description}} 
+
+                <input id="task-id" type="hidden" name="task_id" value="">
                 
-                <button id="btn-submit-add-item" class='btn btn-form btn-form-add-item'  type="submit">
+                <button id="btn-submit-add-item" class='btn btn-form btn-form-add-item'  type="button">
                     <p>Adicionar</p>
                 </button> 
 
-                <button id="btn-delete-selected-items" class='btn btn-form  btn-form-add-item'  type="submit">
+                <button id="btn-delete-selected-items" class='btn btn-form  btn-form-add-item'>
                     <p>Excluir Selecionados</p>
                 </button>                
             </form>

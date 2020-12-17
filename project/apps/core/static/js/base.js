@@ -14,11 +14,19 @@ function clearFormCreate(id_form, id_modal){
     id_form = "#" + id_form
 
     form = document.querySelector(id_form)
-    form.reset()
-    form.onsubmit = 'none'
-
     modal = document.querySelector(id_modal); 
-    modal.style.display = 'none';                
+
+
+    if (form != null) {
+        form.reset()
+        form.onsubmit = 'none'
+    }
+
+    if (modal != null) {
+        modal.style.display = 'none';   
+    }
+
+                
     
 
 }

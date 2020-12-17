@@ -1,5 +1,5 @@
 #modal-add-item {
-  display: block;
+  display: none;
   justify-content: center;
   align-items: center;
 }
@@ -7,8 +7,6 @@
 #add-item-content {
   width: 60%;
   height: 70%;
-  margin-top: 6%;
-  margin-left: 20%;
   background-color: #fefefe;
   border: 1px solid #888;
   border-radius: 10px;
