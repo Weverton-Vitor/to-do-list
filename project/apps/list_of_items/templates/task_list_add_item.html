@@ -19,18 +19,19 @@
 
         <hr id="line-options-detail">
                             
-        <div id='add-item-body'>
+        <div id="add-item-body">
             <div id="list-items-add-item">
                 <hr>    
                 <ul>                                            
-                    <li class='item-description-add-item'>
+                    <li id="template-item" class='item-description-add-item'>
                         <div>
                             <p>Item 1</p>
-                            <span id="delete-add-item-1" class="close delete-add-item">&times</span>                        
+                            <span id="delete-add-item" class="close delete-add-item">&times</span>                        
                         </div>
                         <hr>
                     </li> 
                 </ul>   
+                <p id="empty-msg" >Sem Itens na lista</p>
             </div>
 
             <form id='form-add-item' action="{% url 'list_of_items:task_list_item_create' %}" method="post">

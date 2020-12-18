@@ -65,8 +65,18 @@
   background: rgba(1,1,1,0.1)
 }
 
+#template-item {
+  display: none
+}
+
 .item-description-add-item p {
   font-size: 3.2vh;
+}
+
+#empty-msg {
+  font-size: 2.5vw;
+  text-align: center;
+  margin-right: 5%;
 }
 
 .delete-add-item {

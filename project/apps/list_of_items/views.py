@@ -152,7 +152,7 @@ class TaskListItemCreateView(CreateView):
             task_list = TaskList.objects.get(pk=data['task_list'])                         
             item = TaskListItem(task_list=task_list, description=form.cleaned_data['description'])
             item.save()
-            return JsonResponse({'description': 'item.description'})     
+            return JsonResponse({'id': item.id, 'description': item.description})     
         
 
         

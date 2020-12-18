@@ -105,6 +105,7 @@ function postDataTaskListItem() {
           response = JSON.parse(xhr.responseText);
           // Limpando o formulário
           title_task_list_item_input.value = ''
+          addItem(response.description, response.id)
         } else if (xhr.status == 400) {
           response = JSON.parse(xhr.responseText);
         }
@@ -131,4 +132,31 @@ function showModalAddItem(task_title, task_id) {
   // Setando o id da nova lista que vai receber items
   task_id_input = document.querySelector("#task-id");
   task_id_input.value = task_id;
+}
+
+// Função para adicionar os novos itens em uma lista para visualização do usuário
+function addItem(item_description, item_id) {
+  empty_msg = document.querySelector("#empty-msg")
+  list_item = document.querySelector("#list-items-add-item").childNodes[3]
+  template_item = document.querySelector("#template-item")
+  new_item = template_item.cloneNode(true)
+
+  empty_msg.style.display = 'none'
+
+  // Mudando o id do item
+  new_item.id = 'item-' + item_id
+
+  // Alterando a descrição do item
+  new_item.childNodes[1].childNodes[1].innerText = item_description
+
+  new_item.style.display = 'block'
+
+  // Modificando o botão de remover o item
+  new_item.childNodes[1].childNodes[3].id = "delete-add-item-" + item_id
+  new_item.childNodes[1].childNodes[3].dataset.id = item_id
+
+  // Adicionando o item
+  list_item.appendChild(new_item)
+
+  
 }
