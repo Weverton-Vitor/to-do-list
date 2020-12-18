@@ -12,7 +12,7 @@ class AnnotationListView(ListView):
     template_name = 'annotation_list.html'
     model = Annotation
     context_object_name = 'annotations'
-    paginate_by = 8    
+    paginate_by = 8
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -22,8 +22,7 @@ class AnnotationListView(ListView):
         context['form'] = form
 
         # Url da requisição atual
-        context['url_list_mode'] = self.request.path       
-        
+        context['url_list_mode'] = self.request.path
 
         # Só adiciona a query string ao contexto caso ela não exista,
         # Se ela existir, em uma proxima requisição vinda do botão de alteração ela não será adicionada
@@ -32,11 +31,15 @@ class AnnotationListView(ListView):
         else:
             # Atualizando a url da requisção atual para seguir a ordem da listagem
             context['url_list_mode'] += '?change=order'
-            
+
         # Link que o formulário de pesquisa vai ser submetido
-        context['link_search'] = reverse('annotations:annotation_list')
+        context['link_search'] = reverse('annotations:annotation_list')        
         
-        context['title'] = self.request.GET.get('title')
+        # Mensagem para caso a lista estiver vazia
+        context['empty_msg'] = 'Sem Itens'
+        title = self.request.GET.get('title')
+        if title:
+            context['empty_msg'] = f'Sem resultados para {title}'
 
         return context
 
@@ -46,12 +49,12 @@ class AnnotationListView(ListView):
             queryset = Annotation.objects.all().order_by('-priority')
         else:
             queryset = Annotation.objects.all().order_by('priority')
-            
+
         # Verificando se existe filtragem
         title = self.request.GET.get('title')
         if title:
             queryset = queryset.filter(title__istartswith=title)
-            
+
         return queryset
 
 
@@ -60,28 +63,27 @@ class AnnotationCreateView(CreateView):
     form_class = ModelFormAnnotation
 
     def get(self, request, *args, **kwargs):
-        # Verificando qual será a ordem da listagem pela QueryString da requisição        
+        # Verificando qual será a ordem da listagem pela QueryString da requisição
         if self.request.GET.get('change'):
             return HttpResponseRedirect(reverse('annotations:annotation_list') + '?' + self.request.GET.urlencode())
 
         return HttpResponseRedirect(reverse('annotations:annotation_list'))
 
     def form_invalid(self, form):
-        messages.error(self.request, "Erro ao adicionar")        
-        
+        messages.error(self.request, "Erro ao adicionar")
+
         # Verificando qual será a ordem da listagem pela QueryString da requisição
         if self.request.GET.get('change'):
             return HttpResponseRedirect(reverse('annotations:annotation_list') + '?' + self.request.GET.urlencode())
 
         return HttpResponseRedirect(reverse('annotations:annotation_list'))
-        
 
-    def form_valid(self, form):                        
-        messages.success(self.request, "Sucesso ao adicionar")        
+    def form_valid(self, form):
+        messages.success(self.request, "Sucesso ao adicionar")
         return super().form_valid(form)
 
     def get_success_url(self):
-        # Verificando qual será a ordem da listagem pela QueryString da requisição        
+        # Verificando qual será a ordem da listagem pela QueryString da requisição
         if self.request.GET.get('change'):
             return reverse('annotations:annotation_list') + '?change=order'
 
@@ -98,13 +100,13 @@ class AnnotationUpdateView(UpdateView):
         # Pegando o conteúdo do json enviado na requisição
         data = json.loads(request.body)
         data = data['annotation']
-            
+
         # Validando os dados com o Model Form
         form = ModelFormAnnotation(data)
-        if form.is_valid():            
-            Annotation.objects.filter(pk=annotation.pk).update(**form.cleaned_data)
-            return get_annotation(request, annotation.pk, msg='Sucesso ao editar ' +  data['title'])
-            
+        if form.is_valid():
+            Annotation.objects.filter(
+                pk=annotation.pk).update(**form.cleaned_data)
+            return get_annotation(request, annotation.pk, msg='Sucesso ao editar ' + data['title'])
 
         return JsonResponse({'msg': 'Erro ao editar'}, status=400)
 
@@ -117,7 +119,7 @@ class AnnotationDeleteView(DeleteView):
     success_url = reverse_lazy('annotations:annotation_list')
 
     def get(self, request, *args, **kwargs):
-        return HttpResponseRedirect(reverse('annotations:annotation_list') + '?' + self.request.GET.urlencode)       
+        return HttpResponseRedirect(reverse('annotations:annotation_list') + '?' + self.request.GET.urlencode)
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -128,9 +130,9 @@ class AnnotationDeleteView(DeleteView):
                 self.request, f'Sucesso ao deletar {self.object.title}')
 
         return HttpResponseRedirect(success_url)
-    
+
     def get_success_url(self):
-        # Verificando qual será a ordem da listagem pela QueryString da requisição        
+        # Verificando qual será a ordem da listagem pela QueryString da requisição
         if self.request.GET.get('change'):
             return reverse('annotations:annotation_list') + '?change=order'
 

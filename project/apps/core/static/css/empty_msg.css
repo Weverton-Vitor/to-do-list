@@ -1,0 +1,19 @@
+#empty-container {
+  width: 95%;
+  height: 15%;  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #db5607;  
+  border-radius: 10px;  
+  padding: 0 1%;
+}
+
+#empty-msg {
+  font-size: 2vw;
+  color: white;
+}
+
+#icon-warning {
+  width: 4.5%
+}

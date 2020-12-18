@@ -20,7 +20,7 @@ class TaskListListView(ListView):
 
         form = ModelFormTaskList()
         context['form'] = form
-        
+
         form_item = ModelFormTaskListItem()
         context['form_item'] = form_item
 
@@ -38,7 +38,11 @@ class TaskListListView(ListView):
         # Link que o formulário de pesquisa vai ser submetido
         context['link_search'] = reverse('list_of_items:task_list_list')
 
-        context['title'] = self.request.GET.get('title')
+        # Mensagem para caso a lista estiver vazia
+        context['empty_msg'] = 'Sem Itens'
+        title = self.request.GET.get('title')
+        if title:
+            context['empty_msg'] = f'Sem resultados para {title}'
 
         return context
 
@@ -52,7 +56,7 @@ class TaskListListView(ListView):
         else:
             queryset = queryset.order_by('modified')
 
-        # # Verificando se existe filtragem
+        # Verificando se existe filtragem
         title = self.request.GET.get('title')
         if title:
             queryset = queryset.filter(title__istartswith=title)
@@ -77,8 +81,8 @@ class TaskListCreateView(CreateView):
             form = ModelFormTaskList(data['task_list'])
             if form.is_valid():
                 task_list = form.save()
-                return JsonResponse({'task_title': task_list.title, 'task_id': task_list.id})                
-            
+                return JsonResponse({'task_title': task_list.title, 'task_id': task_list.id})
+
             return JsonResponse({'erro': 'o'}, status=400)
         else:
             form = self.get_form()
@@ -144,18 +148,15 @@ class TaskListItemCreateView(CreateView):
 
         return HttpResponseRedirect(reverse('list_of_items:task_list_list'))
 
-    def post(self, request, *args, **kwargs):        
-        data = json.loads(self.request.body)      
-        data = data['task_list_item']     
-        form = ModelFormTaskListItem(data)        
-        if form.is_valid():                        
-            task_list = TaskList.objects.get(pk=data['task_list'])                         
-            item = TaskListItem(task_list=task_list, description=form.cleaned_data['description'])
+    def post(self, request, *args, **kwargs):
+        data = json.loads(self.request.body)
+        data = data['task_list_item']
+        form = ModelFormTaskListItem(data)
+        if form.is_valid():
+            task_list = TaskList.objects.get(pk=data['task_list'])
+            item = TaskListItem(task_list=task_list,
+                                description=form.cleaned_data['description'])
             item.save()
-            return JsonResponse({'id': item.id, 'description': item.description})     
-        
+            return JsonResponse({'id': item.id, 'description': item.description})
 
-        
-        return JsonResponse({'erro':0}, status=400)                
-                        
-    
+        return JsonResponse({'erro': 0}, status=400)

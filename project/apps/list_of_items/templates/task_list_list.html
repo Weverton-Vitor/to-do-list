@@ -99,6 +99,10 @@
         </div>
                                   
     </div>
+
+    {% empty %}    
+    <!--Incluindo mensagem para listagem vazia-->
+    {% include "includes/empty_msg.html" %}
             
     {% endfor %}    
 

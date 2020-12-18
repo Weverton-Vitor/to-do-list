@@ -1,0 +1,11 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/empty_msg.css' %}">
+
+{% block css %}
+
+{% endblock css %}
+
+<div id="empty-container">
+    <p id='empty-msg'>{{empty_msg}}</p>
+    <img id='icon-warning' src="{% static 'images/warning.svg' %}" alt="Aviso">
+</div>
