@@ -126,6 +126,12 @@ header h1 {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
+.modal-center {
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
 .close{  
   color: #aaa;  
   font-family: serif;
