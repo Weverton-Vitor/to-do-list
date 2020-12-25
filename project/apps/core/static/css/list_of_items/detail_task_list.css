@@ -1,0 +1,76 @@
+.content-task-list-detail {
+  width: 60%;
+  height: 70%;
+  background-color: #fefefe;
+  border: 1px solid #888;
+  border-radius: 10px;
+}
+
+.task-list-header-detail {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;  
+}
+
+#task-list-title-detail {
+  font-size: 2vw;
+  margin-left: 1%;
+  margin-top: 1%;  
+  width: 80%;
+}
+
+
+.task-list-options-detail {
+  width: 20%;  
+  padding-top: 0.3%;
+  display: flex;
+  align-content: center;
+  justify-content: end;
+}
+
+#btn-edit-detail {
+  width: 99%;
+  display: flex;
+  justify-content: end;
+}
+
+#icon-edit-detail {
+  width: 29%;
+}
+
+#icon-edit-detail:hover {
+  width: 32%;  
+}
+
+#form-delete-detail {
+  width: 30%;
+  display: flex;
+}
+
+#form-delete-detail button {
+  width: 95%;
+}
+
+#form-delete-detail button:hover {
+  width: 100%;
+}
+
+#icon-trash-detail {
+  width: 100%;
+}
+
+.task-list-body-detail {
+  height: 95%;
+}
+
+#close-modal-detail {
+  margin-left: 1%;
+  margin-top: -1%;
+  width: 5%;
+  cursor: pointer;
+}
+
+#close-modal-detail:hover {
+  width: 5.8%;
+}
+

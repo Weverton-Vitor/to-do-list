@@ -71,13 +71,18 @@
   margin-bottom: 0
 }
 
-.task_list-body {
+.task-list-body {
   height: 75%;
   padding: 2%;
   cursor: pointer;
 }
 
-.task_list-body ul{
+.task-list-body:hover {
+  background: rgba(1, 1, 1, 0.5);
+  z-index: 1;
+}
+
+.task-list-body ul{
   list-style: none;
   padding-left: 2%;  
   margin-top: -2%;

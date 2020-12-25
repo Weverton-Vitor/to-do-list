@@ -20,7 +20,7 @@
         <hr id="line-options-detail">
                             
         <div id="add-item-body">
-            <div id="list-items-add-item">
+            <div id="list-items-add-item" class"list-item">
                 <hr>    
                 <ul>                                            
                     <li id="template-item" class='item-description-add-item'>
@@ -31,7 +31,7 @@
                         <hr>
                     </li> 
                 </ul>   
-                <p id="empty-msg-list" >Sem Itens na lista</p>
+                <p id="empty-msg-list" class="empty-msg-list">Sem Itens na lista</p>
             </div>
 
             <form id='form-add-item' action="{% url 'list_of_items:task_list_item_create' %}" method="post">

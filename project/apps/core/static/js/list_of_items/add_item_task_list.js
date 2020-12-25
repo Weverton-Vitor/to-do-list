@@ -136,7 +136,7 @@ function showModalAddItem(task_title, task_id) {
 
 // Função para adicionar os novos itens em uma lista para visualização do usuário
 function addItem(item_description, item_id) {
-  empty_msg = document.querySelector("#empty-msg")
+  empty_msg = document.querySelector("#empty-msg-list")
   list_item = document.querySelector("#list-items-add-item").childNodes[3]
   template_item = document.querySelector("#template-item")
   new_item = template_item.cloneNode(true)

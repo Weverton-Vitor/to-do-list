@@ -49,7 +49,7 @@
 
         <hr class="line-options">
                         
-        <div class="task_list-body">      
+        <div class="task-list-body">      
             <ul>
                 {% for item in task_list.tasklistitem_set.all|slice:":5" %}
                 <li class='item-description'>
@@ -116,10 +116,13 @@
 
 {% include "task_list_add_item.html" %}
 
+{% include "task_list_detail.html" %}
+
 {% endblock content %}
 
 {% block js %}
 <script src="{% static 'js/list_of_items/task_list_edit.js' %}"></script>
+<script src="{% static 'js/list_of_items/task_list_detail.js' %}"></script>
 <script src="{% static 'js/list_of_items/change_listing_mode_task_list.js' %}"></script>
 
 {% endblock js %}

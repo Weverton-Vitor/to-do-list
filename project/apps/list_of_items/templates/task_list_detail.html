@@ -1,0 +1,64 @@
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/list_of_items/detail_task_list.css' %}">
+
+{% endblock css%}
+
+
+<div id='modal-task-list-detail' class='modal modal-center' style='display:flex'>
+    <div class="content-task-list-detail">        
+
+        <div class="task-list-header-detail">
+
+            <p id='task-list-title-detail'>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>    
+
+            <div class="task-list-options-detail">
+
+                <button id="btn-edit-detail"  class="btn btn-option btn-edit" title="Editar" data-id={{task_list.id}}>
+                    <img id='icon-edit-detail' src="{% static 'images/edit.svg' %}" alt="Editar">
+                </button>
+                {% if change_order %}
+                <form id="form-delete-detail" action="" method="post">                    
+                {% else %}
+                <form id="form-delete-detail" action="?change=order" method="post">
+                {% endif %}
+                    {% csrf_token %}
+                    <button class="btn btn-option" type='submit' title="Excluir">
+                        <img id='icon-trash-detail' src="{% static 'images/trash-black.svg' %}" alt="Excluir">
+                    </button>
+                </form>
+                
+            </div>
+
+        </div>
+
+        <hr class="line-options">
+                        
+        <div class="task-list-body-detail">     
+            <div id="list-items-add-item" class='list-items'> 
+                <hr>    
+                <ul>                                            
+                    <li id="template-item" class='item-description-add-item'>
+                        <div>
+                            <p>Item 1</p>
+                            <span id="delete-add-item" class="close delete-add-item">&times</span>                        
+                        </div>
+                        <hr>
+                    </li> 
+                </ul>   
+                <p id="empty-msg-list-detail" class='empty-msg-list'>Sem Itens na lista</p>                
+            </div>
+            <img id='close-modal-detail' src="{% static 'images/black-left-arrow.svg' %}" title='Seta para esquerda' alt="Seta para esquerda">
+        </div>      
+        
+
+    </div>   
+                           
+</div>
+
+{% block js %}
+
+<script src="{% static 'js/list_of_items/add_item_task_list.js' %}"></script>
+
+{% endblock js %}
