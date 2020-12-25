@@ -160,3 +160,16 @@ class TaskListItemCreateView(CreateView):
             return JsonResponse({'id': item.id, 'description': item.description})
 
         return JsonResponse({'erro': 0}, status=400)
+
+def get_task_list(request, pk, **kwargs):
+    task_list = TaskList.objects.select_related().get(pk=pk)
+    items = task_list.tasklistitem_set.values_list('id', 'description')    
+    data = {
+        'id': task_list.pk,
+        'title': task_list.title,
+        'items': list(items)
+    }
+
+    data.update(kwargs)
+    return JsonResponse({'task_list': data})
+        
