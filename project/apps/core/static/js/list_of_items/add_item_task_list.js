@@ -19,7 +19,8 @@ btn_add_task_list_item.onclick = postDataTaskListItem;
 btn_close_add_item.onclick = function () {
   modal_add_item = document.querySelector("#modal-add-item");
   modal_add_item.style.display = "none";
-  clearFormCreate('form-add-item', modal_add_item.id)
+  clearFormCreate("form-add-item", modal_add_item.id);
+  clearTaskListItemsModal();
 };
 
 // Função para cadastrar listas de itens por AJAX
@@ -56,7 +57,7 @@ function postDataTaskList() {
           clearFormCreate(form_task_list.id, "modal-new-item");
 
           // Mostrando o modal para adicionar itens
-          showModalAddItem(response.task_title, response.task_id);          
+          showModalAddItem(response.task_title, response.task_id);
         } else if (xhr.status == 400) {
           response = JSON.parse(xhr.responseText);
         }
@@ -69,7 +70,6 @@ function postDataTaskList() {
     title_task_list_input.maxLength = 60;
   }
 }
-
 
 // Função para adicionar itens nas listas por AJAX
 function postDataTaskListItem() {
@@ -104,8 +104,8 @@ function postDataTaskListItem() {
         if (xhr.status == 200) {
           response = JSON.parse(xhr.responseText);
           // Limpando o formulário
-          title_task_list_item_input.value = ''
-          addItem(response.description, response.id)
+          title_task_list_item_input.value = "";
+          addItem(response.description, response.id);
         } else if (xhr.status == 400) {
           response = JSON.parse(xhr.responseText);
         }
@@ -136,27 +136,40 @@ function showModalAddItem(task_title, task_id) {
 
 // Função para adicionar os novos itens em uma lista para visualização do usuário
 function addItem(item_description, item_id) {
-  empty_msg = document.querySelector("#empty-msg-list")
-  list_item = document.querySelector("#list-items-add-item").childNodes[3]
-  template_item = document.querySelector("#template-item")
-  new_item = template_item.cloneNode(true)
+  empty_msg = document.querySelector("#empty-msg-list");
+  list_item = document.querySelector("#list-items-add-item").childNodes[3];
+  template_item = document.querySelector("#template-item");
+  new_item = template_item.cloneNode(true);
 
-  empty_msg.style.display = 'none'
+  empty_msg.style.display = "none";
 
   // Mudando o id do item
-  new_item.id = 'item-' + item_id
+  new_item.id = "item-" + item_id;
 
   // Alterando a descrição do item
-  new_item.childNodes[1].childNodes[1].innerText = item_description
+  new_item.childNodes[1].childNodes[1].innerText = item_description;
 
-  new_item.style.display = 'block'
+  new_item.style.display = "block";
 
   // Modificando o botão de remover o item
-  new_item.childNodes[1].childNodes[3].id = "delete-add-item-" + item_id
-  new_item.childNodes[1].childNodes[3].dataset.id = item_id
+  new_item.childNodes[1].childNodes[3].id = "delete-add-item-" + item_id;
+  new_item.childNodes[1].childNodes[3].dataset.id = item_id;
 
   // Adicionando o item
-  list_item.appendChild(new_item)
+  list_item.appendChild(new_item);
+}
 
-  
+// Função para para limpar os itens da lista do modal de criação
+function clearTaskListItemsModal() {
+  list_item = document.querySelector("#list-items-add-item");  
+  ul = list_item.childNodes[3]
+
+  // Função de task_list_detail.js
+  clearTaskListItemsDetailModal(list_item.id);
+
+  // Verificando se a lista está vazia
+  if (ul.childElementCount == 1) {
+    empty_msg = document.querySelector("#empty-msg-list");
+    empty_msg.style.display = "block";
+  }
 }

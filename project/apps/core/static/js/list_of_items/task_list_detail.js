@@ -10,7 +10,7 @@ task_list_body = document.querySelectorAll(".task-list-body");
 // Fechando o modal pelo botão de Fechamento
 task_list_close.onclick = function () {
   modal_detail_task_list.style.display = "none";
-  clearTaskListItemsDetailModal();
+  clearTaskListItemsDetailModal("list-items-add-item-detail");
 };
 
 for (let i = 0; i < task_list_body.length; i++) {
@@ -29,8 +29,7 @@ function showTaskListDetail() {
     if (xhr.readyState == 4) {
       if (xhr.status == 200) {
         task_list_data = JSON.parse(xhr.responseText);
-        task_list = task_list_data.task_list;
-        clearTaskListItemsDetailModal();
+        task_list = task_list_data.task_list;        
         updateTaskListDetailModal(task_list);
       }
     }
@@ -72,8 +71,7 @@ function updateTaskListDetailModal(task_list) {
 // Função para atualizar os itens da lista
 function updateTaskListItemsDetailModal(items) {
   empty_msg = document.querySelector("#empty-msg-list-detail");
-  list_item = document.querySelector("#list-items-add-item-detail")
-    .childNodes[3];
+  list_item = document.querySelector("#list-items-add-item-detail").childNodes[3];
   template_item = document.querySelector("#template-item-detail");
 
   empty_msg.style.display = "none";
@@ -107,12 +105,13 @@ function updateTaskListItemsDetailModal(items) {
   }
 }
 
-// Função para para limpar os itens da lista
-function clearTaskListItemsDetailModal() {
-  list_item = document.querySelector("#list-items-add-item-detail").childNodes[3];
+// Função para para limpar os itens da lista do modal de detalhes
+function clearTaskListItemsDetailModal(id_body_add) {
+  id_body = "#" + id_body_add
+  list_item = document.querySelector(id_body).childNodes[3];
   
   while (list_item.lastElementChild) {
-    if (list_item.lastElementChild.id != "template-item-detail") {
+    if (list_item.lastElementChild.id != "template-item-detail" && list_item.lastElementChild.id != "template-item") {
       list_item.removeChild(list_item.lastElementChild);
     } else {
       break;
