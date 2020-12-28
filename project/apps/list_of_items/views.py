@@ -32,11 +32,15 @@ class TaskListListView(ListView):
         if not (self.request.GET.get('change')):
             context['change_order'] = 'change=order'
         else:
-            # Atualizando a url da requisção atual para seguir a ordem da listagem
-            context['url_list_mode'] += '?change=order'
+            # Atualizando a url da requição atual para seguir a ordem da listagem
+            context['url_list_mode'] += '?change=order'                    
+        
 
         # Link que o formulário de pesquisa vai ser submetido
         context['link_search'] = reverse('list_of_items:task_list_list')
+        
+        # Descrição para o botão de alterar a ordem da listagem
+        context['title_btn_change'] = 'Alterar ordem de listagem por data de alteração'
 
         # Mensagem para caso a lista estiver vazia
         context['empty_msg'] = 'Sem Itens'
