@@ -19,25 +19,27 @@ window.onclick = function (event) {
   }
 };
 
+
 for (let i = 0; i < annotation_body.length; i++) {
   // Só adicionar o evento se o annotation_body não for o annotation_body do modal de detalhes
-  if (annotation_body[i].id != "annotation-body-detail") {
-    annotation_body[i].onclick = showDetail;
-  }
+  //if (annotation_body[i].id != "annotation-body-detail") {
+    annotation_body[i].onclick = showAnnotationDetail;    
+  //}
 }
 
-function showDetail() {
+// Função para que busca os dados da anotação
+function showAnnotationDetail() {
   // Buscando os dados da anotação
   annotation_id = this.childNodes[1].dataset.id;
 
   let xhr = new XMLHttpRequest();
-  xhr.open("GET", "http://127.0.0.1:8000/Anotacoes/Anotacao/" + annotation_id);
+  xhr.open("GET", "Anotacao/" + annotation_id);
 
   xhr.onreadystatechange = () => {
     if (xhr.readyState == 4) {
       if (xhr.status == 200) {
         annotation_data = JSON.parse(xhr.responseText);
-        annotation = annotation_data.annotation;
+        annotation = annotation_data.annotation;        
         updateAnnotationDetailModal(annotation)           
       }
     }

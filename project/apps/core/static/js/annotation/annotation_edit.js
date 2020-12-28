@@ -15,7 +15,7 @@ function get_data_annotation() {
   modal_detail.style.display = "none";
 
   let xhr = new XMLHttpRequest();
-  xhr.open("GET", "http://127.0.0.1:8000/Anotacoes/Anotacao/" + annotation_id);
+  xhr.open("GET", "Anotacao/" + annotation_id);
 
   xhr.onreadystatechange = () => {
     if (xhr.readyState == 4) {
