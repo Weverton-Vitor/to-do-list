@@ -52,7 +52,7 @@
         <div class="task-list-body" data-id={{task_list.id}}>      
             <ul>
                 {% for item in task_list.tasklistitem_set.all|slice:":5" %}
-                <li class='item-description'>
+                <li id='item-{{item.id}}' class='item-description'>
                 {{item.description}}
                 </li>
                 {% endfor %}
@@ -72,7 +72,7 @@
                 <hr class="line-title">
                 <ul class="list-item-description">
                     {% for item in task_list.tasklistitem_set.all|slice:"7" %}
-                    <li class='item-description'>
+                    <li id='item-{{item.id}}' class='item-description'>
                     {{item.description}}
                     </li>
                 {% endfor %}

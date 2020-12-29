@@ -176,4 +176,10 @@ def get_task_list(request, pk, **kwargs):
 
     data.update(kwargs)
     return JsonResponse({'task_list': data})
+
+def detele_task_list_item(request, pk):
+    item = TaskListItem.objects.filter(pk=pk)
+    item = item.delete()
+    
+    return JsonResponse({'sucess': item[0]})
         

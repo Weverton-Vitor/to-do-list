@@ -10,12 +10,16 @@ btn_add_task_list_item = document.querySelector("#btn-submit-add-item");
 // Botão que fecha o modal
 btn_close_add_item = document.querySelector("#close-modal-add-item");
 
+// Botões que removem um item da lista e do banco de dados
+btns_remove_item = document.querySelectorAll(".delete-add-item");
+
 // Evento de envio por AJAX do formulário
 btn_add_item.onclick = postDataTaskList;
 
 // Evento de adicionar um item por AJAX do formulário
 btn_add_task_list_item.onclick = postDataTaskListItem;
 
+// Evento para fechar o modal de novos itens
 btn_close_add_item.onclick = function () {
   modal_add_item = document.querySelector("#modal-add-item");
   modal_add_item.style.display = "none";
@@ -140,6 +144,7 @@ function addItem(item_description, item_id) {
   list_item = document.querySelector("#list-items-add-item").childNodes[3];
   template_item = document.querySelector("#template-item");
   new_item = template_item.cloneNode(true);
+  close_button = new_item.childNodes[1].childNodes[3];
 
   empty_msg.style.display = "none";
 
@@ -152,11 +157,14 @@ function addItem(item_description, item_id) {
   new_item.style.display = "block";
 
   // Modificando o botão de remover o item
-  new_item.childNodes[1].childNodes[3].id = "delete-add-item-" + item_id;
-  new_item.childNodes[1].childNodes[3].dataset.id = item_id;
+  // E adicionando evento para remover o item da lista e do banco de dados
+  close_button.id = "delete-add-item-" + item_id;
+  close_button.dataset.id = item_id;
+  close_button.onclick = postRemoveItem;
 
   // Adicionando o item
   list_item.appendChild(new_item);
+
 }
 
 // Função para para limpar os itens da lista do modal de criação
@@ -172,4 +180,50 @@ function clearTaskListItemsModal() {
     empty_msg = document.querySelector("#empty-msg-list");
     empty_msg.style.display = "block";
   }
+}
+
+
+// Função para remover um item do modal e no banco de dados
+function postRemoveItem() {
+  id = this.dataset.id;
+
+  token = document.querySelector("[name=csrfmiddlewaretoken]");
+
+  let xhr = new XMLHttpRequest();
+    xhr.open("POST", '/Listas/Deletar/Item/'+id, true);
+
+    xhr.setRequestHeader("Content-type", "application/json");
+    xhr.setRequestHeader("X-CSRFToken", token.value);
+
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState == 4) {
+        if (xhr.status == 200) {
+          item = this.parentElement.parentElement;   
+          
+          // Testando se a lista está vazia e mostrando a mensagem de lista vazia
+          if (item.parentElement.childElementCount-1 == 1) {
+            if (item.parentElement.parentElement.id.includes('detail')) {
+              empty_msg = document.querySelector("#empty-msg-list-detail");              
+              empty_msg.style.display = "block";
+            } else {
+              empty_msg = document.querySelector("#empty-msg-list");              
+              empty_msg.style.display = "block";
+            }
+          }
+
+          // Removendo o item(<li>)
+          item.remove();
+
+          // Removendo o item da lista na listagem geral
+          overview_item = document.getElementById('item-' + this.dataset.id);
+          overview_item.remove();
+
+        } else if (xhr.status == 400) {
+          
+        }
+      }
+    };
+
+    xhr.send();
+  
 }

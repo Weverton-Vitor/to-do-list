@@ -59,7 +59,7 @@ function updateTaskListDetailModal(task_list) {
 
   // Setando action do formulário para excluir pelo modal de detalhes
   form_task_list_detail = document.querySelector("#form-delete-detail");
-  form_task_list_detail.action = "/Anotacoes/Deletar/" + task_list.id;
+  form_task_list_detail.action = "/Listas/Deletar/" + task_list.id;
 
   // Verificando a ordem de listagem das listas
   action_form_create_task_list = document.querySelector("#form-create").action;
@@ -79,6 +79,7 @@ function updateTaskListItemsDetailModal(items) {
   // Adicionando os itens a lista
   items.forEach((item) => {
     new_item = template_item.cloneNode(true);
+    close_button =  new_item.childNodes[1].childNodes[3];
     item_id = item[0];
     item_description = item[1];
 
@@ -91,8 +92,10 @@ function updateTaskListItemsDetailModal(items) {
     new_item.style.display = "block";
 
     // Modificando o botão de remover o item
-    new_item.childNodes[1].childNodes[3].id = "delete-detail-item-" + item_id;
-    new_item.childNodes[1].childNodes[3].dataset.id = item_id;
+    // E adicionando evento para remover o item da lista e do banco de dados    
+    close_button.id = "delete-detail-item-" + item_id;
+    close_button.dataset.id = item_id;
+    close_button.onclick = postRemoveItem;
 
     // Adicionando o item
     list_item.appendChild(new_item);
