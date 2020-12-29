@@ -2,14 +2,8 @@
 function change_listing_mode(mode) {
   localStorage.setItem("listing_mode", mode);
 
-  links = document.querySelectorAll(".link-search-bar");
-
-  for (i = 0; i < 2; i++) {
-    link = links[i];
-    if (link.classList.contains("active-link")) {
-      link.classList.remove("active-link");
-    }
-  }
+  link = document.querySelectorAll(".active-link")[0];    
+  link.classList.remove("active-link");
 
   // Escondendo o conteudo e a páginação
   content = document.querySelector("#content");
@@ -58,8 +52,8 @@ if (localStorage.getItem("listing_mode") == "block") {
     container_list_css.remove();
   }
 
-  // Setando a classe active-link no link de modo lista
-  link = document.querySelector("#block-mode").parentElement;
+  // Setando a classe active-link no link de modo block
+  link = document.querySelector("#block-mode-link");  
   link.classList.add("active-link");
 } else {
   // Encurtando o conteúdo da anotação para melhorar a visualização
@@ -85,7 +79,7 @@ if (localStorage.getItem("listing_mode") == "block") {
   }
 
   // Setando a classe active-link no link de modo lista
-  link = document.querySelector("#list-mode").parentElement;
+  link = document.querySelector("#list-mode-link");  
   link.classList.add("active-link");
 }
 

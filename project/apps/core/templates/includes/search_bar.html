@@ -9,29 +9,16 @@
     <button id="new-item-button" class="btn" title="Novo item">
       <img src="{% static 'images/plus.svg' %}" />
       <p>{{new}}</p>
-    </button>
+    </button>    
 
     <a
-      id="block-mode-link"
+      id="home-link"
       class="link-search-bar"
-      href="{{url_list_mode}}"
-      title="Modo de visualização em lista"
-      onclick="change_listing_mode('list'); return false;"
+      href="{{link_search}}"
+      title="Página incial(Limpar filtro de pesquisa)"      
     >
-      <button id="list-mode" class="btn btn-change-mode">
-        <img src="{% static 'images/list.svg' %}" alt="icone-lista" />
-      </button>
-    </a>
-
-    <a
-      id="list-mode-link"
-      class="link-search-bar"
-      href="{{url_list_mode}}"
-      title="Modo de visualização em blocos"
-      onclick="change_listing_mode('block'); return false;"
-    >
-      <button id="block-mode" class="btn btn-change-mode">
-        <img src="{% static 'images/blocks.svg' %}" alt="icone-blocos" />
+      <button id="home-link" class="btn btn-change-mode">
+        <img src="{% static 'images/home.svg' %}" alt="icone-lista" />
       </button>
     </a>
 
@@ -46,6 +33,30 @@
           src="{% static 'images/arrow-down-and-up.svg' %}"
           alt="icone-setas-para-cima-e-para-baixo"
         />
+      </button>
+    </a>
+    
+    <a
+      id="list-mode-link"
+      class="link-search-bar"
+      href="{{url_list_mode}}"
+      title="Modo de visualização em lista"
+      onclick="change_listing_mode('list'); return false;"
+    >
+      <button id="list-mode" class="btn btn-change-mode">
+        <img src="{% static 'images/list.svg' %}" alt="icone-lista" />
+      </button>
+    </a>
+
+    <a
+      id="block-mode-link"
+      class="link-search-bar"
+      href="{{url_list_mode}}"
+      title="Modo de visualização em blocos"
+      onclick="change_listing_mode('block'); return false;"
+    >
+      <button id="block-mode" class="btn btn-change-mode">
+        <img src="{% static 'images/blocks.svg' %}" alt="icone-blocos" />
       </button>
     </a>
   </div>

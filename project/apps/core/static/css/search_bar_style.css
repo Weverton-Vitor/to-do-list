@@ -18,16 +18,9 @@
   margin-left: 1%;
 }
 
-#new-item-link {
-  text-decoration: none;
-  width: 50%;
-  height: 100%;
-  margin-right: 10%;
-}
-
 #new-item-button {
   color: #ffffff;
-  width: 40%;
+  width: 50%;
   height: 100%;
   border-radius: 6px;
   margin-right: 6%;
