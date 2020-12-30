@@ -1,5 +1,5 @@
 .content-task-list-detail {
-  width: 60%;
+  width: 65%;
   height: 70%;
   background-color: #fefefe;
   border: 1px solid #888;
@@ -13,7 +13,7 @@
 }
 
 #task-list-title-detail {
-  font-size: 2vw;
+  font-size: 1.8vw;
   margin-left: 1%;
   margin-top: 1%;  
   width: 80%;
@@ -35,11 +35,11 @@
 }
 
 #icon-edit-detail {
-  width: 29%;
+  width: 20%;
 }
 
 #icon-edit-detail:hover {
-  width: 32%;  
+  width: 22%;  
 }
 
 #form-delete-detail {
@@ -52,11 +52,11 @@
 }
 
 #form-delete-detail button:hover {
-  width: 100%;
+  width: 102%;
 }
 
 #icon-trash-detail {
-  width: 100%;
+  width: 74%;
 }
 
 .task-list-body-detail {
@@ -71,7 +71,7 @@
 }
 
 #close-modal-detail:hover {
-  width: 5.8%;
+  width: 5.3%;
 }
 
 #template-item-detail {
