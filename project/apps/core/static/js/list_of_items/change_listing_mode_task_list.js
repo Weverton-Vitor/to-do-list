@@ -1,8 +1,8 @@
 // Mudando o modo de visualização
 function change_listing_mode(mode) {
   localStorage.setItem("listing_mode_list_items", mode);
-  
-  link = document.querySelectorAll(".active-link")[0];    
+
+  link = document.querySelectorAll(".active-link")[0];
   link.classList.remove("active-link");
 
   // Escondendo o conteudo e a páginação
@@ -33,42 +33,23 @@ if (localStorage.getItem("link_sidebar_annotation") == null) {
   localStorage.setItem("link_sidebar_annotation", "/Anotacoes");
 }
 
-if (localStorage.getItem("listing_mode_list_items") == "block") {
-  // Removendo a div com visualização em lista
-  container_list = document.querySelectorAll(".task-list-container-list");
-  container_list.forEach(function (container) {
-    container.remove();
-  });
+window.onload = function () {  
+  if (localStorage.getItem("listing_mode_list_items") == "block") {
+    // Removendo a div com visualização em lista e a sua folha de estilo
+    removeContainer("task-list-container-list", "css-list");
 
-  // Removendo o link da folhada de estilo da visualização em lista
-  if (!(document.querySelector("#css-list") == null)) {
-    container_list_css = document.querySelector("#css-list");
-    container_list_css.remove();
+    // Setando a classe active-link no link de modo block
+    link = document.querySelector("#block-mode-link");
+    link.classList.add("active-link");
+  } else {
+    // Removendo a div com visualização em blocos e a sua folha de estilo
+    removeContainer("task-list-container-block", "css-block");
+
+    // Setando a classe active-link no link de modo lista
+    link = document.querySelector("#list-mode-link");
+    link.classList.add("active-link");
   }
 
-  // Setando a classe active-link no link de modo block
-  link = document.querySelector("#block-mode-link");  
-  link.classList.add("active-link");
-
-} else {  
-  // Removendo a div com visualização em blocos
-  container_block = document.querySelectorAll(".task-list-container-block");
-  container_block.forEach(function (container) {
-    container.remove();
-  });
-
-  // Removendo o link da folha de estilo da visualização em block
-  if (!(document.querySelector("#css-block") == null)) {
-    container_block_css = document.querySelector("#css-block");
-    container_block_css.remove();
-  }
-
-  // Setando a classe active-link no link de modo lista
-  link = document.querySelector("#list-mode-link");  
-  link.classList.add("active-link");
-}
-
-window.onload = function () {
   // Pegando as anotações
   annotations = document.querySelectorAll(".task-list-container-block");
 

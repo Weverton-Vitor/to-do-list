@@ -3,7 +3,7 @@ from project.apps.core.models import TimeStampedModel
 
 
 class TaskList(TimeStampedModel):
-    title = models.CharField('Titulo', max_length=60)
+    title = models.CharField('Titulo', max_length=40)
     is_trash = models.BooleanField(default=False)
     
     
