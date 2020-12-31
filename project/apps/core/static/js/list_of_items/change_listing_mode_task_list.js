@@ -78,7 +78,7 @@ window.onload = function () {
 // Função para truncar o title e a descrição da anotação
 function truncateTaskList() {
   
-  max_length_title = 13;
+  max_length_title = 10;
 
   titles = document.querySelectorAll(".task-list-title");
   for (let i = 0; i < titles.length; i++) {

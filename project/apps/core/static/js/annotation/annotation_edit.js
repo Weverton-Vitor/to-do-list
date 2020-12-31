@@ -184,17 +184,3 @@ function updateAnnotation(annotation) {
     status_bar.style.background = " #44DE2B";
   }
 }
-
-// Função para setar a mensagem de sucesso ou falha na edição
-function setMessage(msg, erro) {
-  messages = document.querySelector(".messages");
-  if (erro == 1) {
-    mesages.innerHTML =
-      '<p id="notification-message" class="error">' + msg + "</p>";
-  } else {
-    mesages.innerHTML =
-      '<p id="notification-message" class="success">' + msg + "</p>";
-  }
-
-  showMessage();
-}

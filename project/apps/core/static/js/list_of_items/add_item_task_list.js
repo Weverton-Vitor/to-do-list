@@ -39,7 +39,7 @@ function postDataTaskList() {
   if (
     form_task_list.checkValidity() &&
     title_task_list_input.required == true &&
-    title_task_list_input.maxLength == 60
+    title_task_list_input.maxLength == 40
   ) {
     let task_list = {
       task_list: {
@@ -71,7 +71,7 @@ function postDataTaskList() {
     xhr.send(JSON.stringify(task_list));
   } else {
     title_task_list_input.required = true;
-    title_task_list_input.maxLength = 60;
+    title_task_list_input.maxLength = 40;
   }
 }
 

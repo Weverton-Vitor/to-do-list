@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView, DeleteView, ListView
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 from project.apps.list_of_items.forms import ModelFormTaskList, ModelFormTaskListItem
 from project.apps.list_of_items.models import TaskList, TaskListItem
 import json
@@ -33,12 +33,11 @@ class TaskListListView(ListView):
             context['change_order'] = 'change=order'
         else:
             # Atualizando a url da requição atual para seguir a ordem da listagem
-            context['url_list_mode'] += '?change=order'                    
-        
+            context['url_list_mode'] += '?change=order'
 
         # Link que o formulário de pesquisa vai ser submetido
         context['link_search'] = reverse('list_of_items:task_list_list')
-        
+
         # Descrição para o botão de alterar a ordem da listagem
         context['title_btn_change'] = 'Alterar ordem de listagem por data de alteração'
 
@@ -116,6 +115,30 @@ class TaskListCreateView(CreateView):
         return reverse('list_of_items:task_list_list')
 
 
+class TaskListUpdateView(UpdateView):
+    model = TaskList
+    form_class = ModelFormTaskList
+
+    def post(self, request, *args, **kwargs):
+        task_list = self.get_object()
+
+        # Pegando o conteúdo do json enviado na requisição
+        data = json.loads(request.body)
+        data = data['task_list']
+
+        # Validando os dados com o Model Form
+        form = ModelFormTaskList(data)
+        if form.is_valid():
+            TaskList.objects.filter(
+                pk=task_list.pk).update(**form.cleaned_data)
+            return get_task_list(request, task_list.pk, msg='Sucesso ao editar ' + data['title'])
+
+        return JsonResponse({'msg': 'Erro ao editar'}, status=400)
+
+    def get(self, request, *args, **kwargs):
+        return HttpResponseRedirect(reverse('list_of_items:task_list_edit'))
+
+
 class TaskListDeleteView(DeleteView):
     model = TaskList
     success_url = reverse_lazy('list_of_items:task_list_list')
@@ -165,9 +188,10 @@ class TaskListItemCreateView(CreateView):
 
         return JsonResponse({'erro': 0}, status=400)
 
+
 def get_task_list(request, pk, **kwargs):
     task_list = TaskList.objects.select_related().get(pk=pk)
-    items = task_list.tasklistitem_set.values_list('id', 'description')    
+    items = task_list.tasklistitem_set.values_list('id', 'description')
     data = {
         'id': task_list.pk,
         'title': task_list.title,
@@ -177,9 +201,9 @@ def get_task_list(request, pk, **kwargs):
     data.update(kwargs)
     return JsonResponse({'task_list': data})
 
+
 def detele_task_list_item(request, pk):
     item = TaskListItem.objects.filter(pk=pk)
     item = item.delete()
-    
+
     return JsonResponse({'sucess': item[0]})
-        

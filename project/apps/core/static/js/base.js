@@ -37,6 +37,20 @@ function clearFormCreate(id_form, id_modal) {
   }
 }
 
+// Função para setar a mensagem de sucesso ou falha na edição
+function setMessage(msg, erro) {
+  messages = document.querySelector(".messages");
+  if (erro == 1) {
+    mesages.innerHTML =
+      '<p id="notification-message" class="error">' + msg + "</p>";
+  } else {
+    mesages.innerHTML =
+      '<p id="notification-message" class="success">' + msg + "</p>";
+  }
+
+  showMessage();
+}
+
 // Função para remover um modo de visualização da Annotaiton ou Task List e sua folha de estilo
 function removeContainer(class_container, css_id) {
   container = document.querySelectorAll("." + class_container);
