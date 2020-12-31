@@ -51,10 +51,8 @@
                         
         <div class="task-list-body" data-id={{task_list.id}}>      
             <ul>
-                {% for item in task_list.tasklistitem_set.all|slice:":5" %}
-                <li id='item-{{item.id}}' class='item-description'>
-                {{item.description}}
-                </li>
+                {% for item in task_list.tasklistitem_set.all|slice:"0:5"%}
+                <li id='item-{{item.id}}' class='item-description'>{{item.description}}</li>
                 {% endfor %}
             </ul>                  
         </div>          
@@ -71,10 +69,8 @@
                 <p id='task-list-title-{{task_list.id}}' class="task-list-title">{{task_list.title}}</p>  
                 <hr class="line-title">
                 <ul class="list-item-description">
-                    {% for item in task_list.tasklistitem_set.all|slice:"7" %}
-                    <li id='item-{{item.id}}' class='item-description'>
-                    {{item.description}}
-                    </li>
+                    {% for item in task_list.tasklistitem_set.all|slice:"0:7" %}
+                    <li id='item-{{item.id}}' class='item-description'>{{item.description}}</li>
                 {% endfor %}
             </ul> 
             </div>  
@@ -121,6 +117,7 @@
 {% endblock content %}
 
 {% block js %}
+<script src="{% static 'js/list_of_items/task_list_list.js' %}"></script>
 <script src="{% static 'js/list_of_items/task_list_edit.js' %}"></script>
 <script src="{% static 'js/list_of_items/task_list_detail.js' %}"></script>
 <script src="{% static 'js/list_of_items/change_listing_mode_task_list.js' %}"></script>

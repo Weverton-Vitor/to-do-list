@@ -14,7 +14,6 @@ if (localStorage.getItem("link_sidebar_annotation") == null) {
 
 window.onload = function () {  
   if (localStorage.getItem("listing_mode") == "block") {
-    truncateAnnotation();
 
     // Removendo a div com visualização em lista e a sua folha de estilo
     removeContainer("annotation-container-list", "css-list");
@@ -23,7 +22,6 @@ window.onload = function () {
     link = document.querySelector("#block-mode-link");
     link.classList.add("active-link");
   } else {
-    truncateAnnotation();
 
     // Removendo a div com visualização em blocos e a sua folha de estilo
     removeContainer("annotation-container-block", "css-block");
@@ -32,6 +30,9 @@ window.onload = function () {
     link = document.querySelector("#list-mode-link");
     link.classList.add("active-link");
   }
+
+  // Reduzindo o tamanho da descrição e do titulo da anotação
+  truncateAnnotation();
 
   // Pegando as anotações
   annotations = document.querySelectorAll(".annotation-container-block");

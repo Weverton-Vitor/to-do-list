@@ -41,6 +41,8 @@ window.onload = function () {
     // Setando a classe active-link no link de modo block
     link = document.querySelector("#block-mode-link");
     link.classList.add("active-link");
+
+    truncateTaskListItemBlockMode();
   } else {
     // Removendo a div com visualização em blocos e a sua folha de estilo
     removeContainer("task-list-container-block", "css-block");
@@ -48,7 +50,11 @@ window.onload = function () {
     // Setando a classe active-link no link de modo lista
     link = document.querySelector("#list-mode-link");
     link.classList.add("active-link");
+
+    //truncateTaskListItemListMode();
   }
+  // Reduzindo o tamanho do titulo da lista
+  truncateTaskList();
 
   // Pegando as anotações
   annotations = document.querySelectorAll(".task-list-container-block");
@@ -67,3 +73,20 @@ window.onload = function () {
   localStorage.setItem("link_sidebar_task_list", link_sidebar_task_list);
   setLinkSideBar();
 };
+
+
+// Função para truncar o title e a descrição da anotação
+function truncateTaskList() {
+  
+  max_length_title = 13;
+
+  titles = document.querySelectorAll(".task-list-title");
+  for (let i = 0; i < titles.length; i++) {
+    title = titles[i].innerText;
+    if (title.length > max_length_title) {
+      title = title.slice(0, max_length_title);
+      titles[i].innerText = title + '...';
+    }
+    
+  }
+}

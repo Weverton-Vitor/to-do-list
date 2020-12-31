@@ -160,7 +160,20 @@ function updateAnnotation(annotation) {
     }
   }
 
-  title_annotation.innerText = annotation.title;
+  // Encurtando o titulo da anotação para melhorar a visualização
+  title = annotation.title;
+  if (localStorage.getItem("listing_mode") == "block") {
+    if (text.length > 15) {
+      title = title.slice(0, 15) + "...";
+    }
+  } else {
+    if (text.length > 13) {
+      title = title.slice(0, 13) + "...";
+    }
+  }
+
+
+  title_annotation.innerText = title;
   description_annotation.innerText = text;
 
   if (annotation.priority == 1) {
