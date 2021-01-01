@@ -181,6 +181,7 @@ class TaskListItemCreateView(CreateView):
         form = ModelFormTaskListItem(data)
         if form.is_valid():
             task_list = TaskList.objects.get(pk=data['task_list'])
+            task_list.save()
             item = TaskListItem(task_list=task_list,
                                 description=form.cleaned_data['description'])
             item.save()
