@@ -10,6 +10,9 @@ btn_add_task_list_item = document.querySelector("#btn-submit-add-item");
 // Botão que fecha o modal
 btn_close_add_item = document.querySelector("#close-modal-add-item");
 
+//
+btns_add_item_option = document.querySelectorAll(".add-item-option");
+
 // Botões que removem um item da lista e do banco de dados
 btns_remove_item = document.querySelectorAll(".delete-add-item");
 
@@ -26,6 +29,33 @@ btn_close_add_item.onclick = function () {
   clearFormCreate("form-add-item", modal_add_item.id);
   clearTaskListItemsModal();
 };
+
+for (let i = 0; i < btns_add_item_option.length; i++) {
+  btns_add_item_option[i].onclick = function () {
+    task_list_id = this.dataset.id;
+
+  let xhr = new XMLHttpRequest();
+  xhr.open("GET", "Lista/" + task_list_id);
+
+  xhr.onreadystatechange = () => {
+    if (xhr.readyState == 4) {
+      if (xhr.status == 200) {
+        task_list_data = JSON.parse(xhr.responseText);
+        task_list = task_list_data.task_list;        
+        // mostrando o modal para adicionar itens
+        showModalAddItem(task_list.title, task_list.id);
+
+        // Adicionando os item existentes a lista
+        updateTaskListItemsModal(task_list.items, false);        
+
+      }
+    }
+  };
+
+  xhr.send();
+  }
+  
+}
 
 // Função para cadastrar listas de itens por AJAX
 function postDataTaskList() {
@@ -182,7 +212,6 @@ function clearTaskListItemsModal() {
   }
 }
 
-
 // Função para remover um item do modal e no banco de dados
 function postRemoveItem() {
   id = this.dataset.id;
@@ -227,3 +256,4 @@ function postRemoveItem() {
     xhr.send();
   
 }
+

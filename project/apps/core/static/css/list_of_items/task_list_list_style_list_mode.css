@@ -67,32 +67,39 @@
 }
 
 #task-list-options {
-  width: 6%;
+  width: 10%;  
   display: flex;
-  justify-content: end;
+  justify-content: right;
+}
+
+#btn-add-item-option {
+  margin-right: 5%;
+  width: 20%
+}
+
+#btn-add-item-option:hover {
+  width: 22%;
 }
 
 #form-delete {
-  width: 32%;
+  width: 22%;
   display: flex;
-  align-items: center;
-  margin-left: 5%;
-  margin-right: 15%;
+  align-items: center;  
+}
+
+#form-delete:hover {
+  width: 25%;
 }
 
 #form-delete button {
-  width: 96%;
-}
-
-#form-delete button:hover {
-  width: 100%;
+  width: 98%;
 }
 
 .btn-option {
-  width: 30%;
+  width: 20%;
   background: rgba(1, 1, 1, 0);
 }
 
 .btn-option:hover {
-  width: 32%;
+  width: 25%;
 }

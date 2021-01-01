@@ -38,9 +38,18 @@
   justify-content: end;
 }
 
+#btn-add-item-option {
+  width: 18%;
+}
+
+#btn-add-item-option:hover {
+  width: 20%;
+}
+
 .btn-option {
   width: 20%;
   background: rgba(1, 1, 1, 0);
+  margin-left: 3%;
 }
 
 #form-delete {

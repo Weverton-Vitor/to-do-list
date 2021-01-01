@@ -29,7 +29,7 @@ function showTaskListDetail() {
     if (xhr.readyState == 4) {
       if (xhr.status == 200) {
         task_list_data = JSON.parse(xhr.responseText);
-        task_list = task_list_data.task_list;        
+        task_list = task_list_data.task_list;
         updateTaskListDetailModal(task_list);
       }
     }
@@ -51,7 +51,7 @@ function updateTaskListDetailModal(task_list) {
   modal_detail.style.display = "flex";
 
   // Setando os items da lista
-  updateTaskListItemsDetailModal(task_list.items);
+  updateTaskListItemsModal(task_list.items, true);
 
   // Setando o id em um dataset para edição
   btn_edit_detail = document.querySelector("#btn-edit-detail");
@@ -69,17 +69,24 @@ function updateTaskListDetailModal(task_list) {
 }
 
 // Função para atualizar os itens da lista
-function updateTaskListItemsDetailModal(items) {
-  empty_msg = document.querySelector("#empty-msg-list-detail");
-  list_item = document.querySelector("#list-items-add-item-detail").childNodes[3];
-  template_item = document.querySelector("#template-item-detail");
+function updateTaskListItemsModal(items, detail) {
+  if (detail) {
+    empty_msg = document.querySelector("#empty-msg-list-detail");
+    list_item = document.querySelector("#list-items-add-item-detail")
+      .childNodes[3];
+    template_item = document.querySelector("#template-item-detail");
+  } else {
+    empty_msg = document.querySelector("#empty-msg-list");
+    list_item = document.querySelector("#list-items-add-item").childNodes[3];
+    template_item = document.querySelector("#template-item");
+  }
 
   empty_msg.style.display = "none";
 
   // Adicionando os itens a lista
   items.forEach((item) => {
     new_item = template_item.cloneNode(true);
-    close_button =  new_item.childNodes[1].childNodes[3];
+    close_button = new_item.childNodes[1].childNodes[3];
     item_id = item[0];
     item_description = item[1];
 
@@ -92,8 +99,12 @@ function updateTaskListItemsDetailModal(items) {
     new_item.style.display = "block";
 
     // Modificando o botão de remover o item
-    // E adicionando evento para remover o item da lista e do banco de dados    
-    close_button.id = "delete-detail-item-" + item_id;
+    // E adicionando evento para remover o item da lista e do banco de dados
+    if (detail) {
+      close_button.id = "delete-detail-item-" + item_id;
+    } else {
+      close_button.id = "delete-item-" + item_id;
+    }
     close_button.dataset.id = item_id;
     close_button.onclick = postRemoveItem;
 
@@ -103,18 +114,25 @@ function updateTaskListItemsDetailModal(items) {
 
   // Verificando se a lista está vazia
   if (list_item.childElementCount == 1) {
-    empty_msg = document.querySelector("#empty-msg-list-detail");
-    empty_msg.style.display = "block";    
+    if (detail) {
+      empty_msg = document.querySelector("#empty-msg-list-detail");
+    } else {
+      empty_msg = document.querySelector("#empty-msg-list");
+    }
+    empty_msg.style.display = "block";
   }
 }
 
 // Função para para limpar os itens da lista do modal de detalhes
 function clearTaskListItemsDetailModal(id_body_add) {
-  id_body = "#" + id_body_add
+  id_body = "#" + id_body_add;
   list_item = document.querySelector(id_body).childNodes[3];
-  
+
   while (list_item.lastElementChild) {
-    if (list_item.lastElementChild.id != "template-item-detail" && list_item.lastElementChild.id != "template-item") {
+    if (
+      list_item.lastElementChild.id != "template-item-detail" &&
+      list_item.lastElementChild.id != "template-item"
+    ) {
       list_item.removeChild(list_item.lastElementChild);
     } else {
       break;

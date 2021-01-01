@@ -13,7 +13,7 @@
 <!--Incluindo as notificações -->
 {% include "includes/notification.html" %}
 
-<h2 id='title-section'>Anotações</h2>
+<h2 id='title-section'>Listas</h2>
 
 <!--Incluindo a barra de pesquisa-->
 {% include "includes/search_bar.html" %}
@@ -28,6 +28,10 @@
             <p id='task-list-title-{{task_list.id}}' class="task-list-title">{{task_list.title}}</p>    
 
             <div class="task-list-options">
+
+                <button id="btn-add-item-option"  class="btn btn-option add-item-option" title="Adicionar Item" data-id={{task_list.id}}>
+                    <img src="{% static 'images/plus-black.svg' %}" alt="Icone de sinal de soma">
+                </button>
 
                 <button  class="btn btn-option btn-edit" title="Editar" data-id={{task_list.id}}>
                     <img src="{% static 'images/edit.svg' %}" alt="Editar">
@@ -77,6 +81,9 @@
 
 
             <div id="task-list-options">
+               <button id="btn-add-item-option"  class="btn btn-option add-item-option" title="Adicionar Item" data-id={{task_list.id}}>
+                    <img src="{% static 'images/plus-black.svg' %}" alt="Icone de sinal de soma">
+                </button>
                 <button  class="btn btn-option btn-edit" title="Editar" data-id={{task_list.id}}>
                     <img src="{% static 'images/edit.svg' %}" alt="Editar">
                 </button>
