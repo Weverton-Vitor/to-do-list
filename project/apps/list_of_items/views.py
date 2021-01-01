@@ -51,12 +51,10 @@ class TaskListListView(ListView):
 
     def get_queryset(self):
 
-        queryset = TaskList.objects.all().select_related()
+        queryset = TaskList.objects.all().select_related().order_by('-modified')
 
         # Verificando em que ordem está a listagem
         if self.request.GET.get('change') == 'order':
-            queryset = queryset.order_by('-modified')
-        else:
             queryset = queryset.order_by('modified')
 
         # Verificando se existe filtragem
@@ -130,8 +128,10 @@ class TaskListUpdateView(UpdateView):
         form = ModelFormTaskList(data)
         if form.is_valid():
             TaskList.objects.filter(
-                pk=task_list.pk).update(**form.cleaned_data)
-            return get_task_list(request, task_list.pk, msg='Sucesso ao editar ' + data['title'])
+                pk=task_list.pk).update(**form.cleaned_data)            
+            task_list = TaskList.objects.get(pk=task_list.pk)
+            task_list.save()
+            return get_task_list(request, task_list.pk, msg=f'Sucesso ao editar {task_list.title}')
 
         return JsonResponse({'msg': 'Erro ao editar'}, status=400)
 

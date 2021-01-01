@@ -110,7 +110,9 @@ class AnnotationUpdateView(UpdateView):
         if form.is_valid():
             Annotation.objects.filter(
                 pk=annotation.pk).update(**form.cleaned_data)
-            return get_annotation(request, annotation.pk, msg='Sucesso ao editar ' + data['title'])
+            annotation = Annotation.objects.get(pk=annotation.pk)
+            annotation.save()
+            return get_annotation(request, annotation.pk, msg=f'Sucesso ao editar {annotation.title}')
 
         return JsonResponse({'msg': 'Erro ao editar'}, status=400)
 
