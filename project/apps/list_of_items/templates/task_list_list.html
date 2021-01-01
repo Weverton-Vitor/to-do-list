@@ -73,7 +73,7 @@
                 <p id='task-list-title-{{task_list.id}}' class="task-list-title">{{task_list.title}}</p>  
                 <hr class="line-title">
                 <ul class="list-item-description">
-                    {% for item in task_list.tasklistitem_set.all|slice:"0:7" %}
+                    {% for item in task_list.tasklistitem_set.all|slice:"0:10" %}
                     <li id='item-{{item.id}}' class='item-description'>{{item.description}}</li>
                 {% endfor %}
             </ul> 

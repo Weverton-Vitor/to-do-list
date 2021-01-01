@@ -51,7 +51,7 @@ window.onload = function () {
     link = document.querySelector("#list-mode-link");
     link.classList.add("active-link");
 
-    //truncateTaskListItemListMode();
+   truncateTaskListItemListMode();
   }
   // Reduzindo o tamanho do titulo da lista
   truncateTaskList();

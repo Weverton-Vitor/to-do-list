@@ -45,10 +45,6 @@ nav ul {
   margin: 0% 6% 0%;
 }
 
-.item-menu {
-  padding: 3% 7% 3%;
-}
-
 .link-menu {
   color: #ffffff;
   text-decoration: none;
@@ -67,12 +63,12 @@ nav ul {
 }
 
 .link-menu img {
-  width: 25%;
+  width: 20%;
   margin-right: 10%;
 }
 
 main {
-  width: 100%;
+  width: 88%;
   height: 100%;
   display: flex;
   flex-direction: column;

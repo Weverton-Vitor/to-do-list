@@ -15,22 +15,26 @@ function truncateTaskListItemListMode() {
 
   listas.forEach((lista) => {
     text = "";    
-    for (let i = 0; i < lista.children.length; i++) {
-      text += lista.children[i].innerText;
+    text_length = 0
+    list_length = lista.children.length;  
+
+    for (let i = 0; i < list_length; i++) {
+      item = lista.children[i];
+      text_length += item.innerText.length;
+    
     }
 
-    while (text.length > 121) {      
-      text = "";       
+    for (let i = 0; i < list_length; i++) {
+      item = lista.children[i];
+      text = item.innerText
+      if (list_length > 2) {     
+        if (text_length > 95) {
+          text = text.slice(0, (95/list_length)-3);
+          item.innerText = text + '...';
+        }       
 
-      for (let i = 0; i < lista.children.length; i++) {
-        text += lista.children[i].innerText;
-      }                    
-
-      if (text.length > 121) {                
-        lista.removeChild(lista.lastElementChild);
-
-      }      
-    }
+      } 
+    }   
 
   });
 }
