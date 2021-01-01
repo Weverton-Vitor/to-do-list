@@ -5,6 +5,7 @@ function truncateTaskListItemBlockMode() {
     text = item.innerText;
     if (text.length > 20) {
       text = text.slice(0, 25);
+      text = text + '...';
     }
     item.innerText = text;
   });
