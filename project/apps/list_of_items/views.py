@@ -131,7 +131,7 @@ class TaskListUpdateView(UpdateView):
                 pk=task_list.pk).update(**form.cleaned_data)            
             task_list = TaskList.objects.get(pk=task_list.pk)
             task_list.save()
-            return get_task_list(request, task_list.pk, msg=f'Sucesso ao editar {task_list.title}')
+            return get_task_list(request, task_list.pk, msg=f'Sucesso ao editar "{task_list.title}"')
 
         return JsonResponse({'msg': 'Erro ao editar'}, status=400)
 
@@ -152,7 +152,7 @@ class TaskListDeleteView(DeleteView):
         success = self.object.delete()
         if success[0]:
             messages.success(
-                self.request, f'Sucesso ao deletar {self.object.title}')
+                self.request, f'Sucesso ao deletar "{self.object.title}"')
 
         return HttpResponseRedirect(success_url)
 

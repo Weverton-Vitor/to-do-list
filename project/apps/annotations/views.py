@@ -112,7 +112,7 @@ class AnnotationUpdateView(UpdateView):
                 pk=annotation.pk).update(**form.cleaned_data)
             annotation = Annotation.objects.get(pk=annotation.pk)
             annotation.save()
-            return get_annotation(request, annotation.pk, msg=f'Sucesso ao editar {annotation.title}')
+            return get_annotation(request, annotation.pk, msg=f'Sucesso ao editar "{annotation.title}"')
 
         return JsonResponse({'msg': 'Erro ao editar'}, status=400)
 
@@ -133,7 +133,7 @@ class AnnotationDeleteView(DeleteView):
         success = self.object.delete()
         if success[0]:
             messages.success(
-                self.request, f'Sucesso ao deletar {self.object.title}')
+                self.request, f'Sucesso ao deletar "{self.object.title}"')
 
         return HttpResponseRedirect(success_url)
 
