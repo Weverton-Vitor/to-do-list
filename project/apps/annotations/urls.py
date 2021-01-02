@@ -10,4 +10,6 @@ urlpatterns = [
     path('Editar/<int:pk>', views.AnnotationUpdateView.as_view(), name='annotation_edit'),
     path('Deletar/<int:pk>', views.AnnotationDeleteView.as_view(), name='annotation_delete'),
     path('Anotacao/<int:pk>', views.get_annotation, name='annotation_json'),
+    path('Lixeira', views.AnnotationTrashListView.as_view(), name='annotation_trash_list'),
+    
 ]

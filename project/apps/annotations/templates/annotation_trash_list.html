@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block css %}
+
+<link  id="css-block" rel="stylesheet" href="{% static 'css/annotation/annotation_list_style_block_mode.css' %}">
+
+{% endblock css %}
+
+{% block content %}
+<!--Incluindo as notificações -->
+{% include "includes/notification.html" %}
+
+<h2 id='title-section'>Lixeira</h2>
+
+<!--Incluindo a barra de pesquisa-->
+{% include "includes/search_bar.html" %}
+
+<div id='content'>
+    {% for annotation in annotations%}   
+    <!--Visualização em blocos -->
+    <div class="annotation-container-block">
+
+        <div id="annotation-content">
+
+            <div class="annotation-header">
+
+                <p id='annotation-title-{{annotation.id}}' class="annotation-title">{{annotation.title}}</p>    
+
+                <div class="annotation-options">
+                    <button  class="btn btn-option" title="Restaurar" data-id={{annotation.id}}>
+                        <img src="{% static 'images/black-left-curved-arrow.svg' %}" alt="icone de seta curvada para esqueda">
+                    </button>
+                    {% if change_order %}
+                    <form id="form-delete" action="{% url 'annotations:annotation_delete' pk=annotation.id %}" method="post">                    
+                    {% else %}
+                    <form id="form-delete" action="{% url 'annotations:annotation_delete' pk=annotation.id %}?change=order" method="post">
+                    {% endif %}
+                        {% csrf_token %}
+                        <button class="btn btn-option" type='submit' title="Excluir">
+                            <img src="{% static 'images/trash-black.svg' %}" alt="Excluir">
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+
+            <hr class="line-options">
+                        
+            <div class="annotation-body">            
+                <p  id="annotation-p-{{annotation.id}}" class='annotation-description' data-id={{annotation.id}}>{{annotation.description}}</p>
+            </div>          
+
+        </div>   
+
+        {% if annotation.priority == 1 %}
+        <div id="status-bar-{{annotation.id}}" class="status-bar" style='background: #8E0000'></div>          
+        {% elif  annotation.priority == 2 %}
+        <div id="status-bar-{{annotation.id}}" class="status-bar" style='background: #EDF201'></div>  
+        {% else %}
+        <div id="status-bar-{{annotation.id}}" class="status-bar" style='background: #44DE2B'></div>  
+
+        {% endif %}
+
+    </div>       
+
+    {% empty %}    
+    <!--Incluindo mensagem para listagem vazia-->
+    {% include "includes/empty_msg.html" %}
+
+    {% endfor %}    
+
+</div>
+
+<!--Incluindo a paginação-->
+{% include "includes/pagination.html" %}
+
+<!--Incluindo a página de detalhes das annotações-->
+{% include "annotation_detail.html" %}
+
+{% endblock content %}
+
+{% block js %}
+<script>
+  annotations = document.querySelectorAll(".annotation-container-block");
+  // Mostrando uma anotação de cada vez
+  annotations.forEach(function (annotation, i) {
+    setTimeout(() => (annotation.style.display = "flex"), 100 * i);
+  });
+</script>
+{% endblock js %}

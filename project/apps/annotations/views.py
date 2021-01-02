@@ -22,7 +22,7 @@ class AnnotationListView(ListView):
         context['form'] = form
 
         # Url da requisição atual
-        context['url_list_mode'] = self.request.path                
+        context['url_list_mode'] = self.request.path
 
         # Só adiciona a query string ao contexto caso ela não exista,
         # Se ela existir, em uma proxima requisição vinda do botão de alteração ela não será adicionada
@@ -30,15 +30,14 @@ class AnnotationListView(ListView):
             context['change_order'] = 'change=order'
         else:
             # Atualizando a url da requição atual para seguir a ordem da listagem
-            context['url_list_mode'] += '?change=order'                 
-        
+            context['url_list_mode'] += '?change=order'
 
         # Link que o formulário de pesquisa vai ser submetido
-        context['link_search'] = reverse('annotations:annotation_list')        
-        
+        context['link_search'] = reverse('annotations:annotation_list')
+
         # Descrição para o botão de alterar a ordem da listagem
         context['title_btn_change'] = 'Alterar ordem de listagem por prioridade'
-        
+
         # Mensagem para caso a lista estiver vazia
         context['empty_msg'] = 'Sem Itens'
         title = self.request.GET.get('title')
@@ -48,11 +47,64 @@ class AnnotationListView(ListView):
         return context
 
     def get_queryset(self):
+        queryset = Annotation.objects.filter(
+            is_trash=False).order_by('priority')
         # Verificando em que ordem está a listagem
         if self.request.GET.get('change') == 'order':
-            queryset = Annotation.objects.all().order_by('-priority')
+            queryset = queryset.order_by('-priority')
+
+        # Verificando se existe filtragem
+        title = self.request.GET.get('title')
+        if title:
+            queryset = queryset.filter(title__istartswith=title)
+
+        return queryset
+
+
+class AnnotationTrashListView(ListView):
+    template_name = 'annotation_trash_list.html'
+    model = Annotation
+    context_object_name = 'annotations'
+    paginate_by = 8
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['new'] = 'Anotação'
+
+        # form = ModelFormAnnotation()
+        # context['form'] = form
+
+        # Url da requisição atual
+        context['url_list_mode'] = self.request.path
+
+        # Só adiciona a query string ao contexto caso ela não exista,
+        # Se ela existir, em uma proxima requisição vinda do botão de alteração ela não será adicionada
+        if not (self.request.GET.get('change')):
+            context['change_order'] = 'change=order'
         else:
-            queryset = Annotation.objects.all().order_by('priority')
+            # Atualizando a url da requição atual para seguir a ordem da listagem
+            context['url_list_mode'] += '?change=order'
+
+        # Link que o formulário de pesquisa vai ser submetido
+        # context['link_search'] = reverse('annotations:annotation_list')
+
+        # Descrição para o botão de alterar a ordem da listagem
+        # context['title_btn_change'] = 'Alterar ordem de listagem por prioridade'
+
+        # Mensagem para caso a lista estiver vazia
+        context['empty_msg'] = 'Sem Itens'
+        title = self.request.GET.get('title')
+        if title:
+            context['empty_msg'] = f'Sem resultados para {title}'
+
+        return context
+
+    def get_queryset(self):
+        queryset = Annotation.objects.filter(
+            is_trash=True).order_by('priority')
+        # Verificando em que ordem está a listagem
+        if self.request.GET.get('change') == 'order':
+            queryset = queryset.order_by('-priority')
 
         # Verificando se existe filtragem
         title = self.request.GET.get('title')
@@ -130,19 +182,43 @@ class AnnotationDeleteView(DeleteView):
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
         success_url = self.get_success_url()
-        success = self.object.delete()
-        if success[0]:
-            messages.success(
-                self.request, f'Sucesso ao deletar "{self.object.title}"')
+
+        if self.object.is_trash:
+            success = self.object.delete()
+            success = success[0]
+            if success:
+                msg = f'"{self.object.title}" foi excluido em definitivo'
+            else:
+                msg = f'Erro ao excluir "{self.object.title}"'                            
+
+        else:
+            success = Annotation.objects.filter(pk=self.object.pk).update(is_trash=True)
+                
+            if success:
+                msg = f'Sucesso ao mover "{self.object.title}" para a lixeira'
+            else:
+                msg = f'Erro ao mover "{self.object.title}" para a lixeira'
+
+        if success:
+            messages.success(self.request, msg)
+        else:
+            messages.error(self.request, msg)
 
         return HttpResponseRedirect(success_url)
 
     def get_success_url(self):
-        # Verificando qual será a ordem da listagem pela QueryString da requisição
-        if self.request.GET.get('change'):
-            return reverse('annotations:annotation_list') + '?change=order'
+        if self.object.is_trash:
+            # Verificando qual será a ordem da listagem pela QueryString da requisição
+            if self.request.GET.get('change'):
+                return reverse('annotations:annotation_trash_list') + '?change=order'
 
-        return reverse('annotations:annotation_list')
+            return reverse('annotations:annotation_trash_list')
+        else:            
+            # Verificando qual será a ordem da listagem pela QueryString da requisição
+            if self.request.GET.get('change'):
+                return reverse('annotations:annotation_list') + '?change=order'
+
+            return reverse('annotations:annotation_list')
 
 
 def get_annotation(request, pk, **kwargs):
