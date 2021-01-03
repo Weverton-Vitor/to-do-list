@@ -149,24 +149,48 @@ class AnnotationCreateView(CreateView):
 class AnnotationUpdateView(UpdateView):
     model = Annotation
     form_class = ModelFormAnnotation
+    success_url = reverse_lazy('annotations:annotation_list')
 
     def post(self, request, *args, **kwargs):
         annotation = self.get_object()
+        is_ajax = request.META.get('CONTENT_TYPE') == 'application/json'
 
-        # Pegando o conteúdo do json enviado na requisição
-        data = json.loads(request.body)
-        data = data['annotation']
+        # Requisição AJAX para edição
+        if is_ajax:
+            # Pegando o conteúdo do json enviado na requisição
+            data = json.loads(request.body)
+            data = data['annotation']
 
-        # Validando os dados com o Model Form
-        form = ModelFormAnnotation(data)
-        if form.is_valid():
-            Annotation.objects.filter(
-                pk=annotation.pk).update(**form.cleaned_data)
-            annotation = Annotation.objects.get(pk=annotation.pk)
-            annotation.save()
-            return get_annotation(request, annotation.pk, msg=f'Sucesso ao editar "{annotation.title}"')
+            # Validando os dados com o Model Form
+            form = ModelFormAnnotation(data)
+            if form.is_valid():
+                Annotation.objects.filter(
+                    pk=annotation.pk).update(**form.cleaned_data)
+                annotation = Annotation.objects.get(pk=annotation.pk)
+                annotation.save()
+                return get_annotation(request, annotation.pk, msg=f'Sucesso ao editar "{annotation.title}"')
 
-        return JsonResponse({'msg': 'Erro ao editar'}, status=400)
+            return JsonResponse({'msg': 'Erro ao editar'}, status=400)
+
+        # Restauração de uma anotação
+        if 'restore' in request.POST.keys():
+            url = reverse('annotations:annotation_trash_list')
+            if self.request.GET.get('change'):
+                return HttpResponseRedirect(url + '?change=order')
+
+            success = Annotation.objects.filter(
+                pk=annotation.pk).update(is_trash=False)
+            print(success)
+            if success:
+                messages.success(
+                    self.request, f'Sucesso ao restaurar "{annotation.title}"')
+                return HttpResponseRedirect(url)
+
+            messages.error(
+                self.request, f'Erro ao restaurar "{annotation.title}"')
+            return HttpResponseRedirect(url)
+        else:
+            return self.get(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
         return HttpResponseRedirect(reverse('annotations:annotation_list'))
@@ -189,11 +213,12 @@ class AnnotationDeleteView(DeleteView):
             if success:
                 msg = f'"{self.object.title}" foi excluido em definitivo'
             else:
-                msg = f'Erro ao excluir "{self.object.title}"'                            
+                msg = f'Erro ao excluir "{self.object.title}"'
 
         else:
-            success = Annotation.objects.filter(pk=self.object.pk).update(is_trash=True)
-                
+            success = Annotation.objects.filter(
+                pk=self.object.pk).update(is_trash=True)
+
             if success:
                 msg = f'Sucesso ao mover "{self.object.title}" para a lixeira'
             else:
@@ -213,7 +238,7 @@ class AnnotationDeleteView(DeleteView):
                 return reverse('annotations:annotation_trash_list') + '?change=order'
 
             return reverse('annotations:annotation_trash_list')
-        else:            
+        else:
             # Verificando qual será a ordem da listagem pela QueryString da requisição
             if self.request.GET.get('change'):
                 return reverse('annotations:annotation_list') + '?change=order'
