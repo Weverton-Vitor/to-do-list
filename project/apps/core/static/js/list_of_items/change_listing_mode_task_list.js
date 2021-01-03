@@ -76,19 +76,3 @@ window.onload = function () {
   setLinkSideBar();
 };
 
-
-// Função para truncar o title e a descrição da anotação
-function truncateTaskList() {
-  
-  max_length_title = 10;
-
-  titles = document.querySelectorAll(".task-list-title");
-  for (let i = 0; i < titles.length; i++) {
-    title = titles[i].innerText;
-    if (title.length > max_length_title) {
-      title = title.slice(0, max_length_title);
-      titles[i].innerText = title + '...';
-    }
-    
-  }
-}

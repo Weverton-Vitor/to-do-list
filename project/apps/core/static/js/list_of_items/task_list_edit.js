@@ -71,6 +71,9 @@ function post_data_edit_task_list() {
 
           // Setando a mensagem de sucesso
           setMessage(new_task_list.msg, 0);
+
+        // Reduzindo o tamanho do titulo da lista         
+         truncateTaskList()
         } else if (xhr.status == 400) {
           response = JSON.parse(xhr.responseText);
 

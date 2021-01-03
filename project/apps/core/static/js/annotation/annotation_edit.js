@@ -75,6 +75,9 @@ function post_data_edit_annotation() {
 
         // Setando a mensagem de sucesso
         setMessage(new_annotation.msg, 0);
+
+        // Reduzindo o tamanho da descrição e do titulo da anotação        
+        truncateAnnotation();
       } else if (xhr.status == 400) {
         response = JSON.parse(xhr.responseText);
 
@@ -89,6 +92,7 @@ function post_data_edit_annotation() {
 
         // Setando a mensagem de falha
         setMessage(response.msg, 1);
+
       }
     }
   };

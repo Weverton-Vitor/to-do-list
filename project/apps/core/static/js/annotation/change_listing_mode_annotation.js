@@ -68,34 +68,3 @@ function change_listing_mode(mode) {
 
   location.reload();
 }
-
-// Função para truncar o title e a descrição da anotação
-function truncateAnnotation() {
-  if (localStorage.getItem("listing_mode") == "block") {
-    max_length_description = 240;
-    max_length_title = 15;
-  } else {
-    max_length_description = 140;
-    max_length_title = 13;
-  }
-
-  descriptions = document.querySelectorAll(".annotation-description");
-  for (let i = 0; i < descriptions.length; i++) {
-    text = descriptions[i].innerText;
-    if (text.length > max_length_description) {      
-      text = text.slice(0, max_length_description);
-      descriptions[i].innerText = text + "...";      
-    }    
-  }
-
-  titles = document.querySelectorAll(".annotation-title");
-  for (let i = 0; i < titles.length; i++) {
-    title = titles[i].innerText;
-    if (title.length > max_length_title) {
-      title = title.slice(0, max_length_title);
-      titles[i].innerText = title + '...';
-    }
-    
-  }
-}
-

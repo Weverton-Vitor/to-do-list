@@ -98,5 +98,10 @@
   annotations.forEach(function (annotation, i) {
     setTimeout(() => (annotation.style.display = "flex"), 100 * i);
   });
+
+window.onload = function() {
+  truncateAnnotation();
+
+}
 </script>
 {% endblock js %}
