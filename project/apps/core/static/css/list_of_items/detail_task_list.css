@@ -64,14 +64,13 @@
 }
 
 #close-modal-detail {
-  margin-left: 1%;
-  margin-top: -1%;
-  width: 5%;
+  margin-left: 1%;  
+  width: 4%;
   cursor: pointer;
 }
 
 #close-modal-detail:hover {
-  width: 5.3%;
+  width: 4.3%;
 }
 
 #template-item-detail {

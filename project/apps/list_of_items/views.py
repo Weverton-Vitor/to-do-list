@@ -51,7 +51,7 @@ class TaskListListView(ListView):
 
     def get_queryset(self):
 
-        queryset = TaskList.objects.all().select_related().order_by('-modified')
+        queryset = TaskList.objects.filter(is_trash=False).select_related().order_by('-modified')
 
         # Verificando em que ordem está a listagem
         if self.request.GET.get('change') == 'order':
@@ -62,6 +62,56 @@ class TaskListListView(ListView):
         if title:
             queryset = queryset.filter(title__istartswith=title)
 
+        return queryset
+
+
+class TaskListTrashListView(ListView):
+    template_name = 'task_list_trash_list.html'
+    model = TaskList
+    context_object_name = 'task_lists'
+    paginate_by = 8
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['new'] = 'Lista'
+
+        # Url da requisição atual
+        context['url_list_mode'] = self.request.path
+
+        # Só adiciona a query string ao contexto caso ela não exista,
+        # Se ela existir, em uma proxima requisição vinda do botão de alteração ela não será adicionada
+        if not (self.request.GET.get('change')):
+            context['change_order'] = 'change=order'
+        else:
+            # Atualizando a url da requição atual para seguir a ordem da listagem
+            context['url_list_mode'] += '?change=order'
+
+        # Link que o formulário de pesquisa vai ser submetido
+        context['link_search'] = reverse('list_of_items:task_list_list')
+
+        # Descrição para o botão de alterar a ordem da listagem
+        context['title_btn_change'] = 'Alterar ordem de listagem por data de alteração'
+
+        # Mensagem para caso a lista estiver vazia
+        context['empty_msg'] = 'Sem Itens'
+        title = self.request.GET.get('title')
+        if title:
+            context['empty_msg'] = f'Sem resultados para {title}'
+
+        return context
+
+    def get_queryset(self):
+
+        queryset = TaskList.objects.filter(is_trash=True).select_related().order_by('-modified')
+
+        # Verificando em que ordem está a listagem
+        if self.request.GET.get('change') == 'order':
+            queryset = queryset.order_by('modified')
+
+        # Verificando se existe filtragem
+        title = self.request.GET.get('title')
+        if title:
+            queryset = queryset.filter(title__istartswith=title)        
         return queryset
 
 
@@ -128,7 +178,7 @@ class TaskListUpdateView(UpdateView):
         form = ModelFormTaskList(data)
         if form.is_valid():
             TaskList.objects.filter(
-                pk=task_list.pk).update(**form.cleaned_data)            
+                pk=task_list.pk).update(**form.cleaned_data)
             task_list = TaskList.objects.get(pk=task_list.pk)
             task_list.save()
             return get_task_list(request, task_list.pk, msg=f'Sucesso ao editar "{task_list.title}"')
@@ -149,10 +199,28 @@ class TaskListDeleteView(DeleteView):
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
         success_url = self.get_success_url()
-        success = self.object.delete()
-        if success[0]:
-            messages.success(
-                self.request, f'Sucesso ao deletar "{self.object.title}"')
+
+        if self.object.is_trash:
+            success = self.object.delete()
+            success = success[0]
+            if success:
+                msg = f'"{self.object.title}" foi excluido em definitivo'
+            else:
+                msg = f'Erro ao excluir "{self.object.title}"'
+
+        else:
+            success = TaskList.objects.filter(
+                pk=self.object.pk).update(is_trash=True)
+
+            if success:
+                msg = f'Sucesso ao mover "{self.object.title}" para a lixeira'
+            else:
+                msg = f'Erro ao mover "{self.object.title}" para a lixeira'
+
+        if success:
+            messages.success(self.request, msg)
+        else:
+            messages.error(self.request, msg)
 
         return HttpResponseRedirect(success_url)
 

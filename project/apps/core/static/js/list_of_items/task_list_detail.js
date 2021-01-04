@@ -55,17 +55,22 @@ function updateTaskListDetailModal(task_list) {
 
   // Setando o id em um dataset para edição
   btn_edit_detail = document.querySelector("#btn-edit-detail");
-  btn_edit_detail.dataset.id = task_list.id;
+  if (btn_edit_detail != null) {
+    btn_edit_detail.dataset.id = task_list.id;    
+  }
 
   // Setando action do formulário para excluir pelo modal de detalhes
   form_task_list_detail = document.querySelector("#form-delete-detail");
   form_task_list_detail.action = "/Listas/Deletar/" + task_list.id;
 
   // Verificando a ordem de listagem das listas
-  action_form_create_task_list = document.querySelector("#form-create").action;
-  if (action_form_create_task_list.includes("change=order")) {
-    form_task_list_detail.action += "?change=order";
+  if (document.querySelector("#form-create") != null) {
+      action_form_create_task_list = document.querySelector("#form-create").action;
+    if (action_form_create_task_list.includes("change=order")) {
+      form_task_list_detail.action += "?change=order";
+    }
   }
+
 }
 
 // Função para atualizar os itens da lista
@@ -96,17 +101,22 @@ function updateTaskListItemsModal(items, detail) {
     // Alterando a descrição do item
     new_item.childNodes[1].childNodes[1].innerText = item_description;
 
-    new_item.style.display = "block";
+    new_item.style.display = "block";     
 
-    // Modificando o botão de remover o item
-    // E adicionando evento para remover o item da lista e do banco de dados
-    if (detail) {
-      close_button.id = "delete-detail-item-" + item_id;
-    } else {
-      close_button.id = "delete-item-" + item_id;
+    // Só adiciona os dados ao botão caso seja uma tag span
+    if (close_button.tagName == 'span') {
+      // Modificando o id do botão de remover o item
+      if (detail) {
+        close_button.id = "delete-detail-item-" + item_id;
+      } else {
+        close_button.id = "delete-item-" + item_id;
+      }       
+      
+      // Adicionando evento para remover o item da lista e do banco de dados
+      close_button.dataset.id = item_id;
+      close_button.onclick = postRemoveItem;
     }
-    close_button.dataset.id = item_id;
-    close_button.onclick = postRemoveItem;
+
 
     // Adicionando o item
     list_item.appendChild(new_item);

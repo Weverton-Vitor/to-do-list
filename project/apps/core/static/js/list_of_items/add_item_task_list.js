@@ -17,10 +17,14 @@ btns_add_item_option = document.querySelectorAll(".add-item-option");
 btns_remove_item = document.querySelectorAll(".delete-add-item");
 
 // Evento de envio por AJAX do formulário
-btn_add_item.onclick = postDataTaskList;
+if (btn_add_item != null) {
+  btn_add_item.onclick = postDataTaskList;  
+}
 
 // Evento de adicionar um item por AJAX do formulário
-btn_add_task_list_item.onclick = postDataTaskListItem;
+if (btn_add_task_list_item) {
+  btn_add_task_list_item.onclick = postDataTaskListItem;
+}
 
 // Evento para fechar o modal de novos itens
 btn_close_add_item.onclick = function () {

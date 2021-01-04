@@ -83,7 +83,7 @@ class AnnotationTrashListView(ListView):
             context['url_list_mode'] += '?change=order'
 
         # Link que o formulário de pesquisa vai ser submetido
-        context['link_search'] = reverse('annotations:annotation_trash_list')
+        context['link_search'] = reverse('annotations:annotation_list')
 
         # Descrição para o botão de alterar a ordem da listagem
         context['title_btn_change'] = 'Alterar ordem de listagem por prioridade'
