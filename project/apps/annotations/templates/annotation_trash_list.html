@@ -92,16 +92,5 @@
 {% endblock content %}
 
 {% block js %}
-<script>
-  annotations = document.querySelectorAll(".annotation-container-block");
-  // Mostrando uma anotação de cada vez
-  annotations.forEach(function (annotation, i) {
-    setTimeout(() => (annotation.style.display = "flex"), 100 * i);
-  });
-
-window.onload = function() {
-  truncateAnnotation();
-
-}
-</script>
+<script src="{% static 'js/annotation/annotation_trash_list.js' %}"></script>
 {% endblock js %}
