@@ -1,11 +1,12 @@
+import json
 from django.contrib import messages
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
-from project.apps.list_of_items.forms import ModelFormTaskList, ModelFormTaskListItem
-from project.apps.list_of_items.models import TaskList, TaskListItem
-import json
+from project.apps.core.views import TrashUpdateView, TrashDeleteView
+from .forms import ModelFormTaskList, ModelFormTaskListItem
+from .models import TaskList, TaskListItem
 
 
 class TaskListListView(ListView):
@@ -67,7 +68,7 @@ class TaskListListView(ListView):
 
 class TaskListTrashListView(ListView):
     template_name = 'task_list_trash_list.html'
-    model = TaskList
+    model = TaskList    
     context_object_name = 'task_lists'
     paginate_by = 8
 
@@ -164,92 +165,23 @@ class TaskListCreateView(CreateView):
         return reverse('list_of_items:task_list_list')
 
 
-class TaskListUpdateView(UpdateView):
+class TaskListUpdateView(TrashUpdateView):
     model = TaskList
     form_class = ModelFormTaskList
-
-    def post(self, request, *args, **kwargs):
-        task_list = self.get_object()
-        is_ajax = request.META.get('CONTENT_TYPE') == 'application/json'        
-
-        if is_ajax:
-            
-            # Pegando o conteúdo do json enviado na requisição
-            data = json.loads(request.body)
-            data = data['task_list']
-
-            # Validando os dados com o Model Form
-            form = ModelFormTaskList(data)
-            if form.is_valid():
-                TaskList.objects.filter(pk=task_list.pk).update(**form.cleaned_data)
-                task_list = TaskList.objects.get(pk=task_list.pk)
-                task_list.save()
-                return get_task_list(request, task_list.pk, msg=f'Sucesso ao editar "{task_list.title}"')
-
-            return JsonResponse({'msg': 'Erro ao editar'}, status=400)
-        
-        # Restauração de uma lista
-        if 'restore' in request.POST.keys():
-            url = reverse('list_of_items:task_list_list')
-            if self.request.GET.get('change'):
-                return HttpResponseRedirect(url + '?change=order')
-
-            success = TaskList.objects.filter(pk=task_list.pk).update(is_trash=False)            
-            if success:
-                messages.success(self.request, f'Sucesso ao restaurar "{task_list.title}"')
-                return HttpResponseRedirect(url)
-
-            messages.error(self.request, f'Erro ao restaurar "{task_list.title}"')
-            return HttpResponseRedirect(url)
-        else:
-            return self.get(request, *args, **kwargs)
+    success_url = reverse_lazy('list_of_items:task_list_list')
+    type_of = 'task_list'      
 
     def get(self, request, *args, **kwargs):
         return HttpResponseRedirect(reverse('list_of_items:task_list_list'))
 
 
-class TaskListDeleteView(DeleteView):
+class TaskListDeleteView(TrashDeleteView):
     model = TaskList
     success_url = reverse_lazy('list_of_items:task_list_list')
+    trash_url = reverse_lazy('list_of_items:task_list_trash_list')
 
     def get(self, request, *args, **kwargs):
-        return HttpResponseRedirect(reverse('list_of_items:task_list_list') + '?' + self.request.GET.urlencode)
-
-    def delete(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        success_url = self.get_success_url()
-
-        if self.object.is_trash:
-            success = self.object.delete()
-            success = success[0]
-            if success:
-                msg = f'"{self.object.title}" foi excluido em definitivo'
-            else:
-                msg = f'Erro ao excluir "{self.object.title}"'
-
-        else:
-            success = TaskList.objects.filter(
-                pk=self.object.pk).update(is_trash=True)
-
-            if success:
-                msg = f'Sucesso ao mover "{self.object.title}" para a lixeira'
-            else:
-                msg = f'Erro ao mover "{self.object.title}" para a lixeira'
-
-        if success:
-            messages.success(self.request, msg)
-        else:
-            messages.error(self.request, msg)
-
-        return HttpResponseRedirect(success_url)
-
-    def get_success_url(self):
-        # Verificando qual será a ordem da listagem pela QueryString da requisição
-        if self.request.GET.get('change'):
-            return reverse('list_of_items:task_list_list') + '?change=order'
-
-        return reverse('list_of_items:task_list_list')
-
+        return HttpResponseRedirect(self.success_url + '?' + self.request.GET.urlencode)
 
 class TaskListItemCreateView(CreateView):
     model = TaskListItem

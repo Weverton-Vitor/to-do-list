@@ -20,7 +20,7 @@ from project.apps.core import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),    
-    path('', views.index.as_view(), name='index'),
+    path('', views.Index.as_view(), name='index'),
     path('Anotacoes/', include('project.apps.annotations.urls')),
     path('Listas/', include('project.apps.list_of_items.urls'))
 ]
