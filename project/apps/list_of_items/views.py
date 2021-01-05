@@ -72,8 +72,9 @@ class TaskListTrashListView(ListView):
     paginate_by = 8
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['new'] = 'Lista'
+        context = super().get_context_data(**kwargs)        
+
+        context['trash'] = True
 
         # Url da requisição atual
         context['url_list_mode'] = self.request.path
@@ -87,7 +88,7 @@ class TaskListTrashListView(ListView):
             context['url_list_mode'] += '?change=order'
 
         # Link que o formulário de pesquisa vai ser submetido
-        context['link_search'] = reverse('list_of_items:task_list_list')
+        context['link_search'] = reverse('list_of_items:task_list_trash_list')
 
         # Descrição para o botão de alterar a ordem da listagem
         context['title_btn_change'] = 'Alterar ordem de listagem por data de alteração'

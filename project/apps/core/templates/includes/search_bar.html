@@ -59,6 +59,20 @@
         <img src="{% static 'images/blocks.svg' %}" alt="icone-blocos" />
       </button>
     </a>
+
+    {% if trash %}
+    <a
+      id="btn-clear-trash"
+      class="link-search-bar"
+      href="{{url_list_mode}}"
+      title="Esvaziar lixeira"
+      onclick="change_listing_mode('block'); return false;"
+    >
+      <button id="block-mode" class="btn btn-change-mode">
+        <img src="{% static 'images/duster.svg' %}" alt="icone-espanador" />
+      </button>
+    </a>
+    {% endif %}
   </div>
 
   <form id="form-search" action="{{link_search}}" method="get">

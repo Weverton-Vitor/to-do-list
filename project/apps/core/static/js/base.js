@@ -8,15 +8,21 @@ if (localStorage.getItem("link_sidebar_task_lists") == null) {
     localStorage.setItem("link_sidebar_task_list", "/Listas");
 }
 
+//Link padrão par a Lixeira
+if (localStorage.getItem("link_sidebar_trash") == null) {
+  localStorage.setItem("link_sidebar_trash", "/Anotacoes/Lixeira");
+}
+
 // Função para setar os links da barra lateral
 function setLinkSideBar() {
   link_sidebar_annotation = document.querySelector("#link-annotations");
-  link_sidebar_annotation.href = localStorage.getItem(
-    "link_sidebar_annotation"
-  );
+  link_sidebar_annotation.href = localStorage.getItem("link_sidebar_annotation");
 
   link_sidebar_task_list = document.querySelector("#link-task-lists");
   link_sidebar_task_list.href = localStorage.getItem("link_sidebar_task_list");
+
+  link_sidebar_task_list = document.querySelector("#link-trash");
+  link_sidebar_task_list.href = localStorage.getItem("link_sidebar_trash");
 }
 
 // Função para preparar o formulário e o para uma nova edição ou criação

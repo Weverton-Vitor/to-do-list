@@ -69,8 +69,9 @@ class AnnotationTrashListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['new'] = 'Anotação'
-
+        
+        context['trash'] = True
+        
         # Url da requisição atual
         context['url_list_mode'] = self.request.path
 
@@ -83,7 +84,7 @@ class AnnotationTrashListView(ListView):
             context['url_list_mode'] += '?change=order'
 
         # Link que o formulário de pesquisa vai ser submetido
-        context['link_search'] = reverse('annotations:annotation_list')
+        context['link_search'] = reverse('annotations:annotation_trash_list')
 
         # Descrição para o botão de alterar a ordem da listagem
         context['title_btn_change'] = 'Alterar ordem de listagem por prioridade'

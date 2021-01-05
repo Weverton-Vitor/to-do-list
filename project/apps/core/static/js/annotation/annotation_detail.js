@@ -69,16 +69,19 @@ function updateAnnotationDetailModal(annotation) {
   }
 
   // Setando o id em um dataset para edição
-  btn_edit_detail = document.querySelector('#btn-edit-detail')
-  btn_edit_detail.dataset.id = annotation_id
+  btn_edit_detail = document.querySelector('#btn-edit-detail');
+  if (btn_edit_detail != null) {
+    btn_edit_detail.dataset.id = annotation_id;
+    
+  }
 
   // Mudando o display do modal de detalhes
   modal_detail = document.querySelector("#modal-detail");
   modal_detail.style.display = "flex";
 
   // Setando action do formulário para excluir pelo modal de detalhes
-  form_annotation_detail = document.querySelector('#form-delete-detail')
-  form_annotation_detail.action = '/Anotacoes/Deletar/' + annotation.id
+  form_annotation_detail = document.querySelector('#form-delete-detail');
+  form_annotation_detail.action = '/Anotacoes/Deletar/' + annotation.id;
 
   // Verificando a ordem de listagem das anotações
   action_form_create_annotation = document.querySelector('#form-create').action

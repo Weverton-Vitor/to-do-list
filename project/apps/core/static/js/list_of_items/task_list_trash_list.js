@@ -9,15 +9,16 @@ window.onload = function() {
     truncateTaskList();
     truncateTaskListItemBlockMode();
 
+    // Removendo os botões para deletar itens da lista
     delete_add_item = document.querySelectorAll('.delete-add-item');
     delete_add_item.forEach(function (delete_btn) {
       delete_btn.remove();
     });
 
-    edit_btn = document.querySelector('#btn-edit-detail');
-    edit_btn.remove();
+    modifySearchBarToTrash('task_list');
 
-    delete_btn = document.querySelector('#icon-trash-detail')
-    delete_btn.style.width = '64%'
-
+    // Atualizando os links da sidebar
+    link_sidebar_task_list = new URL(window.location).href;  
+    localStorage.setItem("link_sidebar_trash", link_sidebar_task_list);
+    setLinkSideBar();
 }
