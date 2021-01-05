@@ -40,10 +40,10 @@ class AnnotationListView(ListView):
         context['title_btn_change'] = 'Alterar ordem de listagem por prioridade'
 
         # Mensagem para caso a lista estiver vazia
-        context['empty_msg'] = 'Sem Itens'
+        context['empty_msg'] = 'Sem Anotações'
         title = self.request.GET.get('title')
         if title:
-            context['empty_msg'] = f'Sem resultados para {title}'
+            context['empty_msg'] = f'Sem resultados para "{title}"'
 
         return context
 
@@ -91,10 +91,10 @@ class AnnotationTrashListView(ListView):
         context['title_btn_change'] = 'Alterar ordem de listagem por prioridade'
 
         # Mensagem para caso a lista estiver vazia
-        context['empty_msg'] = 'Sem Itens'
+        context['empty_msg'] = 'Sem Anotações'
         title = self.request.GET.get('title')
         if title:
-            context['empty_msg'] = f'Sem resultados para {title}'
+            context['empty_msg'] = f'Sem resultados para "{title}"'
 
         return context
 

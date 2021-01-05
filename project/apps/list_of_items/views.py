@@ -43,10 +43,10 @@ class TaskListListView(ListView):
         context['title_btn_change'] = 'Alterar ordem de listagem por data de alteração'
 
         # Mensagem para caso a lista estiver vazia
-        context['empty_msg'] = 'Sem Itens'
+        context['empty_msg'] = 'Sem Listas'
         title = self.request.GET.get('title')
         if title:
-            context['empty_msg'] = f'Sem resultados para {title}'
+            context['empty_msg'] = f'Sem resultados para "{title}"'
 
         return context
 
@@ -95,10 +95,10 @@ class TaskListTrashListView(ListView):
         context['title_btn_change'] = 'Alterar ordem de listagem por data de alteração'
 
         # Mensagem para caso a lista estiver vazia
-        context['empty_msg'] = 'Sem Itens'
+        context['empty_msg'] = 'Sem Listas'
         title = self.request.GET.get('title')
         if title:
-            context['empty_msg'] = f'Sem resultados para {title}'
+            context['empty_msg'] = f'Sem resultados para "{title}"'
 
         return context
 
