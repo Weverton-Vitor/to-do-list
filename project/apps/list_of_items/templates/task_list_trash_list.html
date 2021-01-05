@@ -33,8 +33,7 @@
                 {% else %}
                 <form id="form-delete" action="{% url 'list_of_items:task_list_edit' task_list.id %}?change=order" method="post">
                 {% endif %}
-                    {% csrf_token %}
-                    <input type="hidden" name="is_trash" value='0'>
+                    {% csrf_token %}                    
                     <input type="hidden" name="restore" value='1'>
                     <button  class="btn btn-option" title="Restaurar" data-id={{annotation.id}}>
                         <img src="{% static 'images/black-left-curved-arrow.svg' %}" alt="icone de seta curvada para esqueda">

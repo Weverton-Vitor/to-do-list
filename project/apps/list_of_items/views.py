@@ -170,24 +170,42 @@ class TaskListUpdateView(UpdateView):
 
     def post(self, request, *args, **kwargs):
         task_list = self.get_object()
+        is_ajax = request.META.get('CONTENT_TYPE') == 'application/json'        
 
-        # Pegando o conteúdo do json enviado na requisição
-        data = json.loads(request.body)
-        data = data['task_list']
+        if is_ajax:
+            
+            # Pegando o conteúdo do json enviado na requisição
+            data = json.loads(request.body)
+            data = data['task_list']
 
-        # Validando os dados com o Model Form
-        form = ModelFormTaskList(data)
-        if form.is_valid():
-            TaskList.objects.filter(
-                pk=task_list.pk).update(**form.cleaned_data)
-            task_list = TaskList.objects.get(pk=task_list.pk)
-            task_list.save()
-            return get_task_list(request, task_list.pk, msg=f'Sucesso ao editar "{task_list.title}"')
+            # Validando os dados com o Model Form
+            form = ModelFormTaskList(data)
+            if form.is_valid():
+                TaskList.objects.filter(pk=task_list.pk).update(**form.cleaned_data)
+                task_list = TaskList.objects.get(pk=task_list.pk)
+                task_list.save()
+                return get_task_list(request, task_list.pk, msg=f'Sucesso ao editar "{task_list.title}"')
 
-        return JsonResponse({'msg': 'Erro ao editar'}, status=400)
+            return JsonResponse({'msg': 'Erro ao editar'}, status=400)
+        
+        # Restauração de uma lista
+        if 'restore' in request.POST.keys():
+            url = reverse('list_of_items:task_list_list')
+            if self.request.GET.get('change'):
+                return HttpResponseRedirect(url + '?change=order')
+
+            success = TaskList.objects.filter(pk=task_list.pk).update(is_trash=False)            
+            if success:
+                messages.success(self.request, f'Sucesso ao restaurar "{task_list.title}"')
+                return HttpResponseRedirect(url)
+
+            messages.error(self.request, f'Erro ao restaurar "{task_list.title}"')
+            return HttpResponseRedirect(url)
+        else:
+            return self.get(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
-        return HttpResponseRedirect(reverse('list_of_items:task_list_edit'))
+        return HttpResponseRedirect(reverse('list_of_items:task_list_list'))
 
 
 class TaskListDeleteView(DeleteView):
