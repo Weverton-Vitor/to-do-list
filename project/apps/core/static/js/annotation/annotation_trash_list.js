@@ -4,6 +4,7 @@ annotations.forEach(function (annotation, i) {
   setTimeout(() => (annotation.style.display = "flex"), 100 * i);
 });
 
+
 window.onload = function () {
   truncateAnnotation();
   modifySearchBarToTrash("Annotation");
@@ -13,3 +14,4 @@ window.onload = function () {
   localStorage.setItem("link_sidebar_trash", link_sidebar_task_list);
   setLinkSideBar();
 };
+

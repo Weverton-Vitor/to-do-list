@@ -37,9 +37,9 @@
                     <img src="{% static 'images/edit.svg' %}" alt="Editar">
                 </button>
                 {% if change_order %}
-                <form id="form-delete" action="{% url 'list_of_items:task_list_delete' task_list.id %}" method="post">                    
+                <form class="form-delete" action="{% url 'list_of_items:task_list_delete' task_list.id %}" method="post">                    
                 {% else %}
-                <form id="form-delete" action="{% url 'list_of_items:task_list_delete' task_list.id %}?change=order" method="post">
+                <form class="form-delete" action="{% url 'list_of_items:task_list_delete' task_list.id %}?change=order" method="post">
                 {% endif %}
                     {% csrf_token %}
                     <button class="btn btn-option" type='submit' title="Excluir">
@@ -88,9 +88,9 @@
                     <img src="{% static 'images/edit.svg' %}" alt="Editar">
                 </button>
                 {% if change_order %}
-                <form id="form-delete" action="{% url 'list_of_items:task_list_delete' task_list.id %}" method="post">                    
+                <form class="form-delete" action="{% url 'list_of_items:task_list_delete' task_list.id %}" method="post">                    
                 {% else %}
-                <form id="form-delete" action="{% url 'list_of_items:task_list_delete' task_list.id %}?change=order" method="post">
+                <form class="form-delete" action="{% url 'list_of_items:task_list_delete' task_list.id %}?change=order" method="post">
                 {% endif %}                
                     {% csrf_token %}
                     <button class="btn btn-option" type='submit' title="Excluir">
@@ -117,9 +117,12 @@
 <!--Incluindo o fomulário-->
 {% include "task_list_form.html" %}
 
+<!-- Incluindo o modal para adicionar items a lista-->
 {% include "task_list_add_item.html" %}
 
+<!-- Incluindo o modal de detalhes-->
 {% include "task_list_detail.html" %}
+
 
 {% endblock content %}
 

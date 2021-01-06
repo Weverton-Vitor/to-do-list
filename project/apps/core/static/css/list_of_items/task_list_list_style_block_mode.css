@@ -51,15 +51,15 @@
   margin-left: 3%;
 }
 
-#form-delete {
+.form-delete {
   width: 22%;
 }
 
-#form-delete button {
+.form-delete button {
   width: 95%;
 }
 
-#form-delete button:hover {
+.form-delete button:hover {
   width: 100%;
 }
 

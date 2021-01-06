@@ -1,0 +1,18 @@
+{% load static %}
+<link rel="stylesheet" href="{% static '/css/confirmation.css' %}">
+<div id="modal-confirmation" class="modal">
+    <div id="content-confirmation" class="modal-content-confirmation">
+        <p id='msg-confirmation'>Deseja excluir este item permanentemente </p>
+        <div>
+            <button id="btn-confirm" class='btn btn-confirmation'>
+                <p>Confirmar</p>
+            </button>
+            <button id="btn-cancel" class='btn btn-confirmation'>
+                <p>Cancelar</p>
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<script src="{% static 'js/confirmation.js' %}"></script>

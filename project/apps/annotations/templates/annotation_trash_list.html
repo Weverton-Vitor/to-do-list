@@ -30,12 +30,11 @@
 
                 <div class="annotation-options">
                     {% if change_order %}
-                    <form id="form-delete" action="{% url 'annotations:annotation_edit' pk=annotation.id %}" method="post">                    
+                    <form class="form-delete form-restore" action="{% url 'annotations:annotation_edit' pk=annotation.id %}" method="post">                    
                     {% else %}
-                    <form id="form-delete" action="{% url 'annotations:annotation_edit' pk=annotation.id %}?change=order" method="post">
+                    <form class="form-delete form-restore" action="{% url 'annotations:annotation_edit' pk=annotation.id %}?change=order" method="post">
                     {% endif %}
-                        {% csrf_token %}
-                        <input type="hidden" name="is_trash" value='0'>
+                        {% csrf_token %}                        
                         <input type="hidden" name="restore" value='1'>
                         <button  class="btn btn-option" title="Restaurar" data-id={{annotation.id}}>
                             <img src="{% static 'images/black-left-curved-arrow.svg' %}" alt="icone de seta curvada para esqueda">
@@ -43,12 +42,12 @@
                     </form>
 
                     {% if change_order %}
-                    <form id="form-delete" action="{% url 'annotations:annotation_delete' pk=annotation.id %}" method="post">                    
+                    <form class="form-delete" action="{% url 'annotations:annotation_delete' pk=annotation.id %}" method="post">                    
                     {% else %}
-                    <form id="form-delete" action="{% url 'annotations:annotation_delete' pk=annotation.id %}?change=order" method="post">
+                    <form class="form-delete" action="{% url 'annotations:annotation_delete' pk=annotation.id %}?change=order" method="post">
                     {% endif %}
                         {% csrf_token %}
-                        <button class="btn btn-option" type='submit' title="Excluir">
+                        <button class="btn btn-option btn-remove" type='button' title="Excluir" >
                             <img src="{% static 'images/trash-black.svg' %}" alt="Excluir">
                         </button>
                     </form>
@@ -88,6 +87,8 @@
 
 <!--Incluindo a página de detalhes das annotações-->
 {% include "annotation_detail.html" %}
+
+{% include "includes/confirmation.html" %}
 
 {% endblock content %}
 

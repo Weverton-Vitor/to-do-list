@@ -81,17 +81,17 @@
   width: 22%;
 }
 
-#form-delete {
+.form-delete {
   width: 22%;
   display: flex;
   align-items: center;  
 }
 
-#form-delete:hover {
+.form-delete:hover {
   width: 25%;
 }
 
-#form-delete button {
+.form-delete button {
   width: 98%;
 }
 

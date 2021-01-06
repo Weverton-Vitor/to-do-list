@@ -34,9 +34,9 @@
                         <img src="{% static 'images/edit.svg' %}" alt="Editar">
                     </button>
                     {% if change_order %}
-                    <form id="form-delete" action="{% url 'annotations:annotation_delete' pk=annotation.id %}" method="post">                    
+                    <form class="form-delete" action="{% url 'annotations:annotation_delete' pk=annotation.id %}" method="post">                    
                     {% else %}
-                    <form id="form-delete" action="{% url 'annotations:annotation_delete' pk=annotation.id %}?change=order" method="post">
+                    <form class="form-delete" action="{% url 'annotations:annotation_delete' pk=annotation.id %}?change=order" method="post">
                     {% endif %}
                         {% csrf_token %}
                         <button class="btn btn-option" type='submit' title="Excluir">
@@ -92,9 +92,9 @@
                     <img src="{% static 'images/edit.svg' %}" alt="Editar">
                 </button>
                 {% if change_order %}
-                <form id="form-delete" action="{% url 'annotations:annotation_delete' pk=annotation.id %}" method="post">                    
+                <form class="form-delete" action="{% url 'annotations:annotation_delete' pk=annotation.id %}" method="post">                    
                 {% else %}
-                <form id="form-delete" action="{% url 'annotations:annotation_delete' pk=annotation.id %}?change=order" method="post">
+                <form class="form-delete" action="{% url 'annotations:annotation_delete' pk=annotation.id %}?change=order" method="post">
                 {% endif %}                
                     {% csrf_token %}
                     <button class="btn btn-option" type='submit' title="Excluir">

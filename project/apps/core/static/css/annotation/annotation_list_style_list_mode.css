@@ -62,7 +62,7 @@
   justify-content: end;
 }
 
-#form-delete {
+.form-delete {
   width: 32%;
   display: flex;
   align-items: center;
@@ -70,11 +70,11 @@
   margin-right: 15%;
 }
 
-#form-delete button {
+.form-delete button {
   width: 96%;
 }
 
-#form-delete button:hover {
+.form-delete button:hover {
   width: 100%;
 }
 

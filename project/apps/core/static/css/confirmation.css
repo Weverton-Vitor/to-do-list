@@ -1,0 +1,55 @@
+#modal-confirmation {
+    justify-content: center;
+}
+
+.modal-content-confirmation {
+	background-color: #fefefe;
+	border: 1px solid #888;
+	border-radius: 10px;
+	margin-top: 1%;
+	width: 32%;
+	height: 18%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#msg-confirmation {
+    font-size: 2vw;
+    text-align: center;
+}
+
+#content-confirmation div {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3%;
+    width: 53%;
+}
+
+.btn-confirmation {
+    padding: 2%;
+}
+
+#btn-confirm {
+    background: #c80404;
+}
+
+#btn-confirm:hover {
+    background: #7e0202;
+}
+
+#btn-cancel {    
+    background: #20318d
+}
+
+#btn-cancel:hover {    
+    background: #02147e
+}
+
+
+.btn-confirmation p{
+    color: white;
+    font-size: 1.6vw;
+    font-family: 'Rum Raisin', sans-serif;  
+}

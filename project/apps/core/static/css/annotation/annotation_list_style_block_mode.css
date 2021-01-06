@@ -45,26 +45,29 @@
   justify-content: end;
 }
 
-#form-delete {
+.form-delete {
   width: 20%;
+  cursor: pointer;
 }
 
-#form-delete button {
+.form-delete button {
   width: 100%;
 }
 
-#form-delete:hover {
+.form-delete:hover {
   width: 23%;
 }
 
-.btn-option {
-  width: 20%;
+.btn-option {  
   background: rgba(1, 1, 1, 0);
 }
 
-.btn-option:hover {
+.btn-edit {
+  width: 20%;
+}
+
+.btn-edit:hover {
   width: 22%;
-  margin-bottom: 0px;
 }
 
 .line-options {
