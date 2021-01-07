@@ -18,7 +18,7 @@ btns_remove_item = document.querySelectorAll(".delete-add-item");
 
 // Evento de envio por AJAX do formulário
 if (btn_add_item != null) {
-  btn_add_item.onclick = postDataTaskList;  
+  btn_add_item.onclick = postDataTaskList;
 }
 
 // Evento de adicionar um item por AJAX do formulário
@@ -38,27 +38,25 @@ for (let i = 0; i < btns_add_item_option.length; i++) {
   btns_add_item_option[i].onclick = function () {
     task_list_id = this.dataset.id;
 
-  let xhr = new XMLHttpRequest();
-  xhr.open("GET", "Lista/" + task_list_id);
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", "Lista/" + task_list_id);
 
-  xhr.onreadystatechange = () => {
-    if (xhr.readyState == 4) {
-      if (xhr.status == 200) {
-        task_list_data = JSON.parse(xhr.responseText);
-        task_list = task_list_data.task_list;        
-        // mostrando o modal para adicionar itens
-        showModalAddItem(task_list.title, task_list.id);
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState == 4) {
+        if (xhr.status == 200) {
+          task_list_data = JSON.parse(xhr.responseText);
+          task_list = task_list_data.task_list;
+          // mostrando o modal para adicionar itens
+          showModalAddItem(task_list.title, task_list.id);
 
-        // Adicionando os item existentes a lista
-        updateTaskListItemsModal(task_list.items, false);        
-
+          // Adicionando os item existentes a lista
+          updateTaskListItemsModal(task_list.items, false);
+        }
       }
-    }
-  };
+    };
 
-  xhr.send();
-  }
-  
+    xhr.send();
+  };
 }
 
 // Função para cadastrar listas de itens por AJAX
@@ -197,14 +195,13 @@ function addItem(item_description, item_id) {
   close_button.onclick = postRemoveItem;
 
   // Adicionando o item
-  list_item.appendChild(new_item);
-
+  list_item.appendChild(new_item);  
 }
 
 // Função para para limpar os itens da lista do modal de criação
 function clearTaskListItemsModal() {
-  list_item = document.querySelector("#list-items-add-item");  
-  ul = list_item.childNodes[3]
+  list_item = document.querySelector("#list-items-add-item");
+  ul = list_item.childNodes[3];
 
   // Função de task_list_detail.js
   clearTaskListItemsDetailModal(list_item.id);
@@ -223,41 +220,39 @@ function postRemoveItem() {
   token = document.querySelector("[name=csrfmiddlewaretoken]");
 
   let xhr = new XMLHttpRequest();
-    xhr.open("POST", '/Listas/Deletar/Item/'+id, true);
+  xhr.open("POST", "/Listas/Deletar/Item/" + id, true);
 
-    xhr.setRequestHeader("Content-type", "application/json");
-    xhr.setRequestHeader("X-CSRFToken", token.value);
+  xhr.setRequestHeader("Content-type", "application/json");
+  xhr.setRequestHeader("X-CSRFToken", token.value);
 
-    xhr.onreadystatechange = () => {
-      if (xhr.readyState == 4) {
-        if (xhr.status == 200) {
-          item = this.parentElement.parentElement;   
-          
-          // Testando se a lista está vazia e mostrando a mensagem de lista vazia
-          if (item.parentElement.childElementCount-1 == 1) {
-            if (item.parentElement.parentElement.id.includes('detail')) {
-              empty_msg = document.querySelector("#empty-msg-list-detail");              
-              empty_msg.style.display = "block";
-            } else {
-              empty_msg = document.querySelector("#empty-msg-list");              
-              empty_msg.style.display = "block";
-            }
+  xhr.onreadystatechange = () => {
+    if (xhr.readyState == 4) {
+      if (xhr.status == 200) {
+        item = this.parentElement.parentElement;
+
+        // Testando se a lista está vazia e mostrando a mensagem de lista vazia
+        if (item.parentElement.childElementCount - 1 == 1) {
+          if (item.parentElement.parentElement.id.includes("detail")) {
+            empty_msg = document.querySelector("#empty-msg-list-detail");
+            empty_msg.style.display = "block";
+          } else {
+            empty_msg = document.querySelector("#empty-msg-list");
+            empty_msg.style.display = "block";
           }
-
-          // Removendo o item(<li>)
-          item.remove();
-
-          // Removendo o item da lista na listagem geral
-          overview_item = document.getElementById('item-' + this.dataset.id);
-          overview_item.remove();
-
-        } else if (xhr.status == 400) {
-          
         }
+
+        // Removendo o item(<li>)
+        item.remove();
+
+        // Removendo o item da lista na listagem geral
+        overview_item = document.getElementById("item-" + this.dataset.id);
+        if (overview_item != null) {
+          overview_item.remove();
+        }
+      } else if (xhr.status == 400) {
       }
-    };
+    }
+  };
 
-    xhr.send();
-  
+  xhr.send();
 }
-

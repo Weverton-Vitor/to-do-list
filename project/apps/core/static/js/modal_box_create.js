@@ -21,6 +21,10 @@ span_create.onclick = function () {
   
   modal_btn_form = document.querySelector('#btn-add') ;
   modal_btn_form.innerText = 'Adicionar';
+  btn_add_item = document.querySelector("#btn-add-item");
+  if (btn_add_item) {
+    btn_add_item.style.display = "flex";
+  }
 };
 
 // Qualquer click fora do modal

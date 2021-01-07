@@ -35,7 +35,7 @@ function post_data_edit_task_list() {
 
   form_task_list = document.querySelector("#form-create");
   title_task_list_input = document.querySelector("#id_title");
-  btn_add_item = document.querySelector("#btn-add-item");
+  btn_add_item = document.querySelector("#btn-add-item");  
 
   // Checando se o formulário está valido
   if (
@@ -63,8 +63,7 @@ function post_data_edit_task_list() {
 
           // Limpando o formulário
           clearFormCreate(this.id, "modal-new-item");
-
-          btn_add_item.style.display = "block";
+          btn_add_item.style.display = "flex";
 
           // Atualizando o titulo da lista
           updateTaskList(new_task_list);
@@ -78,8 +77,8 @@ function post_data_edit_task_list() {
           response = JSON.parse(xhr.responseText);
 
           // Limpando o formulário
-
           clearFormCreate(this.id, "modal-new-item");
+          btn_add_item.style.display = "flex";
 
           // Setando as propiedades da validação do formulário
           this[1].required = true;
