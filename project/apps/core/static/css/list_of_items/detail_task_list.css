@@ -4,6 +4,8 @@
   background-color: #fefefe;
   border: 1px solid #888;
   border-radius: 10px;
+  animation-name: resizing;
+  animation-duration: 0.5s;
 }
 
 .task-list-header-detail {

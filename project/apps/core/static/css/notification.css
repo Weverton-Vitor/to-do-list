@@ -12,6 +12,8 @@
     height: 10%;
     width: auto;    
     white-space: nowrap;
+    animation-name: slide;
+    animation-duration: 1s;
     
 }
 
@@ -31,7 +33,7 @@
 .close-modal-notification {
   color: white;
   margin-right: 5%;
-  margin-top: 1%;
+  margin-top: 2%;
   font-size: 3vw; 
   cursor: pointer;
   
@@ -41,7 +43,17 @@
   color: red;
 }
 
+@keyframes slide {
+    from{
+        opacity: 0;
+        transform: translateX(200px);
+    }
 
+    to{
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}
 
 
 

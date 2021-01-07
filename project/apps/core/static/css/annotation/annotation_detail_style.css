@@ -6,6 +6,8 @@
   border-radius: 10px;
   display: flex;
   flex-direction: row;
+  animation-name: resizing;
+  animation-duration: 0.5s;
 }
 
 #annotation-content-detail {
