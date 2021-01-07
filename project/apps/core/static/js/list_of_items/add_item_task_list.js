@@ -163,7 +163,7 @@ function showModalAddItem(task_title, task_id) {
 
   // Mudando o titulo do modal
   add_item_title = document.querySelector("#add-item-title");
-  add_item_title.innerText = "Adicionar items a " + task_title;
+  add_item_title.innerText = 'Adicionar items a "' + task_title + '"';
 
   // Setando o id da nova lista que vai receber items
   task_id_input = document.querySelector("#task-id");

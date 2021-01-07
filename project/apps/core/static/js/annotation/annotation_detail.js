@@ -84,8 +84,8 @@ function updateAnnotationDetailModal(annotation) {
   form_annotation_detail.action = '/Anotacoes/Deletar/' + annotation.id;
 
   // Verificando a ordem de listagem das anotações
-  action_form_create_annotation = document.querySelector('#form-create').action
-  if (action_form_create_annotation.includes('change=order')) { 
+  form_create_annotation = document.querySelector('#form-create')
+  if (form_create_annotation != null && form_create_annotation.action.includes('change=order')) { 
     form_annotation_detail.action += '?change=order'
   }
 }
