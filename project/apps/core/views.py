@@ -2,8 +2,12 @@ import json
 from django.contrib import messages
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
-from django.views.generic import UpdateView, DeleteView
+from django.urls import reverse
+from django.views.decorators.csrf import csrf_protect
+from django.views.generic import DeleteView, UpdateView
 from django.views.generic.base import RedirectView
+from project.apps.annotations.models import Annotation
+from project.apps.list_of_items.models import TaskList
 
 
 class Index(RedirectView):
@@ -59,6 +63,7 @@ class TrashUpdateView(UpdateView):
     def get_type_obj(self):
         return self.type_obj
 
+
 class TrashDeleteView(DeleteView):
     trash_url = ''
     
@@ -103,3 +108,18 @@ class TrashDeleteView(DeleteView):
                 return self.success_url + '?change=order'
 
             return self.success_url
+        
+@csrf_protect        
+def delete_all(request):
+    response = HttpResponseRedirect(reverse('annotations:annotation_trash_list'))
+    if request.method == 'POST':
+        annotations = Annotation.objects.filter(is_trash=True).delete()
+        task_lists = TaskList.objects.filter(is_trash=True).delete()
+        if annotations[0] == 0 and task_lists[0] == 0:
+            messages.error(request, 'Sem itens na lixeira')            
+        else:
+            messages.success(request, 'Sucesso ao limpar a lixeira')
+            
+        return response                            
+    else:
+        return response
