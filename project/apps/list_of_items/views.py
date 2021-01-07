@@ -174,6 +174,8 @@ class TaskListUpdateView(TrashUpdateView):
     def get(self, request, *args, **kwargs):
         return HttpResponseRedirect(reverse('list_of_items:task_list_list'))
 
+    def ajax_method(self, request, pk, **kwargs):
+        return get_task_list(request, pk, **kwargs)
 
 class TaskListDeleteView(TrashDeleteView):
     model = TaskList

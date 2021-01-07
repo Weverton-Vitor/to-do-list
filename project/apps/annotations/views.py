@@ -149,11 +149,13 @@ class AnnotationUpdateView(TrashUpdateView):
     model = Annotation
     form_class = ModelFormAnnotation
     success_url = reverse_lazy('annotations:annotation_list')
-    type_of = 'annotations'   
+    type_of = 'annotation'   
 
     def get(self, request, *args, **kwargs):
         return HttpResponseRedirect(reverse('annotations:annotation_list'))
 
+    def ajax_method(self, request, pk, **kwargs):
+        return get_annotation(request, pk, **kwargs)
 
 class AnnotationDeleteView(TrashDeleteView):
     model = Annotation
