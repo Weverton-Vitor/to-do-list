@@ -16,6 +16,9 @@ btns_add_item_option = document.querySelectorAll(".add-item-option");
 // Botões que removem um item da lista e do banco de dados
 btns_remove_item = document.querySelectorAll(".delete-add-item");
 
+// botão para deletar mais de um items
+btn_multiple_exclude = document.querySelector("#btn-delete-selected-items-add-items");
+
 // Evento de envio por AJAX do formulário
 if (btn_add_item != null) {
   btn_add_item.onclick = postDataTaskList;
@@ -58,6 +61,8 @@ for (let i = 0; i < btns_add_item_option.length; i++) {
     xhr.send();
   };
 }
+
+btn_multiple_exclude.onclick = removeMultipleItems;
 
 // Função para cadastrar listas de itens por AJAX
 function postDataTaskList() {
@@ -195,7 +200,7 @@ function addItem(item_description, item_id) {
   close_button.onclick = postRemoveItem;
 
   // Adicionando o item
-  list_item.appendChild(new_item);  
+  list_item.appendChild(new_item);
 }
 
 // Função para para limpar os itens da lista do modal de criação
@@ -255,4 +260,62 @@ function postRemoveItem() {
   };
 
   xhr.send();
+}
+
+// Função para coletar os ids dos items que serão deletados
+function removeMultipleItems() {
+  inputs_id = document.querySelectorAll("[name=items]");
+  inputs_checked = [];
+
+  let items = {
+    ids: [],
+  };
+
+  inputs_id.forEach((input) => {
+    if (input.checked) {
+      id = input.value;
+      items.ids.push(id);
+      inputs_checked.push(input);
+    }
+  });
+
+  token = document.querySelector("[name=csrfmiddlewaretoken]");
+
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", "/Listas/Deletar/Item/" + items.ids[0], true);
+  xhr.setRequestHeader("Content-type", "application/json");
+  xhr.setRequestHeader("X-CSRFToken", token.value);
+
+  xhr.onreadystatechange = () => {
+    if (xhr.readyState == 4) {
+      if (xhr.status == 200) {
+        response = JSON.parse(xhr.responseText);
+        inputs_checked.forEach((input) => {
+          item = input.parentElement.parentElement;
+          // Testando se a lista está vazia e mostrando a mensagem de lista vazia
+          if (item.parentElement.childElementCount - 1 == 1) {
+            if (item.parentElement.parentElement.id.includes("detail")) {
+              empty_msg = document.querySelector("#empty-msg-list-detail");
+              empty_msg.style.display = "block";
+            } else {
+              empty_msg = document.querySelector("#empty-msg-list");
+              empty_msg.style.display = "block";
+            }
+          }
+
+          item.remove();
+
+          // Removendo o item da lista na listagem geral
+          overview_item = document.getElementById("item-" + input.value);
+          if (overview_item != null) {
+            overview_item.remove();
+          }
+        });
+      } else if (xhr.status == 400) {
+        response = JSON.parse(xhr.responseText);
+      }
+    }
+  };
+
+  xhr.send(JSON.stringify(items));
 }

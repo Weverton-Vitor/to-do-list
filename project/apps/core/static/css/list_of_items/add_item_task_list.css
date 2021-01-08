@@ -39,7 +39,7 @@
 
 .list-items {
   margin: 1%;
-  height: 75%;
+  height: 77%;
   padding: 1%;
   border-radius: 5px;
   background: rgba(1, 1, 1, 0.05);
@@ -57,7 +57,7 @@
   cursor: pointer;
 }
 
-.item-description-add-item div:hover {
+.item-content:hover {
   background: rgba(1,1,1,0.1)
 }
 
@@ -67,6 +67,7 @@
 
 .item-description-add-item p {
   font-size: 1.6vw;
+  width: 95%;
 }
 
 .empty-msg-list {
@@ -100,11 +101,11 @@
   background: rgb(8, 46, 88);
 }
 
-#btn-delete-selected-items {
+.btn-remove {
   background: rgb(231, 3, 3)
 }
 
-#btn-delete-selected-items:hover {
+.btn-remove:hover {
   background: rgb(139, 3, 3)
 }
 

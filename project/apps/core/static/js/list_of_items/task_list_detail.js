@@ -7,15 +7,21 @@ task_list_close = document.getElementById("close-modal-detail");
 // Pegando todos os corpos das anotações
 task_list_body = document.querySelectorAll(".task-list-body");
 
+btn_multiple_exclude_detail = document.querySelector("#btn-delete-selected-items-detail");
+
 // Fechando o modal pelo botão de Fechamento
 task_list_close.onclick = function () {
   modal_detail_task_list.style.display = "none";
   clearTaskListItemsDetailModal("list-items-add-item-detail");
 };
 
+// botão para deletar mais de um items
+
 for (let i = 0; i < task_list_body.length; i++) {
   task_list_body[i].onclick = showTaskListDetail;
 }
+
+btn_multiple_exclude_detail.onclick = removeMultipleItems;
 
 // Função para que busca os dados da lista de tarefas
 function showTaskListDetail() {
@@ -82,7 +88,7 @@ function updateTaskListItemsModal(items, detail) {
       .childNodes[3];
     template_item = document.querySelector("#template-item-detail");
   } else {
-    // Itens para o modal de adicção de itens
+    // Itens para o modal de adição de itens
     empty_msg = document.querySelector("#empty-msg-list");
     list_item = document.querySelector("#list-items-add-item").childNodes[3];
     template_item = document.querySelector("#template-item");
@@ -96,6 +102,10 @@ function updateTaskListItemsModal(items, detail) {
     close_button = new_item.childNodes[1].childNodes[3];
     item_id = item[0];
     item_description = item[1];
+    checkbox_delete_item = new_item.children[0].children[2];
+
+    // Mudando valor do checkbox para excluir
+    checkbox_delete_item.value = item_id;
 
     // Mudando o id do item
     new_item.id = "item-" + item_id;
@@ -121,6 +131,24 @@ function updateTaskListItemsModal(items, detail) {
 
     // Adicionando o item
     list_item.appendChild(new_item);
+
+
+
+    new_item_div =  new_item.children[0];      
+    new_item_p =  new_item_div.children[0];  
+    new_item_p.onclick = function () {      
+      if (this.classList.contains('selected-item')) {
+        this.style.width = '95%';
+        this.classList.remove('selected-item');        
+        this.parentElement.children[1].style.display = "block";      
+        this.parentElement.children[2].checked = false;
+      } else {
+        this.classList.add('selected-item');           
+        this.style.width = '100%';
+        this.parentElement.children[1].style.display = "none";  
+        this.parentElement.children[2].checked = true;
+      }  
+    }
   });
 
   // Verificando se a lista está vazia

@@ -62,7 +62,17 @@
 }
 
 .task-list-body-detail {
-  height: 95%;
+  height: 75%;
+}
+
+#list-items-add-item-detail {
+  height: 90%;
+}
+
+#footer-detail {
+  display:flex;
+  justify-content: space-between;
+  padding: 0 1%;
 }
 
 #close-modal-detail {

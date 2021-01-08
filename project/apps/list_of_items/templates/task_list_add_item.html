@@ -19,20 +19,21 @@
 
         <hr id="line-options-detail">
                             
-        <div id="add-item-body">
-            <div id="list-items-add-item" class="list-items">
-                <hr>    
-                <ul>                                            
-                    <li id="template-item" class='item-description-add-item'>
-                        <div>
-                            <p>Item 1</p>
-                            <span id="delete-add-item" class="close delete-add-item">&times</span>                        
-                        </div>
-                        <hr>
-                    </li> 
-                </ul>   
-                <p id="empty-msg-list" class="empty-msg-list">Sem Itens na lista</p>
-            </div>
+        <div id="add-item-body">            
+                <div id="list-items-add-item" class="list-items">
+                    <hr>    
+                    <ul>        
+                        <li id="template-item" class='item-description-add-item'>
+                            <div class='item-content'>
+                                <p>Item 1</p>
+                                <span id="delete-add-item" class="close delete-add-item">&times</span>
+                                <input type="checkbox" name="items" value='' hidden="">
+                            </div>
+                            <hr>
+                        </li> 
+                    </ul>   
+                    <p id="empty-msg-list" class="empty-msg-list">Sem Itens na lista</p>
+                </div>           
 
             <form id='form-add-item' action="{% url 'list_of_items:task_list_item_create' %}" method="post">
                 {% csrf_token %}
@@ -45,7 +46,7 @@
                     <p>Adicionar</p>
                 </button> 
 
-                <button id="btn-delete-selected-items" class='btn btn-form  btn-form-add-item'>
+                <button id="btn-delete-selected-items-add-items" class='btn btn-form  btn-form-add-item btn-remove' type='button'>
                     <p>Excluir Selecionados</p>
                 </button>                
             </form>

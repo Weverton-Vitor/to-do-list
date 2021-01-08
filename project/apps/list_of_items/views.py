@@ -52,7 +52,8 @@ class TaskListListView(ListView):
 
     def get_queryset(self):
 
-        queryset = TaskList.objects.filter(is_trash=False).select_related().order_by('-modified')
+        queryset = TaskList.objects.filter(
+            is_trash=False).select_related().order_by('-modified')
 
         # Verificando em que ordem está a listagem
         if self.request.GET.get('change') == 'order':
@@ -68,12 +69,12 @@ class TaskListListView(ListView):
 
 class TaskListTrashListView(ListView):
     template_name = 'task_list_trash_list.html'
-    model = TaskList    
+    model = TaskList
     context_object_name = 'task_lists'
     paginate_by = 8
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)        
+        context = super().get_context_data(**kwargs)
 
         context['trash'] = True
 
@@ -104,7 +105,8 @@ class TaskListTrashListView(ListView):
 
     def get_queryset(self):
 
-        queryset = TaskList.objects.filter(is_trash=True).select_related().order_by('-modified')
+        queryset = TaskList.objects.filter(
+            is_trash=True).select_related().order_by('-modified')
 
         # Verificando em que ordem está a listagem
         if self.request.GET.get('change') == 'order':
@@ -113,7 +115,7 @@ class TaskListTrashListView(ListView):
         # Verificando se existe filtragem
         title = self.request.GET.get('title')
         if title:
-            queryset = queryset.filter(title__istartswith=title)        
+            queryset = queryset.filter(title__istartswith=title)
         return queryset
 
 
@@ -169,13 +171,14 @@ class TaskListUpdateView(TrashUpdateView):
     model = TaskList
     form_class = ModelFormTaskList
     success_url = reverse_lazy('list_of_items:task_list_list')
-    type_of = 'task_list'      
+    type_of = 'task_list'
 
     def get(self, request, *args, **kwargs):
         return HttpResponseRedirect(reverse('list_of_items:task_list_list'))
 
     def ajax_method(self, request, pk, **kwargs):
         return get_task_list(request, pk, **kwargs)
+
 
 class TaskListDeleteView(TrashDeleteView):
     model = TaskList
@@ -184,6 +187,7 @@ class TaskListDeleteView(TrashDeleteView):
 
     def get(self, request, *args, **kwargs):
         return HttpResponseRedirect(self.success_url + '?' + self.request.GET.urlencode)
+
 
 class TaskListItemCreateView(CreateView):
     model = TaskListItem
@@ -225,7 +229,9 @@ def get_task_list(request, pk, **kwargs):
 
 
 def detele_task_list_item(request, pk):
-    item = TaskListItem.objects.filter(pk=pk)
-    item = item.delete()
+    item_ids = json.loads(request.body)
+    item_ids = item_ids['ids']
+    items = TaskListItem.objects.filter(pk__in=item_ids)
+    items = items.delete()    
 
-    return JsonResponse({'sucess': item[0]})
+    return JsonResponse({'success': items[0]})
