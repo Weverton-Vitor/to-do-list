@@ -229,9 +229,13 @@ def get_task_list(request, pk, **kwargs):
 
 
 def detele_task_list_item(request, pk):
-    item_ids = json.loads(request.body)
-    item_ids = item_ids['ids']
-    items = TaskListItem.objects.filter(pk__in=item_ids)
+    item_ids = json.loads(request.body)    
+    task_list_id = item_ids['task_list_id']
+    item_ids = item_ids['ids']        
+    items = TaskListItem.objects.filter(pk__in=item_ids)        
     items = items.delete()    
+    
+    lista = TaskList.objects.get(pk=task_list_id)
+    lista.save()
 
     return JsonResponse({'success': items[0]})
