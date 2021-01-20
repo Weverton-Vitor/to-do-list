@@ -21,7 +21,7 @@ for (let i = 0; i < task_list_body.length; i++) {
   task_list_body[i].onclick = showTaskListDetail;
 }
 
-btn_multiple_exclude_detail.onclick = removeMultipleItems;
+btn_multiple_exclude_detail.onclick = postRemoveMultipleItems;
 
 // Função para que busca os dados da lista de tarefas
 function showTaskListDetail() {
@@ -46,6 +46,13 @@ function showTaskListDetail() {
 
 // Função para atualizar o modal de detalhes das anotações
 function updateTaskListDetailModal(task_list) {
+  task_list_ul = document.querySelector('#task-list-add-item');
+  task_list_ul.dataset.taskId = task_list.id
+
+  // Elemento ul que contém os Itens
+  task_list_ul = document.querySelector('#task-list-detail');
+  task_list_ul.dataset.taskId = task_list.id;
+
   // Pegando os elementos do modal de detalhes
   title_task_list = document.querySelector("#task-list-title-detail");
 
@@ -65,6 +72,9 @@ function updateTaskListDetailModal(task_list) {
     btn_edit_detail.dataset.id = task_list.id;
   }
 
+  // Setando o id em um dataset para removeção de vários itens
+  btn_multiple_exclude_detail.dataset.id = task_list.id
+
   // Setando action do formulário para excluir pelo modal de detalhes
   form_task_list_detail = document.querySelector("#form-delete-detail");
   form_task_list_detail.action = "/Listas/Deletar/" + task_list.id;
@@ -77,6 +87,7 @@ function updateTaskListDetailModal(task_list) {
       form_task_list_detail.action += "?change=order";
     }
   }
+
 }
 
 // Função para atualizar os itens da lista
@@ -125,7 +136,7 @@ function updateTaskListItemsModal(items, detail) {
       }
 
       // Adicionando evento para remover o item da lista e do banco de dados
-      close_button.dataset.id = item_id;
+      close_button.dataset.id = item_id;            
       close_button.onclick = postRemoveItem;
     }
 
@@ -133,22 +144,11 @@ function updateTaskListItemsModal(items, detail) {
     list_item.appendChild(new_item);
 
 
-
+    // Setando evento para selecionar o item
     new_item_div =  new_item.children[0];      
     new_item_p =  new_item_div.children[0];  
-    new_item_p.onclick = function () {      
-      if (this.classList.contains('selected-item')) {
-        this.style.width = '95%';
-        this.classList.remove('selected-item');        
-        this.parentElement.children[1].style.display = "block";      
-        this.parentElement.children[2].checked = false;
-      } else {
-        this.classList.add('selected-item');           
-        this.style.width = '100%';
-        this.parentElement.children[1].style.display = "none";  
-        this.parentElement.children[2].checked = true;
-      }  
-    }
+    new_item_p.onclick = selectItem;
+
   });
 
   // Verificando se a lista está vazia
@@ -177,4 +177,19 @@ function clearTaskListItemsDetailModal(id_body_add) {
       break;
     }
   }
+}
+
+
+function selectItem() {
+  if (this.classList.contains('selected-item')) {
+        this.style.width = '95%';
+        this.classList.remove('selected-item');        
+        this.parentElement.children[1].style.display = "block";      
+        this.parentElement.children[2].checked = false;
+      } else {
+        this.classList.add('selected-item');           
+        this.style.width = '100%';
+        this.parentElement.children[1].style.display = "none";  
+        this.parentElement.children[2].checked = true;
+      }  
 }

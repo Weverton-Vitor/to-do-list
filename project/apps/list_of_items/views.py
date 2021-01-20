@@ -228,7 +228,7 @@ def get_task_list(request, pk, **kwargs):
     return JsonResponse({'task_list': data})
 
 
-def detele_task_list_item(request, pk):
+def detele_task_list_item(request, pk):         
     item_ids = json.loads(request.body)    
     task_list_id = item_ids['task_list_id']
     item_ids = item_ids['ids']        

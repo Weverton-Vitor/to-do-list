@@ -62,7 +62,7 @@ for (let i = 0; i < btns_add_item_option.length; i++) {
   };
 }
 
-btn_multiple_exclude.onclick = removeMultipleItems;
+btn_multiple_exclude.onclick = postRemoveMultipleItems;
 
 // Função para cadastrar listas de itens por AJAX
 function postDataTaskList() {
@@ -173,6 +173,15 @@ function showModalAddItem(task_title, task_id) {
   // Setando o id da nova lista que vai receber items
   task_id_input = document.querySelector("#task-id");
   task_id_input.value = task_id;
+
+  // Setando o id da lista no dataset do botão
+  btn_delete_selected_items = document.querySelector('#btn-delete-selected-items-add-items');
+  btn_delete_selected_items.dataset.id = task_id;
+
+  // Elemento ul que contém os itens
+  task_list_ul = document.querySelector('#task-list-add-item');
+  task_list_ul.dataset.taskId = task_id;
+
 }
 
 // Função para adicionar os novos itens em uma lista para visualização do usuário
@@ -182,6 +191,7 @@ function addItem(item_description, item_id) {
   template_item = document.querySelector("#template-item");
   new_item = template_item.cloneNode(true);
   close_button = new_item.childNodes[1].childNodes[3];
+  input_select = new_item.childNodes[1].childNodes[5];  
 
   empty_msg.style.display = "none";
 
@@ -197,7 +207,20 @@ function addItem(item_description, item_id) {
   // E adicionando evento para remover o item da lista e do banco de dados
   close_button.id = "delete-add-item-" + item_id;
   close_button.dataset.id = item_id;
+
+  // Setando o id da lista no botão para remover um item,
+  // para atualizar a data da de edição da lista
+  task_id_input = document.querySelector("#task-id");
+  close_button.dataset.taskId = task_id_input.value;  
   close_button.onclick = postRemoveItem;
+
+  // Setando evente para selecionar o item
+  text_item = new_item.children[0].children[0];  
+  text_item.onclick = selectItem;
+
+  // Setando o valor do input do item 
+  // para excluir mais de um item
+  input_select.value = item_id;
 
   // Adicionando o item
   list_item.appendChild(new_item);
@@ -222,7 +245,14 @@ function clearTaskListItemsModal() {
 function postRemoveItem() {
   id = this.dataset.id;
 
+  task_list_ul = document.querySelector('#task-list-add-item');
   token = document.querySelector("[name=csrfmiddlewaretoken]");
+
+  // id do item e id da lista
+  let item = {
+    ids: [id],
+    task_list_id: task_list_ul.dataset.taskId
+  };  
 
   let xhr = new XMLHttpRequest();
   xhr.open("POST", "/Listas/Deletar/Item/" + id, true);
@@ -259,18 +289,21 @@ function postRemoveItem() {
     }
   };
 
-  xhr.send();
+  xhr.send(JSON.stringify(item));
 }
 
 // Função para coletar os ids dos items que serão deletados
-function removeMultipleItems() {
+function postRemoveMultipleItems() {  
+  task_list_ul = document.querySelector('#task-list-add-item');  
   inputs_id = document.querySelectorAll("[name=items]");
   inputs_checked = [];
 
   let items = {
     ids: [],
-  };
+    task_list_id: task_list_ul.dataset.taskId
+  };  
 
+  // Pegando o id dos item selecionandos e agrupandos os itens selecionados
   inputs_id.forEach((input) => {
     if (input.checked) {
       id = input.value;
@@ -290,6 +323,8 @@ function removeMultipleItems() {
     if (xhr.readyState == 4) {
       if (xhr.status == 200) {
         response = JSON.parse(xhr.responseText);
+
+        // Removendo os itens que foram excluidos
         inputs_checked.forEach((input) => {
           item = input.parentElement.parentElement;
           // Testando se a lista está vazia e mostrando a mensagem de lista vazia
