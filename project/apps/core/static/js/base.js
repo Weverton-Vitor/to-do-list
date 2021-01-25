@@ -74,10 +74,10 @@ function removeContainer(class_container, css_id) {
 // Função para truncar o title e a descrição da anotação
 function truncateAnnotation() {
   if (localStorage.getItem("listing_mode") == "block") {
-    max_length_description = 240;
+    max_length_description = 214;
     max_length_title = 13;
   } else {
-    max_length_description = 140;
+    max_length_description = 120;
     max_length_title = 13;
   }
 

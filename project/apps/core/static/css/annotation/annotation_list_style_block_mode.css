@@ -87,6 +87,7 @@
 
 .annotation-description {
   font-size: 2.4vh;
+  word-wrap: break-word
 }
 
 .status-bar {
