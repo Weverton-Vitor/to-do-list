@@ -78,6 +78,10 @@ function post_data_edit_annotation() {
 
         // Reduzindo o tamanho da descrição e do titulo da anotação        
         truncateAnnotation();
+
+        this[2].cols = "40";
+        this[2].rows = "10";
+        
       } else if (xhr.status == 400) {
         response = JSON.parse(xhr.responseText);
 
@@ -89,6 +93,9 @@ function post_data_edit_annotation() {
         this[1].required = true;
         this[1].maxLength = "25";
         this[2].required = true;
+        this[2].maxLength = "1000";
+        this[2].cols = "40";
+        this[2].rows = "10";
 
         // Setando a mensagem de falha
         setMessage(response.msg, 1);
