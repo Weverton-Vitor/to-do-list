@@ -4,7 +4,7 @@ from project.apps.core.models import TimeStampedModel
 
 class Annotation(TimeStampedModel):
     title = models.CharField("Título", max_length=40)
-    description = models.TextField("Descrição")
+    description = models.TextField("Descrição", max_length=1000)
     # 1 for red, 2 for orange and 3 for green
     priority = models.PositiveSmallIntegerField("Proridade")
     is_trash = models.BooleanField(default=False)
