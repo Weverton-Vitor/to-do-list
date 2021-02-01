@@ -4,12 +4,14 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
-from project.apps.core.views import TrashUpdateView, TrashDeleteView
+from project.apps.core.views import FilteredListView, TrashDeleteView, TrashUpdateView
+from .filters import AnnotationFilter
 from .forms import ModelFormAnnotation
 from .models import Annotation
 
 
-class AnnotationListView(ListView):
+class AnnotationListView(FilteredListView):
+    filterset_class = AnnotationFilter
     template_name = 'annotation_list.html'
     model = Annotation
     context_object_name = 'annotations'
@@ -48,7 +50,8 @@ class AnnotationListView(ListView):
         return context
 
     def get_queryset(self):
-        queryset = Annotation.objects.filter(
+        queryset = super().get_queryset()
+        queryset = queryset.filter(
             is_trash=False).order_by('priority')
         # Verificando em que ordem está a listagem
         if self.request.GET.get('change') == 'order':
@@ -70,9 +73,9 @@ class AnnotationTrashListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
+
         context['trash'] = True
-        
+
         # Url da requisição atual
         context['url_list_mode'] = self.request.path
 
@@ -149,7 +152,7 @@ class AnnotationUpdateView(TrashUpdateView):
     model = Annotation
     form_class = ModelFormAnnotation
     success_url = reverse_lazy('annotations:annotation_list')
-    type_of = 'annotation'   
+    type_of = 'annotation'
 
     def get(self, request, *args, **kwargs):
         return HttpResponseRedirect(reverse('annotations:annotation_list'))
@@ -157,13 +160,14 @@ class AnnotationUpdateView(TrashUpdateView):
     def ajax_method(self, request, pk, **kwargs):
         return get_annotation(request, pk, **kwargs)
 
+
 class AnnotationDeleteView(TrashDeleteView):
     model = Annotation
     success_url = reverse_lazy('annotations:annotation_list')
     trash_url = reverse_lazy('annotations:annotation_trash_list')
 
     def get(self, request, *args, **kwargs):
-        return HttpResponseRedirect(success_url + '?' + self.request.GET.urlencode)            
+        return HttpResponseRedirect(success_url + '?' + self.request.GET.urlencode)
 
 
 def get_annotation(request, pk, **kwargs):

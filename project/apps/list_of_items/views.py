@@ -4,12 +4,14 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
-from project.apps.core.views import TrashUpdateView, TrashDeleteView
+from project.apps.core.views import FilteredListView, TrashDeleteView, TrashUpdateView
+from .filters import TaskListFilter
 from .forms import ModelFormTaskList, ModelFormTaskListItem
 from .models import TaskList, TaskListItem
 
 
-class TaskListListView(ListView):
+class TaskListListView(FilteredListView):
+    filterset_class = TaskListFilter
     template_name = 'task_list_list.html'
     model = TaskList
     context_object_name = 'task_lists'
@@ -51,8 +53,8 @@ class TaskListListView(ListView):
         return context
 
     def get_queryset(self):
-
-        queryset = TaskList.objects.filter(
+        queryset = super().get_queryset()
+        queryset = queryset.filter(
             is_trash=False).select_related().order_by('-modified')
 
         # Verificando em que ordem está a listagem
@@ -228,13 +230,13 @@ def get_task_list(request, pk, **kwargs):
     return JsonResponse({'task_list': data})
 
 
-def detele_task_list_item(request, pk):         
-    item_ids = json.loads(request.body)    
+def detele_task_list_item(request, pk):
+    item_ids = json.loads(request.body)
     task_list_id = item_ids['task_list_id']
-    item_ids = item_ids['ids']        
-    items = TaskListItem.objects.filter(pk__in=item_ids)        
-    items = items.delete()    
-    
+    item_ids = item_ids['ids']
+    items = TaskListItem.objects.filter(pk__in=item_ids)
+    items = items.delete()
+
     lista = TaskList.objects.get(pk=task_list_id)
     lista.save()
 

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_filters',
     # mY apps
     'project.apps.annotations',
     'project.apps.core',
@@ -70,6 +71,10 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            
+            'libraries': {
+                'pagination_filter': 'project.apps.core.templatetags.pagination_filter',
+            },
         },
     },
 ]

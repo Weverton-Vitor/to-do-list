@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_protect
-from django.views.generic import DeleteView, UpdateView
+from django.views.generic import DeleteView, UpdateView, ListView
 from django.views.generic.base import RedirectView
 from project.apps.annotations.models import Annotation
 from project.apps.list_of_items.models import TaskList
@@ -131,3 +131,17 @@ def delete_all(request):
         return response
     else:
         return response
+
+
+class FilteredListView(ListView):
+    filterset_class = None
+
+    def get_queryset(self):        
+        queryset = super().get_queryset()
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset)        
+        return self.filterset.qs.distinct()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)        
+        context['filterset'] = self.filterset
+        return context
