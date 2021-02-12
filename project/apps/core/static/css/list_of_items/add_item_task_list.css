@@ -97,6 +97,14 @@
   height: 58%;
 }
 
+#btn-delete-selected-items-add-items {
+    background: #d61212;
+}
+
+#btn-delete-selected-items-add-items:hover {
+  background: #a70c0c;
+}
+
 #btn-submit-add-item:hover {
   background: rgb(8, 46, 88);
 }

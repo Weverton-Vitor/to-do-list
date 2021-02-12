@@ -38,7 +38,7 @@ for task_list in lists:
         task_list_item = TaskListItem(
             id=None,
             task_list=task_list,
-            description=f'{task_list.title} - item {i}'
+            description=f'item {i}'
         )
         task_list_items.append(task_list_item)
 

@@ -44,6 +44,14 @@
   width: 22%;  
 }
 
+#btn-delete-selected-items-detail{
+  background: #d61212;
+}
+
+#btn-delete-selected-items-detail:hover {
+  background: #a70c0c;
+}
+
 #form-delete-detail {
   width: 30%;
   display: flex;
@@ -88,3 +96,4 @@
 #template-item-detail {
   display: none
 }
+
