@@ -76,6 +76,7 @@ Por padrão a lixeira exibida é a lixeira de anotações, mas por um botão na 
 
 <h2 id="liguagens">Tecnologias e linguagens usadas no projeto</h2>
 
+<p float='rigth'>
 <img src="https://img.shields.io/static/v1?label=HTML5&message=''&color=ff3f00&style=for-the-badge&logo=HTML5"/>
 
 <img src="https://img.shields.io/static/v1?label=CSS3&message=''&color=2786f5&style=for-the-badge&logo=CSS3"/>
@@ -85,6 +86,7 @@ Por padrão a lixeira exibida é a lixeira de anotações, mas por um botão na 
 <img src="https://img.shields.io/static/v1?label=PYTHON&message=''&color=2786f5&style=for-the-badge&logo=PYTHON"/>
 
 <img src="https://img.shields.io/static/v1?label=DJANGO&message=''&color=14cc00&style=for-the-badge&logo=DJANGO"/>
+</p>
 
 <h2 id="requirements">Arquivo de requerimentos</h2>
 
