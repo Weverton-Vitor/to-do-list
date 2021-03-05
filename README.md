@@ -112,13 +112,15 @@ Por padrão a lixeira exibida é a lixeira de anotações, mas por um botão na 
 
 <p align="justify">4. <code>$ source .venv/bin/activate // Ativando o ambiente virtual</code></p>
 
-<p align="justify">5. <code>(.venv)$ pip intall -r requirements // Instalando as depêndencias</code> </p>
+<p align="justify">5. <code>(.venv)$ pip install -r requirements // Instalando as depêndencias</code> </p>
 
 <p align="justify">6. <code>(.venv)$ python contrib/env.gen.py // Gerando dados ficticios para a configuração do ambiente</code> </p>
 
+<p align="justify">7. <code>(.venv)$ python manage.py migrate // Gerando as tabelas do banco de dados</code> </p>
+
 <h4>Iniciando a aplicação</h4>
 
-<p align="justify">7. <code>(.venv)$ python manage.py runserver // Executando a aplicação</code> </p>
+<p align="justify">8. <code>(.venv)$ python manage.py runserver // Executando a aplicação</code> </p>
 
 
 <h2 id="icones">Fontes dos ícones</h2>
